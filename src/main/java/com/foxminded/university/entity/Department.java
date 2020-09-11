@@ -1,15 +1,16 @@
 package com.foxminded.university.entity;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class Department {
 
     private String name;
     private Professor[] professors;
-    private University university;
 
-    public Department(String name, Professor[] professors, University university) {
+    public Department(String name, Professor[] professors) {
         this.name = name;
         this.professors = professors;
-        this.university = university;
     }
 
     public String getName() {
@@ -20,10 +21,6 @@ public class Department {
         return professors;
     }
 
-    public University getUniversity() {
-        return university;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -32,7 +29,27 @@ public class Department {
         this.professors = professors;
     }
 
-    public void setUniversity(University university) {
-        this.university = university;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Department that = (Department) o;
+        return name.equals(that.name) &&
+                Arrays.equals(professors, that.professors);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(name);
+        result = 31 * result + Arrays.hashCode(professors);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Department{" +
+                "name='" + name + '\'' +
+                ", professors=" + Arrays.toString(professors) +
+                '}';
     }
 }

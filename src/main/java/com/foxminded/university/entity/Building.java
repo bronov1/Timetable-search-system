@@ -1,15 +1,15 @@
 package com.foxminded.university.entity;
 
+import java.util.Objects;
+
 public class Building {
 
     private String name;
     private int floors;
-    private University university;
 
-    public Building(String name, int floors, University university) {
+    public Building(String name, int floors) {
         this.name = name;
         this.floors = floors;
-        this.university = university;
     }
 
     public String getName() {
@@ -20,10 +20,6 @@ public class Building {
         return floors;
     }
 
-    public University getUniversity() {
-        return university;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -32,7 +28,25 @@ public class Building {
         this.floors = floors;
     }
 
-    public void setUniversity(University university) {
-        this.university = university;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Building building = (Building) o;
+        return floors == building.floors &&
+                name.equals(building.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, floors);
+    }
+
+    @Override
+    public String toString() {
+        return "Building{" +
+                "name='" + name + '\'' +
+                ", floors=" + floors +
+                '}';
     }
 }

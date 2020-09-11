@@ -1,5 +1,7 @@
 package com.foxminded.university.entity;
 
+import java.util.Objects;
+
 public class Floor {
 
     private int number;
@@ -24,5 +26,27 @@ public class Floor {
 
     public void setBuilding(Building building) {
         this.building = building;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Floor floor = (Floor) o;
+        return number == floor.number &&
+                building.equals(floor.building);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(number, building);
+    }
+
+    @Override
+    public String toString() {
+        return "Floor{" +
+                "number=" + number +
+                ", building=" + building +
+                '}';
     }
 }
