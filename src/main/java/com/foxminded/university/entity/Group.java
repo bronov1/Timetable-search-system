@@ -4,12 +4,24 @@ import java.util.Objects;
 
 public class Group {
 
+    private int id;
     private String name;
     private Stream stream;
 
     public Group(String name, Stream stream) {
         this.name = name;
         this.stream = stream;
+    }
+
+    public Group() {
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Stream getStream() {
@@ -33,19 +45,21 @@ public class Group {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Group group = (Group) o;
-        return name.equals(group.name) &&
+        return id == group.id &&
+                name.equals(group.name) &&
                 stream.equals(group.stream);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, stream);
+        return Objects.hash(id, name, stream);
     }
 
     @Override
     public String toString() {
         return "Group{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", stream=" + stream +
                 '}';
     }

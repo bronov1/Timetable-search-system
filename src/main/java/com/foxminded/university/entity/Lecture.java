@@ -1,23 +1,32 @@
 package com.foxminded.university.entity;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
 public class Lecture {
 
+    private int id;
     private Subject subject;
     private Professor professor;
-    private Group[] groups;
     private Date date;
     private Classroom classroom;
 
-    public Lecture(Subject subject, Professor professor, Group[] groups, Date date, Classroom classroom) {
+    public Lecture(Subject subject, Professor professor, Date date, Classroom classroom) {
         this.subject = subject;
         this.professor = professor;
-        this.groups = groups;
         this.date = date;
         this.classroom = classroom;
+    }
+
+    public Lecture() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Subject getSubject() {
@@ -26,10 +35,6 @@ public class Lecture {
 
     public Professor getProfessor() {
         return professor;
-    }
-
-    public Group[] getGroups() {
-        return groups;
     }
 
     public Date getDate() {
@@ -48,10 +53,6 @@ public class Lecture {
         this.professor = professor;
     }
 
-    public void setGroups(Group[] groups) {
-        this.groups = groups;
-    }
-
     public void setDate(Date date) {
         this.date = date;
     }
@@ -65,26 +66,24 @@ public class Lecture {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Lecture lecture = (Lecture) o;
-        return subject.equals(lecture.subject) &&
+        return id == lecture.id &&
+                subject.equals(lecture.subject) &&
                 professor.equals(lecture.professor) &&
-                Arrays.equals(groups, lecture.groups) &&
                 date.equals(lecture.date) &&
                 classroom.equals(lecture.classroom);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(subject, professor, date, classroom);
-        result = 31 * result + Arrays.hashCode(groups);
-        return result;
+        return Objects.hash(id, subject, professor, date, classroom);
     }
 
     @Override
     public String toString() {
         return "Lecture{" +
-                "subject=" + subject +
+                "id=" + id +
+                ", subject=" + subject +
                 ", professor=" + professor +
-                ", groups=" + Arrays.toString(groups) +
                 ", date=" + date +
                 ", classroom=" + classroom +
                 '}';

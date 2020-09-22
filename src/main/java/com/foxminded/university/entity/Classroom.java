@@ -4,12 +4,24 @@ import java.util.Objects;
 
 public class Classroom {
 
+    private int id;
     private int number;
     private Floor floor;
 
     public Classroom(int number, Floor floor) {
         this.number = number;
         this.floor = floor;
+    }
+
+    public Classroom() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getNumber() {
@@ -33,19 +45,21 @@ public class Classroom {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Classroom classroom = (Classroom) o;
-        return number == classroom.number &&
-                Objects.equals(floor, classroom.floor);
+        return id == classroom.id &&
+                number == classroom.number &&
+                floor.equals(classroom.floor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(number, floor);
+        return Objects.hash(id, number, floor);
     }
 
     @Override
     public String toString() {
         return "Classroom{" +
-                "number=" + number +
+                "id=" + id +
+                ", number=" + number +
                 ", floor=" + floor +
                 '}';
     }

@@ -4,15 +4,36 @@ import java.util.Objects;
 
 public class Student extends Person {
 
+    private int id;
     private Group group;
-
-    public Student(String name) {
-        super(name);
-    }
 
     public Student(String name, Group group) {
         super(name);
         this.group = group;
+    }
+
+    public Student(){
+
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public String getName(){
+        return name;
+    }
+
+    @Override
+    public void setName(String name) {
+        super.setName(name);
     }
 
     public Group getGroup() {
@@ -29,18 +50,20 @@ public class Student extends Person {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Student student = (Student) o;
-        return group.equals(student.group);
+        return id == student.id &&
+                group.equals(student.group);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), group);
+        return Objects.hash(super.hashCode(), id, group);
     }
 
     @Override
     public String toString() {
         return "Student{" +
-                "group=" + group +
+                "id=" + id +
+                ", group=" + group +
                 '}';
     }
 }

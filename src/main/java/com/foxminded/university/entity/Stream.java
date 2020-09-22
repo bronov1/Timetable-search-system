@@ -4,12 +4,24 @@ import java.util.Objects;
 
 public class Stream {
 
+    private int id;
     private String name;
     private Department department;
 
     public Stream(String name, Department department) {
         this.name = name;
         this.department = department;
+    }
+
+    public Stream() {
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -33,19 +45,21 @@ public class Stream {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Stream stream = (Stream) o;
-        return name.equals(stream.name) &&
+        return id == stream.id &&
+                name.equals(stream.name) &&
                 department.equals(stream.department);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, department);
+        return Objects.hash(id, name, department);
     }
 
     @Override
     public String toString() {
         return "Stream{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", department=" + department +
                 '}';
     }

@@ -1,32 +1,33 @@
 package com.foxminded.university.entity;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 public class Department {
 
+    private int id;
     private String name;
-    private Professor[] professors;
 
-    public Department(String name, Professor[] professors) {
+    public Department(String name) {
         this.name = name;
-        this.professors = professors;
+    }
+
+    public Department() {
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public Professor[] getProfessors() {
-        return professors;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setProfessors(Professor[] professors) {
-        this.professors = professors;
     }
 
     @Override
@@ -34,22 +35,20 @@ public class Department {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Department that = (Department) o;
-        return name.equals(that.name) &&
-                Arrays.equals(professors, that.professors);
+        return id == that.id &&
+                name.equals(that.name);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(name);
-        result = 31 * result + Arrays.hashCode(professors);
-        return result;
+        return Objects.hash(id, name);
     }
 
     @Override
     public String toString() {
         return "Department{" +
-                "name='" + name + '\'' +
-                ", professors=" + Arrays.toString(professors) +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 '}';
     }
 }
