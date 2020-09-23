@@ -12,11 +12,11 @@ import java.util.List;
 @Repository
 public class SubjectDao implements Dao<Subject> {
 
-    private static final String GET_SUBJECT = "Select * from subjects where id = ?";
-    private static final String GET_ALL_SUBJECTS = "Select * from subjects";
-    private static final String SAVE_SUBJECT = "Insert into subjects (name) values (?)";
-    private static final String UPDATE_SUBJECT = "Update subjects set (name)  = (?) where id = ?";
-    private static final String DELETE_SUBJECT = "Delete from subjects where id = ?";
+    private static final String GET_SUBJECT = "SELECT * FROM SUBJECTS WHERE ID = ?";
+    private static final String GET_ALL_SUBJECTS = "SELECT * FROM SUBJECTS";
+    private static final String SAVE_SUBJECT = "INSERT INTO SUBJECTS (NAME) VALUES (?)";
+    private static final String UPDATE_SUBJECT = "UPDATE SUBJECTS SET (NAME)  = (?) WHERE ID = ?";
+    private static final String DELETE_SUBJECT = "DELETE FROM SUBJECTS WHERE ID = ?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

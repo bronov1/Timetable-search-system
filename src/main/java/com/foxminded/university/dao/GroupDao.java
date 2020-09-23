@@ -11,11 +11,11 @@ import java.util.List;
 @Repository
 public class GroupDao implements Dao<Group>{
 
-    private static final String GET_GROUP = "Select * from groups where id = ?";
-    private static final String GET_ALL_GROUPS = "Select * from groups";
-    private static final String SAVE_GROUP = "Insert into groups (name, stream) values (?,?)";
-    private static final String UPDATE_GROUP = "Update groups set (name, stream)  = (?, ?) where id = ?";
-    private static final String DELETE_GROUP = "Delete from groups where id = ?";
+    private static final String GET_GROUP = "SELECT * FROM GROUPS WHERE ID = ?";
+    private static final String GET_ALL_GROUPS = "SELECT * FROM GROUPS";
+    private static final String SAVE_GROUP = "INSERT INTO GROUPS (NAME, STREAMID) VALUES (?,?)";
+    private static final String UPDATE_GROUP = "UPDATE GROUPS SET (NAME, STREAMID)  = (?, ?) WHERE ID = ?";
+    private static final String DELETE_GROUP = "DELETE FROM GROUPS WHERE ID = ?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -32,7 +32,7 @@ public class GroupDao implements Dao<Group>{
 
     @Override
     public void save(Group group) {
-        jdbcTemplate.update(SAVE_GROUP, group.getName(), group.getStream());
+        jdbcTemplate.update(SAVE_GROUP, group.getName(), group.getStreamId());
     }
 
     @Override

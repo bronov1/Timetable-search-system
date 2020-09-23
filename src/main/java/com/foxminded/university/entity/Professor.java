@@ -5,11 +5,11 @@ import java.util.Objects;
 public class Professor extends Person {
 
     private int id;
-    private Department department;
+    private int departmentId;
 
-    public Professor(String name, Department department) {
+    public Professor(String name, int departmentId) {
         super(name);
-        this.department = department;
+        this.departmentId = departmentId;
     }
 
     public Professor() {
@@ -35,12 +35,12 @@ public class Professor extends Person {
         super.setName(name);
     }
 
-    public Department getDepartment() {
-        return department;
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public int getDepartmentId() {
+        return departmentId;
     }
 
     @Override
@@ -50,19 +50,21 @@ public class Professor extends Person {
         if (!super.equals(o)) return false;
         Professor professor = (Professor) o;
         return id == professor.id &&
-                department.equals(professor.department);
+                departmentId == professor.departmentId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id, department);
+        return Objects.hash(super.hashCode(), id, departmentId);
     }
 
     @Override
     public String toString() {
         return "Professor{" +
                 "id=" + id +
-                ", department=" + department +
+                ", departmentId=" + departmentId +
+                ", name='" + name + '\'' +
                 '}';
     }
+
 }

@@ -6,11 +6,11 @@ public class Stream {
 
     private int id;
     private String name;
-    private Department department;
+    private int departmentId;
 
-    public Stream(String name, Department department) {
+    public Stream(String name, int departmentId) {
         this.name = name;
-        this.department = department;
+        this.departmentId = departmentId;
     }
 
     public Stream() {
@@ -28,16 +28,16 @@ public class Stream {
         return name;
     }
 
-    public Department getDepartment() {
-        return department;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public int getDepartmentId() {
+        return departmentId;
     }
 
     @Override
@@ -46,13 +46,13 @@ public class Stream {
         if (o == null || getClass() != o.getClass()) return false;
         Stream stream = (Stream) o;
         return id == stream.id &&
-                name.equals(stream.name) &&
-                department.equals(stream.department);
+                departmentId == stream.departmentId &&
+                name.equals(stream.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, department);
+        return Objects.hash(id, name, departmentId);
     }
 
     @Override
@@ -60,7 +60,8 @@ public class Stream {
         return "Stream{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", department=" + department +
+                ", departmentId=" + departmentId +
                 '}';
     }
+
 }

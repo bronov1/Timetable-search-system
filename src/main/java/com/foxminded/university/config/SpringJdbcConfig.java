@@ -9,7 +9,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan(basePackages = "com.foxminded.university")
+@ComponentScan("com.foxminded.university")
 public class SpringJdbcConfig {
 
     @Bean

@@ -11,11 +11,11 @@ import java.util.List;
 @Repository
 public class StudentDao implements Dao<Student> {
 
-    private static final String GET_STUDENT = "Select * from students where id = ?";
-    private static final String GET_ALL_STUDENTS = "Select * from students";
-    private static final String SAVE_STUDENT = "Insert into students (name, group) values (?,?)";
-    private static final String UPDATE_STUDENT = "Update students set (name, group)  = (?, ?) where id = ?";
-    private static final String DELETE_STUDENT = "Delete from students where id = ?";
+    private static final String GET_STUDENT = "SELECT * FROM STUDENTS WHERE ID = ?";
+    private static final String GET_ALL_STUDENTS = "SELECT * FROM STUDENTS";
+    private static final String SAVE_STUDENT = "INSERT INTO STUDENTS (NAME, GROUPID) VALUES (?,?)";
+    private static final String UPDATE_STUDENT = "UPDATE STUDENTS SET (NAME, GROUPID)  = (?, ?) WHERE ID = ?";
+    private static final String DELETE_STUDENT = "DELETE FROM STUDENTS WHERE ID = ?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -32,7 +32,7 @@ public class StudentDao implements Dao<Student> {
 
     @Override
     public void save(Student student) {
-        jdbcTemplate.update(SAVE_STUDENT, student.getName(), student.getGroup());
+        jdbcTemplate.update(SAVE_STUDENT, student.getName(), student.getGroupId());
     }
 
     @Override

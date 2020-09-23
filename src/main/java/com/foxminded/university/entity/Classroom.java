@@ -6,11 +6,11 @@ public class Classroom {
 
     private int id;
     private int number;
-    private Floor floor;
+    private int floorId;
 
-    public Classroom(int number, Floor floor) {
+    public Classroom(int number, int floorId) {
         this.number = number;
-        this.floor = floor;
+        this.floorId = floorId;
     }
 
     public Classroom() {
@@ -28,16 +28,25 @@ public class Classroom {
         return number;
     }
 
-    public Floor getFloor() {
-        return floor;
-    }
-
     public void setNumber(int number) {
         this.number = number;
     }
 
-    public void setFloor(Floor floor) {
-        this.floor = floor;
+    public void setFloorId(int floorId) {
+        this.floorId = floorId;
+    }
+
+    public int getFloorId() {
+        return floorId;
+    }
+
+    @Override
+    public String toString() {
+        return "Classroom{" +
+                "id=" + id +
+                ", number=" + number +
+                ", floorId=" + floorId +
+                '}';
     }
 
     @Override
@@ -47,20 +56,12 @@ public class Classroom {
         Classroom classroom = (Classroom) o;
         return id == classroom.id &&
                 number == classroom.number &&
-                floor.equals(classroom.floor);
+                floorId == classroom.floorId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, number, floor);
+        return Objects.hash(id, number, floorId);
     }
 
-    @Override
-    public String toString() {
-        return "Classroom{" +
-                "id=" + id +
-                ", number=" + number +
-                ", floor=" + floor +
-                '}';
-    }
 }

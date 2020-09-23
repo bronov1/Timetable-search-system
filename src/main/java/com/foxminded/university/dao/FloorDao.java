@@ -11,11 +11,11 @@ import java.util.List;
 @Repository
 public class FloorDao implements Dao<Floor>{
 
-    private static final String GET_FLOOR = "Select * from floors where id = ?";
-    private static final String GET_ALL_FLOORS = "Select * from floors";
-    private static final String SAVE_FLOOR = "Insert into floors (number, building) values (?, ?)";
-    private static final String UPDATE_FLOOR = "Update floors set (number, building)  = (?, ?) where id = ?";
-    private static final String DELETE_FLOOR = "Delete from floors where id = ?";
+    private static final String GET_FLOOR = "SELECT * FROM FLOORS WHERE ID = ?";
+    private static final String GET_ALL_FLOORS = "SELECT * FROM FLOORS";
+    private static final String SAVE_FLOOR = "INSERT INTO FLOORS (NUMBER, BUILDINGID) VALUES (?, ?)";
+    private static final String UPDATE_FLOOR = "UPDATE FLOORS SET (NUMBER, BUILDINGID)  = (?, ?) WHERE ID = ?";
+    private static final String DELETE_FLOOR = "DELETE FROM FLOORS WHERE ID = ?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -32,7 +32,7 @@ public class FloorDao implements Dao<Floor>{
 
     @Override
     public void save(Floor floor) {
-        jdbcTemplate.update(SAVE_FLOOR, floor.getNumber(), floor.getBuilding());
+        jdbcTemplate.update(SAVE_FLOOR, floor.getNumber(), floor.getBuildingId());
     }
 
     @Override

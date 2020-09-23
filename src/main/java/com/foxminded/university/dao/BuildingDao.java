@@ -4,7 +4,6 @@ import com.foxminded.university.entity.Building;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,11 +11,11 @@ import java.util.List;
 @Repository
 public class BuildingDao implements Dao<Building> {
 
-    private static final String GET_BUILDING = "Select * from buildings where id = ?";
-    private static final String GET_ALL_BUILDINGS = "Select * from buildings";
-    private static final String SAVE_BUILDING = "Insert into buildings (name, floors) values (?,?)";
-    private static final String UPDATE_BUILDING = "Update buildings set (name, floors)  = (?, ?) where id = ?";
-    private static final String DELETE_BUILDING = "Delete from buildings where id = ?";
+    private static final String GET_BUILDING = "SELECT * FROM BUILDINGS WHERE ID = ?";
+    private static final String GET_ALL_BUILDINGS = "SELECT * FROM BUILDINGS";
+    private static final String SAVE_BUILDING = "INSERT INTO BUILDINGS (NAME, FLOORS) VALUES (?,?)";
+    private static final String UPDATE_BUILDING = "UPDATE BUILDINGS SET (NAME, FLOORS)  = (?, ?) WHERE ID = ?";
+    private static final String DELETE_BUILDING = "DELETE FROM BUILDINGS WHERE ID = ?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

@@ -11,11 +11,11 @@ import java.util.List;
 @Repository
 public class LectureDao implements Dao<Lecture>{
 
-    private static final String GET_LECTURE = "Select * from lectures where id = ?";
-    private static final String GET_ALL_LECTURES = "Select * from lectures";
-    private static final String SAVE_LECTURE = "Insert into lectures (subject, professor, date, classroom) values (?, ?, ?, ?)";
-    private static final String UPDATE_LECTURE = "Update lectures set (subject, professor, date, classroom)  = (?, ?, ?, ?) where id = ?";
-    private static final String DELETE_LECTURE = "Delete from lectures where id = ?";
+    private static final String GET_LECTURE = "SELECT * FROM LECTURES WHERE ID = ?";
+    private static final String GET_ALL_LECTURES = "SELECT * FROM LECTURES";
+    private static final String SAVE_LECTURE = "INSERT INTO LECTURES (SUBJECTID, PROFESSORID, DATEID, CLASSROOMID) VALUES (?, ?, ?, ?)";
+    private static final String UPDATE_LECTURE = "UPDATE LECTURES SET (SUBJECTID, PROFESSORID, DATEID, CLASSROOMID)  = (?, ?, ?, ?) WHERE ID = ?";
+    private static final String DELETE_LECTURE = "DELETE FROM LECTURES WHERE ID = ?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -32,7 +32,7 @@ public class LectureDao implements Dao<Lecture>{
 
     @Override
     public void save(Lecture lecture) {
-        jdbcTemplate.update(SAVE_LECTURE, lecture.getSubject(), lecture.getProfessor(), lecture.getDate(), lecture.getClassroom());
+        jdbcTemplate.update(SAVE_LECTURE, lecture.getSubjectId(), lecture.getProfessorId(), lecture.getDateId(), lecture.getClassroomId());
     }
 
     @Override

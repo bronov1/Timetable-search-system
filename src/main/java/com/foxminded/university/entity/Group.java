@@ -6,11 +6,11 @@ public class Group {
 
     private int id;
     private String name;
-    private Stream stream;
+    private int streamId;
 
-    public Group(String name, Stream stream) {
+    public Group(String name, int streamId) {
         this.name = name;
-        this.stream = stream;
+        this.streamId = streamId;
     }
 
     public Group() {
@@ -24,8 +24,8 @@ public class Group {
         return id;
     }
 
-    public Stream getStream() {
-        return stream;
+    public int getStreamId() {
+        return streamId;
     }
 
     public String getName() {
@@ -36,8 +36,8 @@ public class Group {
         this.name = name;
     }
 
-    public void setStream(Stream stream) {
-        this.stream = stream;
+    public void setStreamId(int streamId) {
+        this.streamId = streamId;
     }
 
     @Override
@@ -46,13 +46,13 @@ public class Group {
         if (o == null || getClass() != o.getClass()) return false;
         Group group = (Group) o;
         return id == group.id &&
-                name.equals(group.name) &&
-                stream.equals(group.stream);
+                streamId == group.streamId &&
+                name.equals(group.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, stream);
+        return Objects.hash(id, name, streamId);
     }
 
     @Override
@@ -60,7 +60,8 @@ public class Group {
         return "Group{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", stream=" + stream +
+                ", streamId=" + streamId +
                 '}';
     }
+
 }

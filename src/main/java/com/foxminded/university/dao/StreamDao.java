@@ -12,11 +12,11 @@ import java.util.List;
 @Repository
 public class StreamDao implements Dao<Stream> {
 
-    private static final String GET_STREAM = "Select * from streams where id = ?";
-    private static final String GET_ALL_STREAMS = "Select * from streams";
-    private static final String SAVE_STREAM = "Insert into streams (name, department) values (?,?)";
-    private static final String UPDATE_STREAM = "Update streams set (name, department)  = (?, ?) where id = ?";
-    private static final String DELETE_STREAM = "Delete from streams where id = ?";
+    private static final String GET_STREAM = "SELECT * FROM STREAMS WHERE ID = ?";
+    private static final String GET_ALL_STREAMS = "SELECT * FROM STREAMS";
+    private static final String SAVE_STREAM = "INSERT INTO STREAMS (NAME, DEPARTMENTID) VALUES (?,?)";
+    private static final String UPDATE_STREAM = "UPDATE STREAMS SET (NAME, DEPARTMENTID)  = (?, ?) WHERE ID = ?";
+    private static final String DELETE_STREAM = "DELETE FROM STREAMS WHERE ID = ?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -33,7 +33,7 @@ public class StreamDao implements Dao<Stream> {
 
     @Override
     public void save(Stream stream) {
-        jdbcTemplate.update(SAVE_STREAM, stream.getName(), stream.getDepartment());
+        jdbcTemplate.update(SAVE_STREAM, stream.getName(), stream.getDepartmentId());
     }
 
     @Override

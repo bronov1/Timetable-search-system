@@ -1,21 +1,21 @@
 package com.foxminded.university.entity;
 
-import java.util.Date;
+
 import java.util.Objects;
 
 public class Lecture {
 
     private int id;
-    private Subject subject;
-    private Professor professor;
-    private Date date;
-    private Classroom classroom;
+    private int subjectId;
+    private int professorId;
+    private int dateId;
+    private int classroomId;
 
-    public Lecture(Subject subject, Professor professor, Date date, Classroom classroom) {
-        this.subject = subject;
-        this.professor = professor;
-        this.date = date;
-        this.classroom = classroom;
+    public Lecture(int subjectId, int professorId, int dateId, int classroomId) {
+        this.subjectId = subjectId;
+        this.professorId = professorId;
+        this.dateId = dateId;
+        this.classroomId = classroomId;
     }
 
     public Lecture() {
@@ -29,36 +29,36 @@ public class Lecture {
         this.id = id;
     }
 
-    public Subject getSubject() {
-        return subject;
+    public void setSubjectId(int subjectId) {
+        this.subjectId = subjectId;
     }
 
-    public Professor getProfessor() {
-        return professor;
+    public void setProfessorId(int professorId) {
+        this.professorId = professorId;
     }
 
-    public Date getDate() {
-        return date;
+    public void setDateId(int dateId) {
+        this.dateId = dateId;
     }
 
-    public Classroom getClassroom() {
-        return classroom;
+    public void setClassroomId(int classroomId) {
+        this.classroomId = classroomId;
     }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
+    public int getSubjectId() {
+        return subjectId;
     }
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
+    public int getProfessorId() {
+        return professorId;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public int getDateId() {
+        return dateId;
     }
 
-    public void setClassroom(Classroom classroom) {
-        this.classroom = classroom;
+    public int getClassroomId() {
+        return classroomId;
     }
 
     @Override
@@ -67,25 +67,26 @@ public class Lecture {
         if (o == null || getClass() != o.getClass()) return false;
         Lecture lecture = (Lecture) o;
         return id == lecture.id &&
-                subject.equals(lecture.subject) &&
-                professor.equals(lecture.professor) &&
-                date.equals(lecture.date) &&
-                classroom.equals(lecture.classroom);
+                subjectId == lecture.subjectId &&
+                professorId == lecture.professorId &&
+                dateId == lecture.dateId &&
+                classroomId == lecture.classroomId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, subject, professor, date, classroom);
+        return Objects.hash(id, subjectId, professorId, dateId, classroomId);
     }
 
     @Override
     public String toString() {
         return "Lecture{" +
                 "id=" + id +
-                ", subject=" + subject +
-                ", professor=" + professor +
-                ", date=" + date +
-                ", classroom=" + classroom +
+                ", subjectId=" + subjectId +
+                ", professorId=" + professorId +
+                ", dateId=" + dateId +
+                ", classroomId=" + classroomId +
                 '}';
     }
+
 }

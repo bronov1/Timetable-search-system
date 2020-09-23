@@ -11,11 +11,11 @@ import java.util.List;
 @Repository
 public class DepartmentDao implements Dao<Department>{
 
-    private static final String GET_DEPARTMENT = "Select * from departments where id = ?";
-    private static final String GET_ALL_DEPARTMENTS = "Select * from departments";
-    private static final String SAVE_DEPARTMENT = "Insert into departments (name) values (?)";
-    private static final String UPDATE_DEPARTMENT = "Update departments set (name)  = (?) where id = ?";
-    private static final String DELETE_DEPARTMENT = "Delete from departments where id = ?";
+    private static final String GET_DEPARTMENT = "SELECT * FROM DEPARTMENTS WHERE ID = ?";
+    private static final String GET_ALL_DEPARTMENTS = "SELECT * FROM DEPARTMENTS";
+    private static final String SAVE_DEPARTMENT = "INSERT INTO DEPARTMENTS (NAME) VALUES (?)";
+    private static final String UPDATE_DEPARTMENT = "UPDATE DEPARTMENTS SET (NAME)  = (?) WHERE ID = ?";
+    private static final String DELETE_DEPARTMENT = "DELETE FROM DEPARTMENTS WHERE ID = ?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

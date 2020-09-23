@@ -11,11 +11,11 @@ import java.util.List;
 @Repository
 public class ProfessorDao implements Dao<Professor>{
 
-    private static final String GET_PROFESSOR = "Select * from professors where id = ?";
-    private static final String GET_ALL_PROFESSORS = "Select * from professors";
-    private static final String SAVE_PROFESSOR = "Insert into professors (name, department) values (?,?)";
-    private static final String UPDATE_PROFESSOR = "Update professors set (name, department)  = (?, ?) where id = ?";
-    private static final String DELETE_PROFESSOR = "Delete from professors where id = ?";
+    private static final String GET_PROFESSOR = "SELECT * FROM PROFESSORS WHERE ID = ?";
+    private static final String GET_ALL_PROFESSORS = "SELECT * FROM PROFESSORS";
+    private static final String SAVE_PROFESSOR = "INSERT INTO PROFESSORS (NAME, DEPARTMENTID) VALUES (?,?)";
+    private static final String UPDATE_PROFESSOR = "UPDATE PROFESSORS SET (NAME, DEPARTMENTID)  = (?, ?) WHERE ID = ?";
+    private static final String DELETE_PROFESSOR = "DELETE FROM PROFESSORS WHERE ID = ?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -32,7 +32,7 @@ public class ProfessorDao implements Dao<Professor>{
 
     @Override
     public void save(Professor professor) {
-        jdbcTemplate.update(SAVE_PROFESSOR, professor.getName(), professor.getDepartment());
+        jdbcTemplate.update(SAVE_PROFESSOR, professor.getName(), professor.getDepartmentId());
     }
 
     @Override
