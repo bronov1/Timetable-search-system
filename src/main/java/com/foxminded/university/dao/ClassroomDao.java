@@ -4,9 +4,11 @@ import com.foxminded.university.entity.Classroom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class ClassroomDao implements Dao<Classroom>{
 
     private static final String GET_CLASSROOM = "Select * from classrooms where id = ?";

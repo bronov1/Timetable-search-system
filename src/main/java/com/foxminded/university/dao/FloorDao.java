@@ -4,9 +4,11 @@ import com.foxminded.university.entity.Floor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class FloorDao implements Dao<Floor>{
 
     private static final String GET_FLOOR = "Select * from floors where id = ?";

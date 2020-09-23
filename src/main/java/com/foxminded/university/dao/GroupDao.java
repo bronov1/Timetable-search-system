@@ -4,9 +4,11 @@ import com.foxminded.university.entity.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class GroupDao implements Dao<Group>{
 
     private static final String GET_GROUP = "Select * from groups where id = ?";

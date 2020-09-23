@@ -4,9 +4,11 @@ import com.foxminded.university.entity.LectureGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class LectureGroupDao implements Dao<LectureGroup> {
 
     private static final String GET_LECTURE_GROUP = "Select * from lecture_group where id = ?";

@@ -4,9 +4,11 @@ import com.foxminded.university.entity.Lecture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class LectureDao implements Dao<Lecture>{
 
     private static final String GET_LECTURE = "Select * from lectures where id = ?";

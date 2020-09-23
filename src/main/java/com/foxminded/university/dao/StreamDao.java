@@ -5,9 +5,11 @@ import com.foxminded.university.entity.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class StreamDao implements Dao<Stream> {
 
     private static final String GET_STREAM = "Select * from streams where id = ?";
