@@ -1,6 +1,7 @@
 package com.foxminded.university.entity;
 
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Lecture {
@@ -8,13 +9,13 @@ public class Lecture {
     private int id;
     private int subjectId;
     private int professorId;
-    private int dateId;
+    private LocalDateTime date;
     private int classroomId;
 
-    public Lecture(int subjectId, int professorId, int dateId, int classroomId) {
+    public Lecture(int subjectId, int professorId, LocalDateTime date, int classroomId) {
         this.subjectId = subjectId;
         this.professorId = professorId;
-        this.dateId = dateId;
+        this.date = date;
         this.classroomId = classroomId;
     }
 
@@ -37,10 +38,6 @@ public class Lecture {
         this.professorId = professorId;
     }
 
-    public void setDateId(int dateId) {
-        this.dateId = dateId;
-    }
-
     public void setClassroomId(int classroomId) {
         this.classroomId = classroomId;
     }
@@ -53,12 +50,16 @@ public class Lecture {
         return professorId;
     }
 
-    public int getDateId() {
-        return dateId;
-    }
-
     public int getClassroomId() {
         return classroomId;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
     }
 
     @Override
@@ -69,13 +70,13 @@ public class Lecture {
         return id == lecture.id &&
                 subjectId == lecture.subjectId &&
                 professorId == lecture.professorId &&
-                dateId == lecture.dateId &&
-                classroomId == lecture.classroomId;
+                classroomId == lecture.classroomId &&
+                date.equals(lecture.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, subjectId, professorId, dateId, classroomId);
+        return Objects.hash(id, subjectId, professorId, date, classroomId);
     }
 
     @Override
@@ -84,7 +85,7 @@ public class Lecture {
                 "id=" + id +
                 ", subjectId=" + subjectId +
                 ", professorId=" + professorId +
-                ", dateId=" + dateId +
+                ", date=" + date +
                 ", classroomId=" + classroomId +
                 '}';
     }

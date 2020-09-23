@@ -14,7 +14,7 @@ public class DepartmentDao implements Dao<Department>{
     private static final String GET_DEPARTMENT = "SELECT * FROM DEPARTMENTS WHERE ID = ?";
     private static final String GET_ALL_DEPARTMENTS = "SELECT * FROM DEPARTMENTS";
     private static final String SAVE_DEPARTMENT = "INSERT INTO DEPARTMENTS (NAME) VALUES (?)";
-    private static final String UPDATE_DEPARTMENT = "UPDATE DEPARTMENTS SET (NAME)  = (?) WHERE ID = ?";
+    private static final String UPDATE_DEPARTMENT = "UPDATE DEPARTMENTS SET NAME  = ? WHERE ID = ?";
     private static final String DELETE_DEPARTMENT = "DELETE FROM DEPARTMENTS WHERE ID = ?";
 
     @Autowired

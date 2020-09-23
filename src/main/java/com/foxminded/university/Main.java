@@ -1,18 +1,19 @@
 package com.foxminded.university;
 
 import com.foxminded.university.config.SpringJdbcConfig;
-import com.foxminded.university.dao.BuildingDao;
-import com.foxminded.university.entity.Building;
+import com.foxminded.university.service.FileReader;
+import com.foxminded.university.service.ScriptRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.util.List;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws URISyntaxException, IOException {
         ApplicationContext context = new AnnotationConfigApplicationContext(SpringJdbcConfig.class);
-        BuildingDao buildingDao = context.getBean(BuildingDao.class);
-        List<Building> buildings = buildingDao.getAll();
-        buildings.forEach(System.out::println);
+        Path scriptPath = context.getBean(FileReader.class).getFilePath("runDB.sql");
+        context.getBean(ScriptRunner.class).executeScript(scriptPath);
     }
 }

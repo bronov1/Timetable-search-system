@@ -15,7 +15,7 @@ public class SubjectDao implements Dao<Subject> {
     private static final String GET_SUBJECT = "SELECT * FROM SUBJECTS WHERE ID = ?";
     private static final String GET_ALL_SUBJECTS = "SELECT * FROM SUBJECTS";
     private static final String SAVE_SUBJECT = "INSERT INTO SUBJECTS (NAME) VALUES (?)";
-    private static final String UPDATE_SUBJECT = "UPDATE SUBJECTS SET (NAME)  = (?) WHERE ID = ?";
+    private static final String UPDATE_SUBJECT = "UPDATE SUBJECTS SET NAME  = ? WHERE ID = ?";
     private static final String DELETE_SUBJECT = "DELETE FROM SUBJECTS WHERE ID = ?";
 
     @Autowired

@@ -13,8 +13,8 @@ public class LectureDao implements Dao<Lecture>{
 
     private static final String GET_LECTURE = "SELECT * FROM LECTURES WHERE ID = ?";
     private static final String GET_ALL_LECTURES = "SELECT * FROM LECTURES";
-    private static final String SAVE_LECTURE = "INSERT INTO LECTURES (SUBJECTID, PROFESSORID, DATEID, CLASSROOMID) VALUES (?, ?, ?, ?)";
-    private static final String UPDATE_LECTURE = "UPDATE LECTURES SET (SUBJECTID, PROFESSORID, DATEID, CLASSROOMID)  = (?, ?, ?, ?) WHERE ID = ?";
+    private static final String SAVE_LECTURE = "INSERT INTO LECTURES (SUBJECTID, PROFESSORID, DATE, CLASSROOMID) VALUES (?, ?, ?, ?)";
+    private static final String UPDATE_LECTURE = "UPDATE LECTURES SET (SUBJECTID, PROFESSORID, DATE, CLASSROOMID)  = (?, ?, ?, ?) WHERE ID = ?";
     private static final String DELETE_LECTURE = "DELETE FROM LECTURES WHERE ID = ?";
 
     @Autowired
@@ -32,7 +32,7 @@ public class LectureDao implements Dao<Lecture>{
 
     @Override
     public void save(Lecture lecture) {
-        jdbcTemplate.update(SAVE_LECTURE, lecture.getSubjectId(), lecture.getProfessorId(), lecture.getDateId(), lecture.getClassroomId());
+        jdbcTemplate.update(SAVE_LECTURE, lecture.getSubjectId(), lecture.getProfessorId(), lecture.getDate(), lecture.getClassroomId());
     }
 
     @Override
