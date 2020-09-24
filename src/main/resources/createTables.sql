@@ -67,7 +67,7 @@ create table professors
 (
     id serial primary key,
     name varchar(30),
-    "professorid" int references professors (id)
+    "departmentid" int references departments (id)
 );
 
 create table subjects

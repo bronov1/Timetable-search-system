@@ -1,12 +1,12 @@
 package com.foxminded.university.service;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-@Component
+@Service
 public class FileReader {
 
     public Path getFilePath(String fileName) throws URISyntaxException {
