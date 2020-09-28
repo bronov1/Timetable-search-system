@@ -15,10 +15,8 @@ import java.util.List;
 
 
 public class Main {
-    public static void main(String[] args) throws IOException, URISyntaxException {
+    public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(SpringJdbcConfig.class);
-        DataGenerator dataGenerator = context.getBean(DataGenerator.class);
-        dataGenerator.createTables(context);
         BuildingDao buildingDao = context.getBean(BuildingDao.class);
         List<Building> buildings = buildingDao.getAll();
         buildings.forEach(System.out::println);

@@ -1,6 +1,7 @@
 package com.foxminded.university.config;
 
 import com.foxminded.university.service.FileReader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,10 +19,13 @@ import java.util.Properties;
 @ComponentScan("com.foxminded.university")
 public class SpringJdbcConfig {
 
+    @Autowired
+    FileReader fileReader;
+
     @Bean
     public DataSource dataSource() throws URISyntaxException, IOException {
         final String dbURL, dbUser, userPassword;
-        FileInputStream dbProperties = fileInputStream();
+        FileInputStream dbProperties = new FileInputStream(String.valueOf(fileReader.getFilePath("db.properties")));
         Properties property = new Properties();
         property.load(dbProperties);
         dbURL = property.getProperty("db.url");
@@ -40,14 +44,4 @@ public class SpringJdbcConfig {
         return new JdbcTemplate(dataSource());
     }
 
-    @Bean(name = "dbPropertiesStream")
-    public FileInputStream fileInputStream() throws URISyntaxException, FileNotFoundException {
-        FileReader fileReader = fileReader();
-        return new FileInputStream(String.valueOf(fileReader.getFilePath("db.properties")));
-    }
-
-    @Bean
-    public FileReader fileReader() {
-        return new FileReader();
-    }
 }
