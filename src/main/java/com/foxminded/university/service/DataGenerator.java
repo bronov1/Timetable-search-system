@@ -9,7 +9,9 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Service
 public class DataGenerator {
@@ -72,18 +74,18 @@ public class DataGenerator {
     }
 
     private void generateLectures() {
-        lectureDao.save(new Lecture(1, 1, LocalDateTime.of(2020, 10, 7, 7, 45), 1));
-        lectureDao.save(new Lecture(2, 2, LocalDateTime.of(2020, 10, 7, 9, 30), 2));
-        lectureDao.save(new Lecture(3, 3, LocalDateTime.of(2020, 10, 7, 11, 15), 3));
-        lectureDao.save(new Lecture(4, 4, LocalDateTime.of(2020, 10, 7, 13, 10), 4));
-        lectureDao.save(new Lecture(1, 1, LocalDateTime.of(2020, 10, 14, 7, 45), 1));
-        lectureDao.save(new Lecture(2, 2, LocalDateTime.of(2020, 10, 14, 9, 30), 2));
-        lectureDao.save(new Lecture(3, 3, LocalDateTime.of(2020, 10, 14, 11, 15), 3));
-        lectureDao.save(new Lecture(4, 4, LocalDateTime.of(2020, 10, 14, 13, 10), 4));
-        lectureDao.save(new Lecture(1, 1, LocalDateTime.of(2020, 10, 21, 7, 45), 1));
-        lectureDao.save(new Lecture(2, 2, LocalDateTime.of(2020, 10, 21, 9, 30), 2));
-        lectureDao.save(new Lecture(3, 3, LocalDateTime.of(2020, 10, 21, 11, 15), 3));
-        lectureDao.save(new Lecture(4, 4, LocalDateTime.of(2020, 10, 21, 13, 10), 4));
+        lectureDao.save(new Lecture(1, 1, LocalDate.of(2020, 10, 7), LocalTime.of(7, 45), 1));
+        lectureDao.save(new Lecture(2, 2, LocalDate.of(2020, 10, 7), LocalTime.of(9, 30), 2));
+        lectureDao.save(new Lecture(3, 3, LocalDate.of(2020, 10, 7), LocalTime.of(11, 15), 3));
+        lectureDao.save(new Lecture(4, 4, LocalDate.of(2020, 10, 7), LocalTime.of(13, 10), 4));
+        lectureDao.save(new Lecture(1, 1, LocalDate.of(2020, 10, 14), LocalTime.of(7, 45), 1));
+        lectureDao.save(new Lecture(2, 2, LocalDate.of(2020, 10, 14), LocalTime.of(9, 30), 2));
+        lectureDao.save(new Lecture(3, 3, LocalDate.of(2020, 10, 14), LocalTime.of(11, 15), 3));
+        lectureDao.save(new Lecture(4, 4, LocalDate.of(2020, 10, 14), LocalTime.of(13, 10), 4));
+        lectureDao.save(new Lecture(1, 1, LocalDate.of(2020, 10, 21), LocalTime.of(7, 45), 1));
+        lectureDao.save(new Lecture(2, 2, LocalDate.of(2020, 10, 21), LocalTime.of(9, 30), 2));
+        lectureDao.save(new Lecture(3, 3, LocalDate.of(2020, 10, 21), LocalTime.of(11, 15), 3));
+        lectureDao.save(new Lecture(4, 4, LocalDate.of(2020, 10, 21), LocalTime.of(13, 10), 4));
     }
 
     private void generateSubjects() {

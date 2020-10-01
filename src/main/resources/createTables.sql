@@ -80,7 +80,8 @@ create table subjects
 create table lectures
 (
     id serial primary key,
-    date Date,
+    date date,
+    time time,
     "subjectid" int references subjects (id),
     "professorid" int references professors (id),
     "classroomid" int references classrooms (id)

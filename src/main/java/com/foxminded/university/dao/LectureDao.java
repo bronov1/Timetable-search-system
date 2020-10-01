@@ -13,8 +13,8 @@ public class LectureDao implements Dao<Lecture>{
 
     private static final String GET_LECTURE = "SELECT * FROM LECTURES WHERE ID = ?";
     private static final String GET_ALL_LECTURES = "SELECT * FROM LECTURES";
-    private static final String SAVE_LECTURE = "INSERT INTO LECTURES (SUBJECTID, PROFESSORID, DATE, CLASSROOMID) VALUES (?, ?, ?, ?)";
-    private static final String UPDATE_LECTURE = "UPDATE LECTURES SET (SUBJECTID, PROFESSORID, DATE, CLASSROOMID)  = (?, ?, ?, ?) WHERE ID = ?";
+    private static final String SAVE_LECTURE = "INSERT INTO LECTURES (SUBJECTID, PROFESSORID, DATE, TIME, CLASSROOMID) VALUES (?, ?, ?, ?, ?)";
+    private static final String UPDATE_LECTURE = "UPDATE LECTURES SET (SUBJECTID, PROFESSORID, DATE, TIME, CLASSROOMID)  = (?, ?, ?, ?, ?) WHERE ID = ?";
     private static final String DELETE_LECTURE = "DELETE FROM LECTURES WHERE ID = ?";
 
     @Autowired
@@ -32,12 +32,12 @@ public class LectureDao implements Dao<Lecture>{
 
     @Override
     public void save(Lecture lecture) {
-        jdbcTemplate.update(SAVE_LECTURE, lecture.getSubjectId(), lecture.getProfessorId(), lecture.getDate(), lecture.getClassroomId());
+        jdbcTemplate.update(SAVE_LECTURE, lecture.getSubjectId(), lecture.getProfessorId(), lecture.getDate(), lecture.getTime(), lecture.getClassroomId());
     }
 
     @Override
     public void update(Lecture lecture, Object[] params) {
-        jdbcTemplate.update(UPDATE_LECTURE, params[0], params[1], params[2], params[3], lecture.getId());
+        jdbcTemplate.update(UPDATE_LECTURE, params[0], params[1], params[2], params[3], params[4], lecture.getId());
     }
 
     @Override

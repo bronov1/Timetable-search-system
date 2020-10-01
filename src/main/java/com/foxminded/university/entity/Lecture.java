@@ -1,7 +1,8 @@
 package com.foxminded.university.entity;
 
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Objects;
 
 public class Lecture {
@@ -9,13 +10,15 @@ public class Lecture {
     private int id;
     private int subjectId;
     private int professorId;
-    private LocalDateTime date;
+    private LocalDate date;
+    private LocalTime time;
     private int classroomId;
 
-    public Lecture(int subjectId, int professorId, LocalDateTime date, int classroomId) {
+    public Lecture(int subjectId, int professorId, LocalDate date, LocalTime time, int classroomId) {
         this.subjectId = subjectId;
         this.professorId = professorId;
         this.date = date;
+        this.time = time;
         this.classroomId = classroomId;
     }
 
@@ -54,12 +57,20 @@ public class Lecture {
         return classroomId;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public LocalDateTime getDate() {
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    public LocalDate getDate() {
         return date;
+    }
+
+    public LocalTime getTime() {
+        return time;
     }
 
     @Override
@@ -71,12 +82,13 @@ public class Lecture {
                 subjectId == lecture.subjectId &&
                 professorId == lecture.professorId &&
                 classroomId == lecture.classroomId &&
-                date.equals(lecture.date);
+                date.equals(lecture.date) &&
+                time.equals(lecture.time);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, subjectId, professorId, date, classroomId);
+        return Objects.hash(id, subjectId, professorId, date, time, classroomId);
     }
 
     @Override
@@ -86,6 +98,7 @@ public class Lecture {
                 ", subjectId=" + subjectId +
                 ", professorId=" + professorId +
                 ", date=" + date +
+                ", time=" + time +
                 ", classroomId=" + classroomId +
                 '}';
     }

@@ -2,12 +2,17 @@ package com.foxminded.university;
 
 import com.foxminded.university.config.SpringJdbcConfig;
 import com.foxminded.university.dao.BuildingDao;
+import com.foxminded.university.dao.LectureDao;
 import com.foxminded.university.dao.ProfessorDao;
+import com.foxminded.university.dao.Schedule;
 import com.foxminded.university.entity.Building;
+import com.foxminded.university.entity.Lecture;
 import com.foxminded.university.entity.Professor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -32,5 +37,8 @@ public class Main {
         System.out.println(professor);
         professorDao.update(professor, new Object[]{"Glen", 2});
         System.out.println(professor);
+        Schedule schedule = context.getBean(Schedule.class);
+        List<Lecture> lectures = schedule.getGroupDayLectures(1, LocalDate.of(2020, 10,7));
+        System.out.println("size" + lectures.size());
     }
 }
