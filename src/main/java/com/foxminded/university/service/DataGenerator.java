@@ -71,6 +71,8 @@ public class DataGenerator {
         lectureGroupDao.save(new LectureGroup(3,2));
         lectureGroupDao.save(new LectureGroup(3,1));
         lectureGroupDao.save(new LectureGroup(4,2));
+        lectureGroupDao.save(new LectureGroup(5,1));
+        lectureGroupDao.save(new LectureGroup(7,1));
     }
 
     private void generateLectures() {

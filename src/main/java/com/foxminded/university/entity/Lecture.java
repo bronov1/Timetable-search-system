@@ -29,6 +29,26 @@ public class Lecture {
         return id;
     }
 
+    public int getSubjectId() {
+        return subjectId;
+    }
+
+    public int getProfessorId() {
+        return professorId;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public int getClassroomId() {
+        return classroomId;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -41,22 +61,6 @@ public class Lecture {
         this.professorId = professorId;
     }
 
-    public void setClassroomId(int classroomId) {
-        this.classroomId = classroomId;
-    }
-
-    public int getSubjectId() {
-        return subjectId;
-    }
-
-    public int getProfessorId() {
-        return professorId;
-    }
-
-    public int getClassroomId() {
-        return classroomId;
-    }
-
     public void setDate(LocalDate date) {
         this.date = date;
     }
@@ -65,12 +69,8 @@ public class Lecture {
         this.time = time;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public LocalTime getTime() {
-        return time;
+    public void setClassroomId(int classroomId) {
+        this.classroomId = classroomId;
     }
 
     @Override
