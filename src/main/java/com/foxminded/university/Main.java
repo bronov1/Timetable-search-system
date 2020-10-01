@@ -5,12 +5,9 @@ import com.foxminded.university.dao.BuildingDao;
 import com.foxminded.university.dao.ProfessorDao;
 import com.foxminded.university.entity.Building;
 import com.foxminded.university.entity.Professor;
-import com.foxminded.university.service.DataGenerator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 
 

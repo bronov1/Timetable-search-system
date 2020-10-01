@@ -11,11 +11,11 @@ import java.util.List;
 @Repository
 public class LectureGroupDao implements Dao<LectureGroup> {
 
-    private static final String GET_LECTURE_GROUP = "SELECT * FROM LECTURE_GROUP WHERE ID = ?";
-    private static final String GET_ALL_LECTURE_GROUP = "SELECT * FROM LECTURE_GROUP";
-    private static final String SAVE_LECTURE_GROUP = "INSERT INTO LECTURE_GROUP (LECTUREID, GROUPID) VALUES (?,?)";
-    private static final String UPDATE_LECTURE_GROUP = "UPDATE LECTURE_GROUP SET (LECTUREID, GROUPID)  = (?, ?) WHERE ID = ?";
-    private static final String DELETE_LECTURE_GROUP = "DELETE FROM LECTURE_GROUP WHERE ID = ?";
+    private static final String GET_LECTURE_GROUP = "SELECT * FROM LECTUREGROUPS WHERE ID = ?";
+    private static final String GET_ALL_LECTURE_GROUP = "SELECT * FROM LECTUREGROUPS";
+    private static final String SAVE_LECTURE_GROUP = "INSERT INTO LECTUREGROUPS (LECTUREID, GROUPID) VALUES (?,?)";
+    private static final String UPDATE_LECTURE_GROUP = "UPDATE LECTUREGROUPS SET (LECTUREID, GROUPID)  = (?, ?) WHERE ID = ?";
+    private static final String DELETE_LECTURE_GROUP = "DELETE FROM LECTUREGROUPS WHERE ID = ?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
