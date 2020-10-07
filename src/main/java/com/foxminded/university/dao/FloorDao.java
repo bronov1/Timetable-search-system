@@ -1,7 +1,6 @@
 package com.foxminded.university.dao;
 
 import com.foxminded.university.entity.Floor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,8 +16,11 @@ public class FloorDao implements Dao<Floor>{
     private static final String UPDATE_FLOOR = "UPDATE FLOORS SET (NUMBER, BUILDINGID)  = (?, ?) WHERE ID = ?";
     private static final String DELETE_FLOOR = "DELETE FROM FLOORS WHERE ID = ?";
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
+    public FloorDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public Floor get(int id) {

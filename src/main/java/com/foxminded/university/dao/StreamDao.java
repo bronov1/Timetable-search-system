@@ -1,8 +1,6 @@
 package com.foxminded.university.dao;
 
-import com.foxminded.university.entity.Professor;
 import com.foxminded.university.entity.Stream;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -18,8 +16,11 @@ public class StreamDao implements Dao<Stream> {
     private static final String UPDATE_STREAM = "UPDATE STREAMS SET (NAME, DEPARTMENTID)  = (?, ?) WHERE ID = ?";
     private static final String DELETE_STREAM = "DELETE FROM STREAMS WHERE ID = ?";
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
+    public StreamDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public Stream get(int id) {

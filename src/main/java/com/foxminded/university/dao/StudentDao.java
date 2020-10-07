@@ -1,7 +1,6 @@
 package com.foxminded.university.dao;
 
 import com.foxminded.university.entity.Student;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,8 +16,11 @@ public class StudentDao implements Dao<Student> {
     private static final String UPDATE_STUDENT = "UPDATE STUDENTS SET (NAME, GROUPID)  = (?, ?) WHERE ID = ?";
     private static final String DELETE_STUDENT = "DELETE FROM STUDENTS WHERE ID = ?";
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
+    public StudentDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public Student get(int id) {

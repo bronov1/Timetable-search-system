@@ -2,7 +2,6 @@ package com.foxminded.university.dao;
 
 import com.foxminded.university.entity.Lecture;
 import com.foxminded.university.entity.Professor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -21,8 +20,11 @@ public class ProfessorDao implements Dao<Professor>{
     private static final String GET_PROFESSOR_PERIOD_SCHEDULE = "SELECT * FROM LECTURES " +
             "WHERE PROFESSORID = ? AND DATE BETWEEN ? AND ?";
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
+    public ProfessorDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public Professor get(int id) {
@@ -49,7 +51,7 @@ public class ProfessorDao implements Dao<Professor>{
         jdbcTemplate.update(DELETE_PROFESSOR, professor.getId());
     }
 
-    public List<Lecture> getProfessorMonthLectures(int professorId, LocalDate startDate, LocalDate finishDate) {
+    public List<Lecture> getProfessorPeriodLectures(int professorId, LocalDate startDate, LocalDate finishDate) {
         return jdbcTemplate.query(GET_PROFESSOR_PERIOD_SCHEDULE, new BeanPropertyRowMapper<>(Lecture.class), professorId, startDate, finishDate);
     }
 }

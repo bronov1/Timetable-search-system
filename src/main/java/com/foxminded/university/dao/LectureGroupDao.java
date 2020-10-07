@@ -1,7 +1,6 @@
 package com.foxminded.university.dao;
 
 import com.foxminded.university.entity.LectureGroup;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,8 +16,11 @@ public class LectureGroupDao implements Dao<LectureGroup> {
     private static final String UPDATE_LECTURE_GROUP = "UPDATE LECTUREGROUPS SET (LECTUREID, GROUPID)  = (?, ?) WHERE ID = ?";
     private static final String DELETE_LECTURE_GROUP = "DELETE FROM LECTUREGROUPS WHERE ID = ?";
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
+    public LectureGroupDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public LectureGroup get(int id) {

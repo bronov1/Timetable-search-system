@@ -2,7 +2,6 @@ package com.foxminded.university.dao;
 
 import com.foxminded.university.entity.Group;
 import com.foxminded.university.entity.Lecture;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -23,8 +22,11 @@ public class GroupDao implements Dao<Group>{
             "INNER JOIN LECTURES ON LECTURES.ID = LECTUREGROUPS.LECTUREID " +
             "WHERE GROUPID = ? AND DATE BETWEEN ? AND ?";
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
+    public GroupDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public Group get(int id) {
@@ -51,7 +53,7 @@ public class GroupDao implements Dao<Group>{
         jdbcTemplate.update(DELETE_GROUP, group.getId());
     }
 
-    public List<Lecture> getGroupMonthLectures(int groupId, LocalDate startDate, LocalDate finishDate) {
+    public List<Lecture> getGroupPeriodLectures(int groupId, LocalDate startDate, LocalDate finishDate) {
         return jdbcTemplate.query(GET_GROUP_PERIOD_SCHEDULE, new BeanPropertyRowMapper<>(Lecture.class), groupId, startDate, finishDate);
     }
 }

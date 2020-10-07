@@ -18,7 +18,7 @@ public class ProfessorService {
         this.professorDao = professorDao;
     }
 
-    public List<Lecture> getProfessorMonthLectures(int professorId, LocalDate startDate, LocalDate finishDate){
-        return professorDao.getProfessorMonthLectures(professorId, startDate, finishDate);
+    public List<Lecture> getProfessorSchedule(int professorId, LocalDate startDate, LocalDate finishDate){
+        return professorDao.getProfessorPeriodLectures(professorId, startDate, finishDate);
     }
 }

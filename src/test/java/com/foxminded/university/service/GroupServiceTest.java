@@ -22,7 +22,7 @@ public class GroupServiceTest {
     public void getGroupMonthLectures_DefaultInput_DefaultOutput() {
         LocalDate startDate = LocalDate.of(2020, 10, 7);
         LocalDate finishDate = LocalDate.of(2020, 10, 14);
-        groupService.getGroupMonthLectures(1, startDate, finishDate);
-        Mockito.verify(groupDao).getGroupMonthLectures(1, startDate, finishDate);
+        groupService.getGroupSchedule(1, startDate, finishDate);
+        Mockito.verify(groupDao).getGroupPeriodLectures(1, startDate, finishDate);
     }
 }

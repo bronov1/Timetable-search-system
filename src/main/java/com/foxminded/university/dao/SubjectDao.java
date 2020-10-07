@@ -2,7 +2,6 @@ package com.foxminded.university.dao;
 
 
 import com.foxminded.university.entity.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -18,8 +17,11 @@ public class SubjectDao implements Dao<Subject> {
     private static final String UPDATE_SUBJECT = "UPDATE SUBJECTS SET NAME  = ? WHERE ID = ?";
     private static final String DELETE_SUBJECT = "DELETE FROM SUBJECTS WHERE ID = ?";
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
+    public SubjectDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public Subject get(int id) {

@@ -15,32 +15,24 @@ import java.time.LocalTime;
 @Service
 public class DataGenerator {
 
+    private SubjectDao subjectDao;
+    private LectureGroupDao lectureGroupDao;
+    private LectureDao lectureDao;
+    private StreamDao streamDao;
+    private GroupDao groupDao;
+    private StudentDao studentDao;
+    private ProfessorDao professorDao;
+    private DepartmentDao departmentDao;
+    private ClassroomDao classroomDao;
+    private FloorDao floorDao;
+    private BuildingDao buildingDao;
+    private FileReader fileReader;
+    private ScriptRunner scriptRunner;
+
     @Autowired
-    SubjectDao subjectDao;
-    @Autowired
-    LectureGroupDao lectureGroupDao;
-    @Autowired
-    LectureDao lectureDao;
-    @Autowired
-    StreamDao streamDao;
-    @Autowired
-    GroupDao groupDao;
-    @Autowired
-    StudentDao studentDao;
-    @Autowired
-    ProfessorDao professorDao;
-    @Autowired
-    DepartmentDao departmentDao;
-    @Autowired
-    ClassroomDao classroomDao;
-    @Autowired
-    FloorDao floorDao;
-    @Autowired
-    BuildingDao buildingDao;
-    @Autowired
-    FileReader fileReader;
-    @Autowired
-    ScriptRunner scriptRunner;
+    public void setSubjectDao(SubjectDao subjectDao) {
+        this.subjectDao = subjectDao;
+    }
 
     @PostConstruct
     public void createTables() throws URISyntaxException, IOException {
@@ -147,5 +139,67 @@ public class DataGenerator {
         buildingDao.save(new Building("Building1", 1));
         buildingDao.save(new Building("Building2", 2));
         buildingDao.save(new Building("Building3", 3));
+    }
+
+
+
+    @Autowired
+    public void setLectureGroupDao(LectureGroupDao lectureGroupDao) {
+        this.lectureGroupDao = lectureGroupDao;
+    }
+
+    @Autowired
+    public void setLectureDao(LectureDao lectureDao) {
+        this.lectureDao = lectureDao;
+    }
+
+    @Autowired
+    public void setStreamDao(StreamDao streamDao) {
+        this.streamDao = streamDao;
+    }
+
+    @Autowired
+    public void setGroupDao(GroupDao groupDao) {
+        this.groupDao = groupDao;
+    }
+
+    @Autowired
+    public void setStudentDao(StudentDao studentDao) {
+        this.studentDao = studentDao;
+    }
+
+    @Autowired
+    public void setProfessorDao(ProfessorDao professorDao) {
+        this.professorDao = professorDao;
+    }
+
+    @Autowired
+    public void setDepartmentDao(DepartmentDao departmentDao) {
+        this.departmentDao = departmentDao;
+    }
+
+    @Autowired
+    public void setClassroomDao(ClassroomDao classroomDao) {
+        this.classroomDao = classroomDao;
+    }
+
+    @Autowired
+    public void setFloorDao(FloorDao floorDao) {
+        this.floorDao = floorDao;
+    }
+
+    @Autowired
+    public void setBuildingDao(BuildingDao buildingDao) {
+        this.buildingDao = buildingDao;
+    }
+
+    @Autowired
+    public void setFileReader(FileReader fileReader) {
+        this.fileReader = fileReader;
+    }
+
+    @Autowired
+    public void setScriptRunner(ScriptRunner scriptRunner) {
+        this.scriptRunner = scriptRunner;
     }
 }

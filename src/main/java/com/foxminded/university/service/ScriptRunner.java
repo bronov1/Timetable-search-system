@@ -1,6 +1,5 @@
 package com.foxminded.university.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +10,11 @@ import java.nio.file.Path;
 @Service
 public class ScriptRunner {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
+    public ScriptRunner(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public void executeScript(Path scriptPath) throws IOException {
         String scriptString = new String(Files.readAllBytes(scriptPath));

@@ -22,7 +22,7 @@ public class ProfessorServiceTest {
     public void getGroupMonthLectures_DefaultInput_DefaultOutput() {
         LocalDate startDate = LocalDate.of(2020, 10, 7);
         LocalDate finishDate = LocalDate.of(2020, 10, 14);
-        professorService.getProfessorMonthLectures(1, startDate, finishDate);
-        Mockito.verify(professorDao).getProfessorMonthLectures(1, startDate, finishDate);
+        professorService.getProfessorSchedule(1, startDate, finishDate);
+        Mockito.verify(professorDao).getProfessorPeriodLectures(1, startDate, finishDate);
     }
 }

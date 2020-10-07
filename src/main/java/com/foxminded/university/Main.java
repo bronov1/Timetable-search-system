@@ -36,7 +36,7 @@ public class Main {
         System.out.println(professor);
         professorDao.update(professor, new Object[]{"Glen", 2});
         System.out.println(professor);
-        List<Lecture> lectures = professorDao.getProfessorMonthLectures(1, LocalDate.of(2020, 10, 7), LocalDate.of(2020, 10, 14));
+        List<Lecture> lectures = professorDao.getProfessorPeriodLectures(1, LocalDate.of(2020, 10, 7), LocalDate.of(2020, 10, 14));
         lectures.forEach(System.out::println);
     }
 }

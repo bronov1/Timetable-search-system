@@ -18,7 +18,7 @@ public class GroupService {
         this.groupDao = groupDao;
     }
 
-    public List<Lecture> getGroupMonthLectures(int groupId, LocalDate startDate, LocalDate finishDate){
-        return groupDao.getGroupMonthLectures(groupId, startDate, finishDate);
+    public List<Lecture> getGroupSchedule(int groupId, LocalDate startDate, LocalDate finishDate){
+        return groupDao.getGroupPeriodLectures(groupId, startDate, finishDate);
     }
 }
