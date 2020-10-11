@@ -1,7 +1,6 @@
 package com.foxminded.university.config;
 
 import com.foxminded.university.service.FileReader;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +17,11 @@ import java.util.Properties;
 @ComponentScan("com.foxminded.university")
 public class SpringJdbcConfig {
 
-    @Autowired
-    FileReader fileReader;
+    final FileReader fileReader;
+
+    public SpringJdbcConfig(FileReader fileReader) {
+        this.fileReader = fileReader;
+    }
 
     @Bean
     public DataSource dataSource() throws URISyntaxException, IOException {

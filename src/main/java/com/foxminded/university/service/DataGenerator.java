@@ -2,6 +2,8 @@ package com.foxminded.university.service;
 
 import com.foxminded.university.dao.*;
 import com.foxminded.university.entity.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ import java.time.LocalTime;
 
 @Service
 public class DataGenerator {
+
+    private static final Logger logger = LoggerFactory.getLogger("DataGenerator");
 
     private SubjectDao subjectDao;
     private LectureGroupDao lectureGroupDao;
@@ -35,10 +39,12 @@ public class DataGenerator {
     }
 
     @PostConstruct
-    public void createTables() throws URISyntaxException, IOException {
+    public void createTables() throws URISyntaxException {
         Path scriptPath = fileReader.getFilePath("createTables.sql");
         scriptRunner.executeScript(scriptPath);
+        logger.debug("Starting generate initial data");
         generateData();
+        logger.debug("Finished generate initial data");
     }
 
     public void generateData() {
@@ -64,6 +70,7 @@ public class DataGenerator {
         lectureGroupDao.save(new LectureGroup(4,2));
         lectureGroupDao.save(new LectureGroup(5,1));
         lectureGroupDao.save(new LectureGroup(7,1));
+        logger.debug("Generated LectureGroups");
     }
 
     private void generateLectures() {
@@ -79,6 +86,7 @@ public class DataGenerator {
         lectureDao.save(new Lecture(2, 2, LocalDate.of(2020, 10, 21), LocalTime.of(9, 30), 2));
         lectureDao.save(new Lecture(3, 3, LocalDate.of(2020, 10, 21), LocalTime.of(11, 15), 3));
         lectureDao.save(new Lecture(4, 4, LocalDate.of(2020, 10, 21), LocalTime.of(13, 10), 4));
+        logger.debug("Generated Lectures");
     }
 
     private void generateSubjects() {
@@ -86,6 +94,7 @@ public class DataGenerator {
         subjectDao.save(new Subject("Physics"));
         subjectDao.save(new Subject("History"));
         subjectDao.save(new Subject("Geography"));
+        logger.debug("Generated Subjects");
     }
 
     private void generateStudents() {
@@ -93,16 +102,19 @@ public class DataGenerator {
         studentDao.save(new Student("Rose", 1));
         studentDao.save(new Student("Steven", 2));
         studentDao.save(new Student("Chris", 2));
+        logger.debug("Generated Students");
     }
 
     private void generateGroups() {
         groupDao.save(new Group("M-1-1", 1));
         groupDao.save(new Group("H-1-1", 2));
+        logger.debug("Generated Groups");
     }
 
     private void generateStreams() {
         streamDao.save(new Stream("M-1", 1));
         streamDao.save(new Stream("H-1", 2));
+        logger.debug("Generated Streams");
     }
 
     private void generateProfessors() {
@@ -110,11 +122,13 @@ public class DataGenerator {
         professorDao.save(new Professor("Stevenson", 1));
         professorDao.save(new Professor("Anderson", 2));
         professorDao.save(new Professor("Jackson", 2));
+        logger.debug("Generated Professors");
     }
 
     private void generateDepartments() {
         departmentDao.save(new Department("Math Department"));
         departmentDao.save(new Department("History Department"));
+        logger.debug("Generated Departments");
     }
 
     private void generateClassrooms() {
@@ -124,6 +138,7 @@ public class DataGenerator {
         classroomDao.save(new Classroom(43, 4));
         classroomDao.save(new Classroom(51, 5));
         classroomDao.save(new Classroom(14, 5));
+        logger.debug("Generated Classrooms");
     }
 
     private void generateFloors() {
@@ -133,12 +148,14 @@ public class DataGenerator {
         floorDao.save(new Floor(1, 3));
         floorDao.save(new Floor(2, 3));
         floorDao.save(new Floor(3, 3));
+        logger.debug("Generated Floors");
     }
 
     private void generateBuildings() {
         buildingDao.save(new Building("Building1", 1));
         buildingDao.save(new Building("Building2", 2));
         buildingDao.save(new Building("Building3", 3));
+        logger.debug("Generated Buildings");
     }
 
 

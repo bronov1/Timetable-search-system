@@ -38,5 +38,6 @@ public class Main {
         System.out.println(professor);
         List<Lecture> lectures = professorDao.getProfessorPeriodLectures(1, LocalDate.of(2020, 10, 7), LocalDate.of(2020, 10, 14));
         lectures.forEach(System.out::println);
+        buildingDao.get(54);
     }
 }

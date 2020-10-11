@@ -5,11 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
 
 import java.net.URISyntaxException;
-import java.nio.file.Paths;
 
 import static org.mockito.ArgumentMatchers.anyString;
 
