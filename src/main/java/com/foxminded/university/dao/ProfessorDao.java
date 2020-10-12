@@ -63,8 +63,6 @@ public class ProfessorDao implements Dao<Professor>{
     }
 
     public List<Lecture> getProfessorPeriodLectures(int professorId, LocalDate startDate, LocalDate finishDate) {
-        List<Lecture> lectures = jdbcTemplate.query(GET_PROFESSOR_PERIOD_SCHEDULE, new BeanPropertyRowMapper<>(Lecture.class), professorId, startDate, finishDate);
-        logger.info("Получено расписание для профессора {} на даты {} - {}", get(professorId), startDate, finishDate);
-        return lectures;
+        return jdbcTemplate.query(GET_PROFESSOR_PERIOD_SCHEDULE, new BeanPropertyRowMapper<>(Lecture.class), professorId, startDate, finishDate);
     }
 }

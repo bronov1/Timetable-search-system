@@ -66,8 +66,6 @@ public class GroupDao implements Dao<Group>{
     }
 
     public List<Lecture> getGroupPeriodLectures(int groupId, LocalDate startDate, LocalDate finishDate) {
-        List<Lecture> lectures = jdbcTemplate.query(GET_GROUP_PERIOD_SCHEDULE, new BeanPropertyRowMapper<>(Lecture.class), groupId, startDate, finishDate);
-        logger.info("Получено расписание для группы {} на даты {} - {}", get(groupId), startDate, finishDate);
-        return lectures;
+        return jdbcTemplate.query(GET_GROUP_PERIOD_SCHEDULE, new BeanPropertyRowMapper<>(Lecture.class), groupId, startDate, finishDate);
     }
 }
