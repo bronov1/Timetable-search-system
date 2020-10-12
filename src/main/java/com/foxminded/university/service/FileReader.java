@@ -17,7 +17,7 @@ public class FileReader {
         try {
             return Paths.get(getClass().getClassLoader().getResource(fileName).toURI());
         } catch (NullPointerException e) {
-            logger.error("Didn't find file in called root");
+            logger.error("Didn't find file in called root", e);
             throw new IllegalArgumentException("There isn't such file in called root");
         }
     }

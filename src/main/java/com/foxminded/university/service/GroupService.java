@@ -24,7 +24,7 @@ public class GroupService {
 
     public List<Lecture> getGroupSchedule(int groupId, LocalDate startDate, LocalDate finishDate){
         List<Lecture> lectures = groupDao.getGroupPeriodLectures(groupId, startDate, finishDate);
-        logger.info("Получено расписание для группы {} на даты {} - {}", groupDao.get(groupId), startDate, finishDate);
+        logger.info("Got schedule for group {} for dates {} - {}", groupDao.get(groupId), startDate, finishDate);
         return lectures;
     }
 }

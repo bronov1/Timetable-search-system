@@ -24,7 +24,7 @@ public class ProfessorService {
 
     public List<Lecture> getProfessorSchedule(int professorId, LocalDate startDate, LocalDate finishDate){
         List<Lecture> lectures = professorDao.getProfessorPeriodLectures(professorId, startDate, finishDate);
-        logger.info("Получено расписание для профессора {} на даты {} - {}", professorDao.get(professorId), startDate, finishDate);
+        logger.info("Got schedule for professor {} for dates {} - {}", professorDao.get(professorId), startDate, finishDate);
         return lectures;
     }
 }

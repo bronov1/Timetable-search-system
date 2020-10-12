@@ -25,7 +25,7 @@ public class ScriptRunner {
         try {
             scriptString = new String(Files.readAllBytes(scriptPath));
         } catch (IOException e) {
-            logger.error("Some problem with input/output operations");
+            logger.error("Some problem with input/output operations", e);
             throw new IllegalArgumentException();
         }
         jdbcTemplate.execute(scriptString);
