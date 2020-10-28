@@ -23,7 +23,6 @@ public class ProfessorDao implements Dao<Professor>{
 
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public ProfessorDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

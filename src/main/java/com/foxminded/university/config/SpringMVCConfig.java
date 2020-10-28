@@ -1,59 +1,26 @@
 package com.foxminded.university.config;
 
-import com.foxminded.university.service.FileReader;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
-import javax.sql.DataSource;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.Properties;
-
 @Configuration
 @ComponentScan("com.foxminded.university")
 @EnableWebMvc
-public class SpringConfig implements WebMvcConfigurer {
+public class SpringMVCConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;
 
-    @Autowired
-    public SpringConfig(ApplicationContext applicationContext) {
+    public SpringMVCConfig(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
-    }
-
-    @Bean
-    public DataSource dataSource() throws URISyntaxException, IOException {
-        final String dbURL, dbUser, userPassword;
-        FileReader fileReader = applicationContext.getBean(FileReader.class);
-        FileInputStream dbProperties = new FileInputStream(String.valueOf(fileReader.getFilePath("db.properties")));
-        Properties property = new Properties();
-        property.load(dbProperties);
-        dbURL = property.getProperty("db.url");
-        dbUser = property.getProperty("db.login");
-        userPassword = property.getProperty("db.password");
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl(dbURL);
-        dataSource.setUsername(dbUser);
-        dataSource.setPassword(userPassword);
-        return dataSource;
-    }
-
-    @Bean
-    public JdbcTemplate jdbcTemplate() throws IOException, URISyntaxException {
-        return new JdbcTemplate(dataSource());
     }
 
     @Bean
@@ -78,5 +45,24 @@ public class SpringConfig implements WebMvcConfigurer {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine());
         registry.viewResolver(resolver);
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+                .addResourceHandler("/js/**")
+                .addResourceLocations("/resources/js/");
+        registry
+                .addResourceHandler("/css/**")
+                .addResourceLocations("/resources/css/");
+        registry
+                .addResourceHandler("/fonts/**")
+                .addResourceLocations("/resources/fonts/");
+        registry
+                .addResourceHandler("/icons/**")
+                .addResourceLocations("/resources/icons/");
+        registry
+                .addResourceHandler("/vendor/**")
+                .addResourceLocations("/resources/vendor/");
     }
 }

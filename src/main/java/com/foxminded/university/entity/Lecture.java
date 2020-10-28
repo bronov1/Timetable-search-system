@@ -3,6 +3,7 @@ package com.foxminded.university.entity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Lecture {
@@ -39,6 +40,11 @@ public class Lecture {
 
     public LocalDate getDate() {
         return date;
+    }
+
+    public String getDateString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu");
+        return date.format(formatter);
     }
 
     public LocalTime getTime() {

@@ -19,7 +19,6 @@ public class StudentDao implements Dao<Student> {
 
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public StudentDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

@@ -25,7 +25,6 @@ public class GroupDao implements Dao<Group>{
 
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public GroupDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

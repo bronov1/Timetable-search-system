@@ -19,7 +19,6 @@ public class ClassroomDao implements Dao<Classroom>{
 
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public ClassroomDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

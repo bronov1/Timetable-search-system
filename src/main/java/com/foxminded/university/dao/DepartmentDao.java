@@ -19,7 +19,6 @@ public class DepartmentDao implements Dao<Department>{
 
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public DepartmentDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

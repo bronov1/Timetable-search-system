@@ -19,7 +19,6 @@ public class LectureGroupDao implements Dao<LectureGroup> {
 
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public LectureGroupDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

@@ -18,7 +18,6 @@ public class BuildingDao implements Dao<Building> {
 
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public BuildingDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

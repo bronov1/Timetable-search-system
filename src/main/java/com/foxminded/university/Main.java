@@ -1,6 +1,6 @@
 package com.foxminded.university;
 
-import com.foxminded.university.config.SpringConfig;
+import com.foxminded.university.config.SpringJDBCConfig;
 import com.foxminded.university.dao.BuildingDao;
 import com.foxminded.university.dao.ProfessorDao;
 import com.foxminded.university.entity.Building;
@@ -16,7 +16,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        ApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
+        ApplicationContext context = new AnnotationConfigApplicationContext(SpringJDBCConfig.class);
         BuildingDao buildingDao = context.getBean(BuildingDao.class);
         List<Building> buildings = buildingDao.getAll();
         buildings.forEach(System.out::println);

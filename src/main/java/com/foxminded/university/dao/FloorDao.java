@@ -19,7 +19,6 @@ public class FloorDao implements Dao<Floor>{
 
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public FloorDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

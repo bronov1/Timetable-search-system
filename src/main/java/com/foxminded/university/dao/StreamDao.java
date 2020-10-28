@@ -19,7 +19,6 @@ public class StreamDao implements Dao<Stream> {
 
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public StreamDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

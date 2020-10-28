@@ -20,7 +20,6 @@ public class SubjectDao implements Dao<Subject> {
 
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public SubjectDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
