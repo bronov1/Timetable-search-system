@@ -31,6 +31,6 @@ public class LectureController {
         model.addAttribute("subjectService", subjectService);
         model.addAttribute("professorService", professorService);
         model.addAttribute("classroomService", classroomService);
-        return "tables/index";
+        return "lectures";
     }
 }
