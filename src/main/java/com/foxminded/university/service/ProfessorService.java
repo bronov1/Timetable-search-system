@@ -31,4 +31,8 @@ public class ProfessorService {
     public Professor getProfessor(int id) {
         return professorDao.get(id);
     }
+
+    public List<Professor> getAllProfessors() {
+        return professorDao.getAll();
+    }
 }

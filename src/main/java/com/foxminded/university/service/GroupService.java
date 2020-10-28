@@ -1,6 +1,7 @@
 package com.foxminded.university.service;
 
 import com.foxminded.university.dao.GroupDao;
+import com.foxminded.university.entity.Group;
 import com.foxminded.university.entity.Lecture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,5 +26,9 @@ public class GroupService {
         List<Lecture> lectures = groupDao.getGroupPeriodLectures(groupId, startDate, finishDate);
         logger.info("Got schedule for group {} for dates {} - {}", groupDao.get(groupId), startDate, finishDate);
         return lectures;
+    }
+
+    public List<Group> getAllGroups() {
+        return groupDao.getAll();
     }
 }

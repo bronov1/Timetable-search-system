@@ -64,5 +64,8 @@ public class SpringMVCConfig implements WebMvcConfigurer {
         registry
                 .addResourceHandler("/vendor/**")
                 .addResourceLocations("/resources/vendor/");
+        registry
+                .addResourceHandler("/webjars/**")
+                .addResourceLocations("/webjars/");
     }
 }

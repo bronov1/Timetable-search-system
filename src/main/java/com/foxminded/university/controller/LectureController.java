@@ -26,11 +26,11 @@ public class LectureController {
     }
 
     @GetMapping()
-    public String getAll(Model model) {
+    public String showAll(Model model) {
         model.addAttribute("lectures", lectureService.getAllLectures());
         model.addAttribute("subjectService", subjectService);
         model.addAttribute("professorService", professorService);
         model.addAttribute("classroomService", classroomService);
-        return "lectures";
+        return "tables/lectures";
     }
 }
