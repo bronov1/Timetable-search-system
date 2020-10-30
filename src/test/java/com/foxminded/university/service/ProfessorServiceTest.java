@@ -25,4 +25,10 @@ public class ProfessorServiceTest {
         professorService.getProfessorSchedule(1, startDate, finishDate);
         Mockito.verify(professorDao).getProfessorPeriodLectures(1, startDate, finishDate);
     }
+
+    @Test
+    public void getAllProfessors() {
+        professorService.getAllProfessors();
+        Mockito.verify(professorDao).getAll();
+    }
 }

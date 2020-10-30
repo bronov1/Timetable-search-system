@@ -1,7 +1,6 @@
 package com.foxminded.university.dao;
 
 import com.foxminded.university.entity.Lecture;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -25,14 +24,12 @@ public class LectureDao implements Dao<Lecture>{
 
     @Override
     public Lecture get(int id) {
-        Lecture lecture = jdbcTemplate.queryForObject(GET_LECTURE, new Object[]{id}, new BeanPropertyRowMapper<>(Lecture.class));
-        return lecture;
+        return jdbcTemplate.queryForObject(GET_LECTURE, new Object[]{id}, new BeanPropertyRowMapper<>(Lecture.class));
     }
 
     @Override
     public List<Lecture> getAll() {
-        List<Lecture> lectures = jdbcTemplate.query(GET_ALL_LECTURES, new BeanPropertyRowMapper<>(Lecture.class));
-        return lectures;
+        return jdbcTemplate.query(GET_ALL_LECTURES, new BeanPropertyRowMapper<>(Lecture.class));
     }
 
     @Override

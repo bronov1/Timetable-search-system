@@ -25,4 +25,10 @@ public class GroupServiceTest {
         groupService.getGroupSchedule(1, startDate, finishDate);
         Mockito.verify(groupDao).getGroupPeriodLectures(1, startDate, finishDate);
     }
+
+    @Test
+    public void getAllGroups() {
+        groupService.getAllGroups();
+        Mockito.verify(groupDao).getAll();
+    }
 }
