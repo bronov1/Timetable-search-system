@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ClassroomService {
 
@@ -19,7 +21,13 @@ public class ClassroomService {
 
     public Classroom getClassroom(int id) {
         Classroom classroom = classroomDao.get(id);
-        logger.info("Got classroom with {} form Database", id);
+        logger.info("Got classroom with id {} from Database", id);
         return classroom;
+    }
+
+    public List<Classroom> getAllClassrooms() {
+        List<Classroom> classrooms = classroomDao.getAll();
+        logger.info("Gor all classrooms form Database");
+        return classrooms;
     }
 }

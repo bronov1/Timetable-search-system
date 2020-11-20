@@ -2,6 +2,7 @@ package com.foxminded.university.dao;
 
 import com.foxminded.university.entity.Group;
 import com.foxminded.university.entity.Lecture;
+import com.foxminded.university.entity.LectureGroup;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,9 @@ public class GroupDao implements Dao<Group>{
     private static final String SAVE_GROUP = "INSERT INTO GROUPS (NAME, STREAMID) VALUES (?,?)";
     private static final String UPDATE_GROUP = "UPDATE GROUPS SET (NAME, STREAMID)  = (?, ?) WHERE ID = ?";
     private static final String DELETE_GROUP = "DELETE FROM GROUPS WHERE ID = ?";
+    private static final String GET_ALL_GROUPS_FOR_LECTURE = "SELECT * FROM GROUPS " +
+            "INNER JOIN LECTUREGROUPS ON GROUPS.ID = LECTUREGROUPS.GROUPID " +
+            "WHERE LECTUREID = ?";
     private static final String GET_GROUP_PERIOD_SCHEDULE = "SELECT * FROM GROUPS " +
             "INNER JOIN LECTUREGROUPS ON GROUPS.ID = LECTUREGROUPS.GROUPID " +
             "INNER JOIN LECTURES ON LECTURES.ID = LECTUREGROUPS.LECTUREID " +
@@ -56,5 +60,9 @@ public class GroupDao implements Dao<Group>{
 
     public List<Lecture> getGroupPeriodLectures(int groupId, LocalDate startDate, LocalDate finishDate) {
         return jdbcTemplate.query(GET_GROUP_PERIOD_SCHEDULE, new BeanPropertyRowMapper<>(Lecture.class), groupId, startDate, finishDate);
+    }
+
+    public List<Group> getGroupsOnLecture(int lectureId) {
+        return jdbcTemplate.query(GET_ALL_GROUPS_FOR_LECTURE, new BeanPropertyRowMapper<>(Group.class), lectureId);
     }
 }

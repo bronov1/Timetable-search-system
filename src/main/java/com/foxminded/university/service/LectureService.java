@@ -24,5 +24,21 @@ public class LectureService {
         logger.info("Got all lectures from Database");
         return lectures;
     }
+
+    public void save(Lecture lecture) {
+        lectureDao.save(lecture);
+        logger.info("Saved new lecture");
+    }
+
+    public void delete(Lecture lecture) {
+        lectureDao.delete(lecture);
+        logger.info("Deleted lecture with id - {}", lecture.getId());
+    }
+
+    public void update(Lecture lecture) {
+        Object[] parameters = new Object[]{lecture.getSubjectId(), lecture.getProfessorId(), lecture.getDate(), lecture.getTime(), lecture.getClassroomId()};
+        lectureDao.update(lecture, parameters);
+        logger.info("Updated lecture with id - {}", lecture.getId());
+    }
 }
 

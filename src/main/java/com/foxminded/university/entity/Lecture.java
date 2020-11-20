@@ -1,6 +1,8 @@
 package com.foxminded.university.entity;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +13,9 @@ public class Lecture {
     private int id;
     private int subjectId;
     private int professorId;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime time;
     private int classroomId;
 
@@ -45,6 +49,11 @@ public class Lecture {
     public String getDateString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu");
         return date.format(formatter);
+    }
+
+    public LocalDate setDateFromString(String dateString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu");
+        return LocalDate.parse(dateString, formatter);
     }
 
     public LocalTime getTime() {

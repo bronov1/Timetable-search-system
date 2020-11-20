@@ -17,7 +17,8 @@ INSERT INTO classrooms (number, floorid) VALUES
 (34, 3),
 (43, 4),
 (51, 5),
-(14, 5);
+(14, 5),
+(33, 6);
 
 INSERT INTO departments (name) VALUES
 ('Math Department'),
@@ -72,4 +73,11 @@ INSERT INTO lecturegroups (LECTUREID, GROUPID) VALUES
 (3, 1),
 (4, 2),
 (5, 1),
-(7, 1);
+(6, 2),
+(7, 1),
+(8, 2),
+(9, 1),
+(10, 1),
+(10, 2),
+(11, 2),
+(12, 1);

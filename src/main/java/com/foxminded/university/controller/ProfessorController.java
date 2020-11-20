@@ -24,6 +24,6 @@ public class ProfessorController {
     public String showAll(Model model) {
         model.addAttribute("professors", professorService.getAllProfessors());
         model.addAttribute("departmentService", departmentService);
-        return "tables/professors";
+        return "professors";
     }
 }

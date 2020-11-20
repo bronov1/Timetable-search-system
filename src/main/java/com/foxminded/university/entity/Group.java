@@ -24,6 +24,10 @@ public class Group {
         return id;
     }
 
+    public String getStringId() {
+        return String.valueOf(id);
+    }
+
     public int getStreamId() {
         return streamId;
     }

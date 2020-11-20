@@ -23,6 +23,6 @@ public class GroupController {
     public String showAll(Model model) {
         model.addAttribute("groups", groupService.getAllGroups());
         model.addAttribute("streamService", streamService);
-        return "tables/groups";
+        return "groups";
     }
 }

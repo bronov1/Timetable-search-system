@@ -19,7 +19,9 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/buttonStyle.css">
+	<script src="/webjars/font-awesome/5.15.1/all.min.css"></script>
+	<!--===============================================================================================-->
 </head>
 <body>
 	
@@ -34,6 +36,7 @@
 								<th class="column2">Lecture ID</th>
 								<th class="column3">Subject</th>
 								<th class="column4">Classroom</th>
+								<th class="column5">Groups</th>
 								<th class="column6">Professor</th>
 							</tr>
 						</thead>
@@ -43,15 +46,17 @@
 									<td class="column2" th:text="${lecture.getId()}">Lecture ID</td>
 									<td class="column3" th:text="${subjectService.getSubject(lecture.getSubjectId()).getName()}">Subject</td>
 									<td class="column4" th:text="Number + ' ' + ${classroomService.getClassroom(lecture.getClassroomId()).getNumber()}">Classroom</td>
+									<td class="column5"><p th:each="group : ${groupService.getGroupsOnLecture(lecture.getId())}" th:text="${group.getName()}">Group</p></td>
 									<td class="column6" th:text="${professorService.getProfessor(lecture.getProfessorId()).getName()}">Professor</td>
 								</tr>
 						</tbody>
 					</table>
 				</div>
+				<br/>
+				<div style="margin-left:410px;" class="hover"><span>Change Page</span><a class="social-link" href="http://localhost:8081/groups" target="_blank"><i>Gr</i></a><a class="social-link" href="http://localhost:8081/lectures" target="_blank"><i>Lc</i></a><a class="social-link" href="http://localhost:8081/professors" target="_blank"><i>Pr</i></a><a class="social-link" href="http://localhost:8081/lectures/forms" target="_blank"><i>Fr</i></a></div>
 			</div>
 		</div>
 	</div>
-
 
 <!--===============================================================================================-->	
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>

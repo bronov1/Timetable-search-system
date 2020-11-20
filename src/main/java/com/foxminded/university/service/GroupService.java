@@ -31,4 +31,10 @@ public class GroupService {
     public List<Group> getAllGroups() {
         return groupDao.getAll();
     }
+
+    public List<Group> getGroupsOnLecture(int lectureId) {
+        List<Group> groups = groupDao.getGroupsOnLecture(lectureId);
+        logger.info("Got groups on lecture with id {} form Database", lectureId);
+        return groups;
+    }
 }

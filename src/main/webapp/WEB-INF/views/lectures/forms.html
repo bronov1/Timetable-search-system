@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>New person</title>
+</head>
+<body>
+
+    <form th:method="POST" th:action="@{/lectures/save}" th:object="${lecture}">
+        <h2>Add new lecture:</h2>
+        <div>
+            <label for="subject">Choose subject: </label>
+            <select type="text" th:field="*{subjectId}" id="subject">
+                <option th:each="subject : ${subjects}" th:value="${subject.getId()}"
+                        th:text="${subject.getName()}"></option>
+            </select>
+        </div>
+        <br/>
+        <div>
+            <label for="professor">Choose professor: </label>
+            <select type="text" th:field="*{professorId}" id="professor">
+                <option th:each="professor : ${professors}" th:value="${professor.getId()}"
+                        th:text="${professor.getName()}"></option>
+            </select>
+        </div>
+        <br/>
+        <div>
+            <label for="classroom">Choose classroom: </label>
+            <select type="text" th:field="*{classroomId}" id="classroom">
+                <option th:each="classroom : ${classrooms}" th:value="${classroom.getId()}"
+                        th:text="${classroom.getNumber()}"></option>
+            </select>
+        </div>
+        <br/>
+        <div>
+            <label for="date">Choose date: </label>
+            <input type="date" th:field="*{date}" id="date"/>
+        </div>
+        <br/>
+        <div>
+            <label for="time">Choose time: </label>
+            <input type="time" th:field="*{time}" id="time"/>
+        </div>
+        <br/>
+        <div>
+            <input type="submit" value="Create!"/>
+        </div>
+    </form>
+
+
+    <form th:method="POST" th:action="@{/lectures/delete}" th:object="${lecture}">
+        <h2>Delete lecture:</h2>
+        <div>
+            <label for="lectureForDeleting">Choose lecture for updating: </label>
+            <select type="text" th:field="*{id}" id="lectureForDeleting">
+                <option th:each="lecture : ${lectures}" th:value="${lecture.getId()}"
+                        th:text="Subject + ' ' + ${subjectService.getSubject(lecture.getSubjectId()).getName()} + ', ' + Professor + ' ' + ${professorService.getProfessor(lecture.getProfessorId()).getName()} + ', ' + Date + ' ' + ${lecture.getDateString()} + ', ' + Time + ' ' + ${lecture.getTime()}"></option>
+            </select>
+        </div>
+        <br/>
+        <div>
+            <input type="submit" value="Delete!"/>
+        </div>
+    </form>
+
+
+    <form th:method="POST" th:action="@{/lectures/update}" th:object="${lecture}">
+        <h2>Update lecture:</h2>
+        <div>
+            <label for="lectureForUpdate">Choose lecture for updating: </label>
+            <select type="text" th:field="*{id}" id="lectureForUpdate">
+                <option th:each="lecture : ${lectures}" th:value="${lecture.getId()}"
+                        th:text="Subject + ' ' + ${subjectService.getSubject(lecture.getSubjectId()).getName()} + ', ' + Professor + ' ' + ${professorService.getProfessor(lecture.getProfessorId()).getName()} + ', ' + Date + ' ' + ${lecture.getDateString()} + ', ' + Time + ' ' + ${lecture.getTime()}"></option>
+            </select>
+        </div>
+        <br/>
+        <div>
+            <label for="subjectForUpdate">Choose subject: </label>
+            <select type="text" th:field="*{subjectId}" id="subjectForUpdate">
+                <option th:each="subject : ${subjects}" th:value="${subject.getId()}"
+                        th:text="${subject.getName()}"></option>
+            </select>
+        </div>
+        <br/>
+        <div>
+            <label for="professorForUpdate">Choose professor: </label>
+            <select type="text" th:field="*{professorId}" id="professorForUpdate">
+                <option th:each="professor : ${professors}" th:value="${professor.getId()}"
+                        th:text="${professor.getName()}"></option>
+            </select>
+        </div>
+        <br/>
+        <div>
+            <label for="classroomForUpdate">Choose classroom: </label>
+            <select type="text" th:field="*{classroomId}" id="classroomForUpdate">
+                <option th:each="classroom : ${classrooms}" th:value="${classroom.getId()}"
+                        th:text="${classroom.getNumber()}"></option>
+            </select>
+        </div>
+        <br/>
+        <div>
+            <label for="dateForUpdate">Choose date: </label>
+            <input type="date" th:field="*{date}" id="dateForUpdate"/>
+        </div>
+        <br/>
+        <div>
+            <label for="timeForUpdate">Choose time: </label>
+            <input type="time" th:field="*{time}" id="timeForUpdate"/>
+        </div>
+        <br/>
+        <div>
+            <input type="submit" value="Update!"/>
+        </div>
+    </form>
+
+
+    <form th:method="POST" th:action="@{/lectures/index}" th:object="${group}">
+        <h2>Get Group Schedule:</h2>
+        <div>
+            <label for="groupId">Choose your group: </label>
+            <select type="text" th:field="*{id}" id="groupId">
+                <option th:each="group : ${groupService.getAllGroups()}" th:value="${group.getId()}"
+                        th:text="${group.getName()}"></option>
+            </select>
+        </div>
+        <br/>
+        <div>
+            <label for="startDate">Enter beginning date: </label>
+            <input type="date" name="startDate" id="startDate"/>
+        </div>
+        <br/>
+        <div>
+            <label for="finishDate">Enter finish date: </label>
+            <input type="date" name="finishDate" id="finishDate"/>
+        </div>
+        <br/>
+        <div>
+            <input type="submit" value="Get Schedule!"/>
+        </div>
+    </form>
+
+
+</body>
+</html>
