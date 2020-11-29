@@ -17,9 +17,11 @@ public class LectureDao implements Dao<Lecture>{
     private static final String DELETE_LECTURE = "DELETE FROM LECTURES WHERE ID = ?";
 
     private final JdbcTemplate jdbcTemplate;
+    private final LectureGroupDao lectureGroupDao;
 
-    public LectureDao(JdbcTemplate jdbcTemplate) {
+    public LectureDao(JdbcTemplate jdbcTemplate, LectureGroupDao lectureGroupDao) {
         this.jdbcTemplate = jdbcTemplate;
+        this.lectureGroupDao = lectureGroupDao;
     }
 
     @Override
@@ -44,6 +46,7 @@ public class LectureDao implements Dao<Lecture>{
 
     @Override
     public void delete(Lecture lecture) {
+        lectureGroupDao.deleteLecture(lecture);
         jdbcTemplate.update(DELETE_LECTURE, lecture.getId());
     }
 }

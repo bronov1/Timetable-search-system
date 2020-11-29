@@ -2,11 +2,10 @@ package com.foxminded.university.service;
 
 
 import com.foxminded.university.dao.DepartmentDao;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
@@ -16,10 +15,14 @@ public class DepartmentServiceTest {
     DepartmentDao departmentDao;
     @InjectMocks
     DepartmentService departmentService;
+    @Captor
+    ArgumentCaptor<Integer> argCaptor;
 
     @Test
     public void getDepartment() {
-        departmentService.getDepartment(1);
-        Mockito.verify(departmentDao).get(1);
+        int randomNumber = ArgumentMatchers.anyInt();
+        departmentService.getDepartment(randomNumber);
+        Mockito.verify(departmentDao).get(argCaptor.capture());
+        Assertions.assertEquals(randomNumber, argCaptor.getValue());
     }
 }

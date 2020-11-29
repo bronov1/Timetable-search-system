@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/lectures/chooseSchedule}" th:object="${group}">
+    <h2>Get Group Schedule:</h2>
+    <div>
+        <label for="groupId">Choose your group: </label>
+        <select type="text" th:field="*{id}" id="groupId">
+            <option th:each="group : ${groups}" th:value="${group.getId()}"
+                    th:text="${group.getName()}"></option>
+        </select>
+    </div>
+    <br/>
+    <div>
+        <label for="startDate">Enter beginning date: </label>
+        <input type="date" name="startDate" id="startDate"/>
+    </div>
+    <br/>
+    <div>
+        <label for="finishDate">Enter finish date: </label>
+        <input type="date" name="finishDate" id="finishDate"/>
+    </div>
+    <br/>
+    <div>
+        <input type="submit" value="Get Schedule!"/>
+    </div>
+</form>
+</body>
+</html>

@@ -40,5 +40,11 @@ public class LectureService {
         lectureDao.update(lecture, parameters);
         logger.info("Updated lecture with id - {}", lecture.getId());
     }
+
+    public Lecture getLecture(int id) {
+        Lecture lecture = lectureDao.get(id);
+        logger.info("Got lecture with id - {}", id);
+        return lecture;
+    }
 }
 

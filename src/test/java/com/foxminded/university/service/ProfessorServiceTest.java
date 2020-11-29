@@ -1,11 +1,10 @@
 package com.foxminded.university.service;
 
 import com.foxminded.university.dao.ProfessorDao;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
@@ -17,18 +16,34 @@ public class ProfessorServiceTest {
     ProfessorDao professorDao;
     @InjectMocks
     ProfessorService professorService;
+    @Captor
+    ArgumentCaptor<Integer> intCaptor;
+    @Captor
+    ArgumentCaptor<LocalDate> dateCaptor;
 
     @Test
     public void getGroupMonthLectures_DefaultInput_DefaultOutput() {
-        LocalDate startDate = LocalDate.of(2020, 10, 7);
-        LocalDate finishDate = LocalDate.of(2020, 10, 14);
-        professorService.getProfessorSchedule(1, startDate, finishDate);
-        Mockito.verify(professorDao).getProfessorPeriodLectures(1, startDate, finishDate);
+        int randomNumber = ArgumentMatchers.anyInt();
+        LocalDate randomStartDate = ArgumentMatchers.any(LocalDate.class);
+        LocalDate randomFinishDate = ArgumentMatchers.any(LocalDate.class);
+        professorService.getProfessorSchedule(randomNumber, randomStartDate, randomFinishDate);
+        Mockito.verify(professorDao).getProfessorPeriodLectures(intCaptor.capture(), dateCaptor.capture(), dateCaptor.capture());
+        Assertions.assertEquals(randomNumber, intCaptor.getValue());
+        Assertions.assertEquals(randomStartDate, dateCaptor.getValue());
+        Assertions.assertEquals(randomFinishDate, dateCaptor.getValue());
     }
 
     @Test
     public void getAllProfessors() {
         professorService.getAllProfessors();
         Mockito.verify(professorDao).getAll();
+    }
+
+    @Test
+    public void getProfessor() {
+        int randomNumber = ArgumentMatchers.anyInt();
+        professorService.getProfessor(randomNumber);
+        Mockito.verify(professorDao).get(intCaptor.capture());
+        Assertions.assertEquals(randomNumber, intCaptor.getValue());
     }
 }

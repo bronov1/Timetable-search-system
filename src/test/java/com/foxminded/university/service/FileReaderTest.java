@@ -18,6 +18,7 @@ public class FileReaderTest {
     @Mock
     FileReader mockFileReader;
 
+
     public FileReaderTest() {
         this.fileReader = new FileReader();
     }
