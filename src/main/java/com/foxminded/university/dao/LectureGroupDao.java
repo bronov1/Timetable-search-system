@@ -49,7 +49,7 @@ public class LectureGroupDao implements Dao<LectureGroup> {
         jdbcTemplate.update(DELETE_LECTURE_GROUP, lectureGroup.getId());
     }
 
-    public void deleteLecture(Lecture lecture) {
+    public void deleteGroupsFromLecture(Lecture lecture) {
         jdbcTemplate.update(DELETE_LECTURE_FOR_GROUPS, lecture.getId());
     }
 }

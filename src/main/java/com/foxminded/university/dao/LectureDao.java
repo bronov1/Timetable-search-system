@@ -46,7 +46,7 @@ public class LectureDao implements Dao<Lecture>{
 
     @Override
     public void delete(Lecture lecture) {
-        lectureGroupDao.deleteLecture(lecture);
+        lectureGroupDao.deleteGroupsFromLecture(lecture);
         jdbcTemplate.update(DELETE_LECTURE, lecture.getId());
     }
 }

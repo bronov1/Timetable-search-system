@@ -52,16 +52,23 @@ public class LectureController {
     }
 
     @GetMapping("/{id}")
-    public String edit(Model model, @PathVariable("id") int id) {
+    public String edit(Model model, @PathVariable("id") int id, @ModelAttribute("lectureGroup") LectureGroup lectureGroup) {
         model.addAttribute("lecture", lectureService.getLecture(id));
         model.addAttribute("subjects", subjectService.getAllSubjects());
         model.addAttribute("professors", professorService.getAllProfessors());
         model.addAttribute("classrooms", classroomService.getAllClassrooms());
+        model.addAttribute("groups", groupService.getAllGroups());
         return "lectures/edit";
     }
 
     @PostMapping("/{id}/update")
-    public String update(@ModelAttribute("lecture") Lecture lecture) {
+    public String update(@ModelAttribute("lectureGroup") LectureGroup lectureGroup, @ModelAttribute("lecture") Lecture lecture, @RequestParam("groups") int[] groups) {
+        lectureGroupService.deleteGroupsFromLecture(lecture);
+        lectureGroup.setLectureId(lecture.getId());
+        for (int groupId : groups) {
+            lectureGroup.setGroupId(groupId);
+            lectureGroupService.save(lectureGroup);
+        }
         lectureService.update(lecture);
         return "redirect:/lectures";
     }
@@ -86,20 +93,6 @@ public class LectureController {
         return "redirect:/lectures";
     }
 
-    @GetMapping("/{id}/addGroups")
-    public String selectGroups(Model model, @PathVariable("id") int lectureId, @ModelAttribute("lectureGroup") LectureGroup lectureGroup) {
-        model.addAttribute("lectureId", lectureId);
-        model.addAttribute("groups", groupService.getAllGroups());
-        return "lectures/lecture_groups";
-    }
-
-    @PostMapping("/{id}/addGroups")
-    public String addGroups(@ModelAttribute("lectureGroup") LectureGroup lectureGroup, @PathVariable("id") int lectureId) {
-        lectureGroup.setLectureId(lectureId);
-        lectureGroupService.save(lectureGroup);
-        return "redirect:/lectures";
-    }
-
     @GetMapping("/showScheduleForm")
     public String showScheduleForm(Model model, @ModelAttribute("group") Group group) {
         model.addAttribute("groups", groupService.getAllGroups());
@@ -112,26 +105,4 @@ public class LectureController {
         scheduleStatus = true;
         return "redirect:/lectures";
     }
-    
-    /**
-     * Methods for adding groups with checkbox
-     *
-     *
-     *
-    @GetMapping("/{id}/addGroups")
-    public String selectGroups(Model model, @PathVariable("id") int lectureId) {
-        model.addAttribute("groupContainer", new ArrayList<Integer>());
-        model.addAttribute("lectureId", lectureId);
-        model.addAttribute("groups", groupService.getAllGroups());
-        return "lectures/lecture_groups";
-    }
-
-    @PostMapping("/{id}/addGroups")
-    public String addGroups(@PathVariable("id") int lectureId, @RequestParam("groupContainer") ArrayList<Integer> selectedGroups) {
-        for (Integer groupId : selectedGroups){
-            lectureGroupService.save(new LectureGroup(lectureId, groupId));
-        }
-        return "redirect:/lectures";
-    }
-     */
 }

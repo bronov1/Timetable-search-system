@@ -54,10 +54,10 @@
 										<a th:if="${groupService.getGroupsOnLecture(lecture.getId()).size() == 0}" th:href="@{/lectures/{id}/addGroups(id=${lecture.getId()})}">Add groups to lecture</a>
 									</td>
 									<td class="column6" th:text="${professorService.getProfessor(lecture.getProfessorId()).getName()}">Professor</td>
-									<td class="column7"><a th:href="@{/lectures/{id}(id=${lecture.getId()})}" style="padding-right: 20px">Edit lecture</a></td>
+									<td class="column7"><a th:href="@{/lectures/{id}(id=${lecture.getId()})}" style="padding-right: 20px">Edit</a></td>
 								</tr>
 								<tr>
-									<td class="column1"><a th:href="@{/lectures/new}">Add new lecture</a></td>
+									<td class="column1"><a th:href="@{/lectures/new}">Add new</a></td>
 								</tr>
 						</tbody>
 					</table>

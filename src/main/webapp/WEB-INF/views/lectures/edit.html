@@ -33,6 +33,16 @@
     </div>
     <br/>
     <div>
+        Choose groups for lecture:
+        <ul>
+            <li th:each="group : ${groups}">
+                <label th:for="${group.getId()}" th:text="${group.getName()}">Group</label>
+                <input type="checkbox" th:value="${group.getId()}" th:id="${group.getId()}" name="groups"/>
+            </li>
+        </ul>
+    </div>
+    <br/>
+    <div>
         <label for="date">Choose date: </label>
         <input type="date" th:field="*{date}" id="date"/>
     </div>
