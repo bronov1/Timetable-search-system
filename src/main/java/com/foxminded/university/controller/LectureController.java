@@ -73,6 +73,13 @@ public class LectureController {
         return "redirect:/lectures";
     }
 
+    @GetMapping("/{id}/delete")
+    public String delete(@ModelAttribute("lecture") Lecture lecture, @PathVariable("id") int id) {
+        lecture.setId(id);
+        lectureService.delete(lecture);
+        return "redirect:/lectures";
+    }
+
     @PostMapping("/{id}/delete")
     public String delete(@ModelAttribute("lecture") Lecture lecture) {
         lectureService.delete(lecture);

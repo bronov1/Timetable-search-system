@@ -41,6 +41,7 @@
 								<th class="column5">Groups</th>
 								<th class="column6">Professor</th>
 								<th class="column7">Edit</th>
+								<th class="column8">Delete</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -49,12 +50,10 @@
 									<td class="column2" th:text="${lecture.getId()}">Lecture ID</td>
 									<td class="column3" th:text="${subjectService.getSubject(lecture.getSubjectId()).getName()}">Subject</td>
 									<td class="column4" th:text="Number + ' ' + ${classroomService.getClassroom(lecture.getClassroomId()).getNumber()}">Classroom</td>
-									<td class="column5">
-										<p th:unless="${groupService.getGroupsOnLecture(lecture.getId()).size() == 0}" th:each="group : ${groupService.getGroupsOnLecture(lecture.getId())}" th:text="${group.getName()}">Group</p>
-										<a th:if="${groupService.getGroupsOnLecture(lecture.getId()).size() == 0}" th:href="@{/lectures/{id}/addGroups(id=${lecture.getId()})}">Add groups to lecture</a>
-									</td>
+									<td class="column5"><p  th:each="group : ${groupService.getGroupsOnLecture(lecture.getId())}" th:text="${group.getName()}">Group</p></td>
 									<td class="column6" th:text="${professorService.getProfessor(lecture.getProfessorId()).getName()}">Professor</td>
 									<td class="column7"><a th:href="@{/lectures/{id}(id=${lecture.getId()})}" style="padding-right: 20px">Edit</a></td>
+									<td class="column8"><a th:href="@{/lectures/{id}/delete(id=${lecture.getId()})}" style="padding-right: 20px">Delete</a></td>
 								</tr>
 								<tr>
 									<td class="column1"><a th:href="@{/lectures/new}">Add new</a></td>
