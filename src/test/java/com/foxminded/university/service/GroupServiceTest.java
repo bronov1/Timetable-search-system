@@ -18,6 +18,7 @@ public class GroupServiceTest {
     Group group;
     @Mock
     GroupDao groupDao;
+    @Spy
     @InjectMocks
     GroupService groupService;
     @Captor

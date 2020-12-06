@@ -17,6 +17,7 @@ public class ProfessorServiceTest {
     Professor professor;
     @Mock
     ProfessorDao professorDao;
+    @Spy
     @InjectMocks
     ProfessorService professorService;
     @Captor
