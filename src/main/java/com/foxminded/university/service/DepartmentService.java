@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DepartmentService {
 
@@ -21,6 +23,12 @@ public class DepartmentService {
         Department department = departmentDao.get(id);
         logger.info("Got department with {} form Database", id);
         return department;
+    }
+
+    public List<Department> getAllDepartments() {
+        List<Department> departments = departmentDao.getAll();
+        logger.info("Got all departments from Database");
+        return departments;
     }
 }
 

@@ -5,7 +5,6 @@ import com.foxminded.university.entity.Lecture;
 import com.foxminded.university.entity.Professor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -34,5 +33,21 @@ public class ProfessorService {
 
     public List<Professor> getAllProfessors() {
         return professorDao.getAll();
+    }
+
+    public void saveProfessor(Professor professor) {
+        professorDao.save(professor);
+        logger.info("Saved new professor");
+    }
+
+    public void updateProfessor(Professor professor) {
+        Object[] parameters = new Object[]{professor.getName(), professor.getDepartmentId()};
+        professorDao.update(professor, parameters);
+        logger.info("Updated professor with id - {}", professor.getId());
+    }
+
+    public void deleteProfessor(Professor professor) {
+        professorDao.delete(professor);
+        logger.info("Deleted professor with id - {}", professor.getId());
     }
 }

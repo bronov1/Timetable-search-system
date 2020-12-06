@@ -1,6 +1,7 @@
 package com.foxminded.university.service;
 
 import com.foxminded.university.dao.ProfessorDao;
+import com.foxminded.university.entity.Professor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +13,8 @@ import java.time.LocalDate;
 @ExtendWith(MockitoExtension.class)
 public class ProfessorServiceTest {
 
+    @Mock
+    Professor professor;
     @Mock
     ProfessorDao professorDao;
     @InjectMocks
@@ -45,5 +48,23 @@ public class ProfessorServiceTest {
         professorService.getProfessor(randomNumber);
         Mockito.verify(professorDao).get(intCaptor.capture());
         Assertions.assertEquals(randomNumber, intCaptor.getValue());
+    }
+
+    @Test
+    public void saveProfessor() {
+        professorService.saveProfessor(professor);
+        Mockito.verify(professorDao).save(professor);
+    }
+
+    @Test
+    public void updateProfessor() {
+        professorService.updateProfessor(professor);
+        Mockito.verify(professorService).updateProfessor(professor);
+    }
+
+    @Test
+    public void deleteProfessor() {
+        professorService.deleteProfessor(professor);
+        Mockito.verify(professorDao).delete(professor);
     }
 }

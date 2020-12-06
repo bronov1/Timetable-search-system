@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Professor</title>
+    <link rel="stylesheet" type="text/css" href="/css/formsStyle.css">
+</head>
+<body>
+
+<div class="limiter">
+    <div class="container-table100">
+        <div class="wrap-table100">
+            <form th:method="POST" th:action="@{/professors/{id}/update(id=${professor.getId()})}" th:object="${professor}">
+                <h2>Update Professor:</h2>
+                <div>
+                    <label for="professor">Write professor name:</label>
+                    <input id="professor" type="text" th:field="*{name}">
+                </div>
+                <br/>
+                <div>
+                    <label for="department">Choose Department:</label>
+                    <select type="text" th:field="*{departmentId}" id="department">
+                        <option th:each="department : ${departments}" th:value="${department.getId()}"
+                                th:text="${department.getName()}"></option>
+                    </select>
+                </div>
+                <br/>
+                <div>
+                    <input type="submit" value="Update!"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

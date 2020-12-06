@@ -25,4 +25,10 @@ public class DepartmentServiceTest {
         Mockito.verify(departmentDao).get(argCaptor.capture());
         Assertions.assertEquals(randomNumber, argCaptor.getValue());
     }
+
+    @Test
+    public void getAllDepartments() {
+        departmentService.getAllDepartments();
+        Mockito.verify(departmentDao).getAll();
+    }
 }

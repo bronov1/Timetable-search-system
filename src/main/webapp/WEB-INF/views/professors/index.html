@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Table V01</title>
+    <title>Professors</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -28,7 +28,8 @@
 <div class="limiter">
     <div class="container-table100">
         <div class="wrap-table100">
-            <div style="margin-left:410px;" class="hover"><span>Change Page</span><a class="social-link" href="http://localhost:8080/groups" target="_blank"><i>Groups</i></a><a class="social-link" href="http://localhost:8080/lectures" target="_blank"><i>Lectures</i></a><a class="social-link" href="http://localhost:8080/professors" target="_blank"><i>Professors</i></a><a class="social-link" href="http://localhost:8080/lectures/showScheduleForm" target="_blank"><i>Schedule</i></a></div>
+            <div style="margin-left:410px;" class="hover"><span>Change Page</span><a class="social-link" href="http://localhost:8080/groups" target="_blank"><i>Groups</i></a><a class="social-link" href="http://localhost:8080/lectures" target="_blank"><i>Lectures</i></a><a class="social-link" href="http://localhost:8080/professors" target="_blank"><i>Professors</i></a><a class="social-link" href="http://localhost:8080/lectures/showScheduleForm" target="_blank"><i>Schedule</i></a>
+            </div>
             <br/>
             <div class="table100">
                 <table>
@@ -36,14 +37,25 @@
                     <tr class="table100-head">
                         <th class="column1">Professor ID</th>
                         <th class="column3">Professor Name</th>
-                        <th class="column6">Professor's Department</th>
+                        <th class="column4">Professor's Department</th>
+                        <th class="column5">Edit</th>
+                        <th class="column6">Delete</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="professor : ${professors}">
                         <td class="column1" th:text="${professor.getId()}">Professor ID</td>
                         <td class="column3" th:text="${professor.getName()}">Professor Name</td>
-                        <td class="column6" th:text="${departmentService.getDepartment(professor.getDepartmentId()).getName()}">Professor's Department</td>
+                        <td class="column4"
+                            th:text="${departmentService.getDepartment(professor.getDepartmentId()).getName()}">
+                            Professor's Department
+                        </td>
+                        <td class="column5"><a th:href="@{/professors/{id}(id=${professor.getId()})}">Edit</a></td>
+                        <td class="column6"><a th:href="@{/professors/{id}/delete(id=${professor.getId()})}">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="column1"><a th:href="@{/professors/new}">Add new</a></td>
                     </tr>
                     </tbody>
                 </table>
