@@ -1,6 +1,8 @@
 package com.foxminded.university.service;
 
 import com.foxminded.university.dao.GroupDao;
+import com.foxminded.university.entity.Group;
+import com.foxminded.university.entity.Lecture;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +14,8 @@ import java.time.LocalDate;
 @ExtendWith(MockitoExtension.class)
 public class GroupServiceTest {
 
+    @Mock
+    Group group;
     @Mock
     GroupDao groupDao;
     @InjectMocks
@@ -45,5 +49,31 @@ public class GroupServiceTest {
         groupService.getGroupsOnLecture(randomNumber);
         Mockito.verify(groupDao).getGroupsOnLecture(intCaptor.capture());
         Assertions.assertEquals(randomNumber, intCaptor.getValue());
+    }
+
+    @Test
+    public void saveGroup() {
+        groupService.saveGroup(group);
+        Mockito.verify(groupDao).save(group);
+    }
+
+    @Test
+    public void getGroup() {
+        int randomNumber = ArgumentMatchers.anyInt();
+        groupService.getGroup(randomNumber);
+        Mockito.verify(groupDao).get(intCaptor.capture());
+        Assertions.assertEquals(randomNumber, intCaptor.getValue());
+    }
+
+    @Test
+    public void updateGroup() {
+        groupService.updateGroup(group);
+        Mockito.verify(groupService).updateGroup(group);
+    }
+
+    @Test
+    public void deleteGroup() {
+        groupService.deleteGroup(group);
+        Mockito.verify(groupDao).delete(group);
     }
 }

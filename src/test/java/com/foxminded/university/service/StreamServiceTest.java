@@ -1,11 +1,10 @@
 package com.foxminded.university.service;
 
 import com.foxminded.university.dao.StreamDao;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
@@ -15,10 +14,20 @@ public class StreamServiceTest {
     StreamDao streamDao;
     @InjectMocks
     StreamService streamService;
+    @Captor
+    ArgumentCaptor<Integer> argCaptor;
 
     @Test
     public void getStream() {
-        streamService.getStream(1);
-        Mockito.verify(streamDao).get(1);
+        int randomNumber = ArgumentMatchers.anyInt();
+        streamService.getStream(randomNumber);
+        Mockito.verify(streamDao).get(argCaptor.capture());
+        Assertions.assertEquals(randomNumber, argCaptor.getValue());
+    }
+
+    @Test
+    public void getAllStreams() {
+        streamService.getAllStreams();
+        Mockito.verify(streamDao).getAll();
     }
 }

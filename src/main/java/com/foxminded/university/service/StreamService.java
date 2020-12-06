@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StreamService {
 
@@ -21,5 +23,11 @@ public class StreamService {
         Stream stream = streamDao.get(id);
         logger.info("Got stream with {} form Database", id);
         return stream;
+    }
+
+    public List<Stream> getAllStreams() {
+        List<Stream> streams = streamDao.getAll();
+        logger.info("Got all streams from Database");
+        return streams;
     }
 }

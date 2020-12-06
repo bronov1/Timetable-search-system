@@ -35,14 +35,21 @@
                     <tr class="table100-head">
                         <th class="column1">Group ID</th>
                         <th class="column3">Group Name</th>
-                        <th class="column6">Stream</th>
+                        <th class="column4">Stream</th>
+                        <th class="column5">Edit</th>
+                        <th class="column6">Delete</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="group : ${groups}">
                         <td class="column1" th:text="${group.getId()}">Group ID</td>
                         <td class="column3" th:text="${group.getName()}">Group Name</td>
-                        <td class="column6" th:text="${streamService.getStream(group.getStreamId()).getName()}">Stream</td>
+                        <td class="column4" th:text="${streamService.getStream(group.getStreamId()).getName()}">Stream</td>
+                        <td class="column5"><a th:href="@{/groups/{id}(id=${group.getId()})}">Edit</a></td>
+                        <td class="column6"><a th:href="@{/groups/{id}/delete(id=${group.getId()})}">Delete</a></td>
+                    </tr>
+                    <tr>
+                        <td class="column1"><a th:href="@{/groups/new}">Add new</a></td>
                     </tr>
                     </tbody>
                 </table>

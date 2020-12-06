@@ -37,4 +37,26 @@ public class GroupService {
         logger.info("Got groups on lecture with id {} form Database", lectureId);
         return groups;
     }
+
+    public void saveGroup(Group group) {
+        groupDao.save(group);
+        logger.info("Saved new group");
+    }
+
+    public Group getGroup(int id) {
+        Group group = groupDao.get(id);
+        logger.info("Got group with id - {}", id);
+        return group;
+    }
+
+    public void updateGroup(Group group) {
+        Object[] parameters = new Object[]{group.getName(), group.getStreamId()};
+        groupDao.update(group, parameters);
+        logger.info("Updated group with id - {}", group.getId());
+    }
+
+    public void deleteGroup(Group group) {
+        groupDao.delete(group);
+        logger.info("Deleted group with id - {}", group.getId());
+    }
 }
