@@ -3,67 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit lecture</title>
+    <link rel="stylesheet" type="text/css" href="/css/formsStyle.css">
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/lectures/{id}/update(id=${lecture.getId()})}" th:object="${lecture}">
-    <h2>Update lecture:</h2>
-    <div>
-        <label for="subject">Choose subject: </label>
-        <select type="text" th:field="*{subjectId}" id="subject">
-            <option th:each="subject : ${subjects}" th:value="${subject.getId()}"
-                    th:text="${subject.getName()}"></option>
-        </select>
-    </div>
-    <br/>
-    <div>
-        <label for="professor">Choose professor: </label>
-        <select type="text" th:field="*{professorId}" id="professor">
-            <option th:each="professor : ${professors}" th:value="${professor.getId()}"
-                    th:text="${professor.getName()}"></option>
-        </select>
-    </div>
-    <br/>
-    <div>
-        <label for="classroom">Choose classroom: </label>
-        <select type="text" th:field="*{classroomId}" id="classroom">
-            <option th:each="classroom : ${classrooms}" th:value="${classroom.getId()}"
-                    th:text="${classroom.getNumber()}"></option>
-        </select>
-    </div>
-    <br/>
-    <div>
-        Choose groups for lecture:
-        <ul>
-            <li th:each="group : ${groups}">
-                <label th:for="${group.getId()}" th:text="${group.getName()}">Group</label>
-                <input type="checkbox" th:value="${group.getId()}" th:id="${group.getId()}" name="groups"/>
-            </li>
-        </ul>
-    </div>
-    <br/>
-    <div>
-        <label for="date">Choose date: </label>
-        <input type="date" th:field="*{date}" id="date"/>
-    </div>
-    <br/>
-    <div>
-        <label for="time">Choose time: </label>
-        <input type="time" th:field="*{time}" id="time"/>
-    </div>
-    <br/>
-    <div style="width: 63px; margin-right: 0">
-        <input type="submit" value="Update!"/>
-    </div>
-</form>
+<div class="limiter">
+    <div class="container-table100">
+        <div class="wrap-table100">
+            <form th:method="POST" th:action="@{/lectures/{id}/update(id=${lecture.getId()})}" th:object="${lecture}">
+                <h2>Update lecture:</h2>
+                <div>
+                    <label for="subject">Choose subject: </label>
+                    <select type="text" th:field="*{subjectId}" id="subject">
+                        <option th:each="subject : ${subjects}" th:value="${subject.getId()}"
+                                th:text="${subject.getName()}"></option>
+                    </select>
+                </div>
+                <br/>
+                <div>
+                    <label for="professor">Choose professor: </label>
+                    <select type="text" th:field="*{professorId}" id="professor">
+                        <option th:each="professor : ${professors}" th:value="${professor.getId()}"
+                                th:text="${professor.getName()}"></option>
+                    </select>
+                </div>
+                <br/>
+                <div>
+                    <label for="classroom">Choose classroom: </label>
+                    <select type="text" th:field="*{classroomId}" id="classroom">
+                        <option th:each="classroom : ${classrooms}" th:value="${classroom.getId()}"
+                                th:text="${classroom.getNumber()}"></option>
+                    </select>
+                </div>
+                <br/>
+                <div>
+                    Choose groups for lecture:
+                    <ul>
+                        <li th:each="group : ${groups}">
+                            <label th:for="${group.getId()}" th:text="${group.getName()}">Group</label>
+                            <input type="checkbox" th:value="${group.getId()}" th:id="${group.getId()}" name="groups"/>
+                        </li>
+                    </ul>
+                </div>
+                <br/>
+                <div>
+                    <label for="date">Choose date: </label>
+                    <input type="date" th:field="*{date}" id="date"/>
+                </div>
+                <br/>
+                <div>
+                    <label for="time">Choose time: </label>
+                    <input type="time" th:field="*{time}" id="time"/>
+                </div>
+                <br/>
+                <div style="width: 63px; margin-right: 0">
+                    <input type="submit" value="Update!"/>
+                </div>
+            </form>
 
-<br/>
+            <br/>
 
-<form th:method="POST" th:action="@{/lectures/{id}/delete(id=${lecture.getId()})}" th:object="${lecture}">
-    <div style="width: 63px; margin-right: 0">
-        <input style="width: 100%" type="submit" value="Delete!"/>
+            <form th:method="POST" th:action="@{/lectures/{id}/delete(id=${lecture.getId()})}" th:object="${lecture}">
+                <div style="width: 63px; margin-right: 0">
+                    <input style="width: 100%" type="submit" value="Delete!"/>
+                </div>
+            </form>
+        </div>
     </div>
-</form>
+</div>
 
 </body>
 </html>

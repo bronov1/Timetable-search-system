@@ -54,9 +54,12 @@ ul, li {
 
 /* ------------------------------------ */
 input {
+  border-color: #dbdbdb;
+  border-radius: 22px;
+  border-width: 1px;
   display: block;
-	outline: none;
-	border: none !important;
+  outline: none;
+  border: none !important;
 }
 
 textarea {
