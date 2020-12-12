@@ -1,5 +1,6 @@
 package com.foxminded.university.dao;
 
+import com.foxminded.university.entity.Group;
 import com.foxminded.university.entity.Student;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,6 +16,7 @@ public class StudentDao implements Dao<Student> {
     private static final String SAVE_STUDENT = "INSERT INTO STUDENTS (NAME, GROUPID) VALUES (?,?)";
     private static final String UPDATE_STUDENT = "UPDATE STUDENTS SET (NAME, GROUPID)  = (?, ?) WHERE ID = ?";
     private static final String DELETE_STUDENT = "DELETE FROM STUDENTS WHERE ID = ?";
+    private static final String DELETE_STUDENTS_FROM_GROUP = "DELETE FROM STUDENTS WHERE GROUPID = ?";
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -45,5 +47,9 @@ public class StudentDao implements Dao<Student> {
     @Override
     public void delete(Student student) {
         jdbcTemplate.update(DELETE_STUDENT, student.getId());
+    }
+
+    public void DeleteStudentsFromGroup(Group group) {
+        jdbcTemplate.update(DELETE_STUDENTS_FROM_GROUP, group.getId());
     }
 }

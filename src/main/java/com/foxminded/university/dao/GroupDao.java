@@ -2,7 +2,6 @@ package com.foxminded.university.dao;
 
 import com.foxminded.university.entity.Group;
 import com.foxminded.university.entity.Lecture;
-import com.foxminded.university.entity.LectureGroup;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -27,9 +26,13 @@ public class GroupDao implements Dao<Group>{
             "WHERE GROUPID = ? AND DATE BETWEEN ? AND ?";
 
     private final JdbcTemplate jdbcTemplate;
+    private final StudentDao studentDao;
+    private final LectureGroupDao lectureGroupDao;
 
-    public GroupDao(JdbcTemplate jdbcTemplate) {
+    public GroupDao(JdbcTemplate jdbcTemplate, StudentDao studentDao, LectureGroupDao lectureGroupDao) {
         this.jdbcTemplate = jdbcTemplate;
+        this.studentDao = studentDao;
+        this.lectureGroupDao = lectureGroupDao;
     }
 
     @Override
@@ -55,6 +58,8 @@ public class GroupDao implements Dao<Group>{
 
     @Override
     public void delete(Group group) {
+        studentDao.DeleteStudentsFromGroup(group);
+        lectureGroupDao.DeleteGroupFromLecture(group);
         jdbcTemplate.update(DELETE_GROUP, group.getId());
     }
 

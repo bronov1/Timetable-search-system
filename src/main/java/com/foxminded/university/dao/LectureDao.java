@@ -1,6 +1,7 @@
 package com.foxminded.university.dao;
 
 import com.foxminded.university.entity.Lecture;
+import com.foxminded.university.entity.Professor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -8,13 +9,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class LectureDao implements Dao<Lecture>{
+public class LectureDao implements Dao<Lecture> {
 
     private static final String GET_LECTURE = "SELECT * FROM LECTURES WHERE ID = ?";
     private static final String GET_ALL_LECTURES = "SELECT * FROM LECTURES";
     private static final String SAVE_LECTURE = "INSERT INTO LECTURES (SUBJECTID, PROFESSORID, DATE, TIME, CLASSROOMID) VALUES (?, ?, ?, ?, ?)";
     private static final String UPDATE_LECTURE = "UPDATE LECTURES SET (SUBJECTID, PROFESSORID, DATE, TIME, CLASSROOMID)  = (?, ?, ?, ?, ?) WHERE ID = ?";
     private static final String DELETE_LECTURE = "DELETE FROM LECTURES WHERE ID = ?";
+    private static final String GET_ALL_LECTURES_WITH_PROFESSOR = "SELECT * FROM LECTURES WHERE PROFESSORID = ?";
 
     private final JdbcTemplate jdbcTemplate;
     private final LectureGroupDao lectureGroupDao;
@@ -46,7 +48,18 @@ public class LectureDao implements Dao<Lecture>{
 
     @Override
     public void delete(Lecture lecture) {
-        lectureGroupDao.deleteGroupsFromLecture(lecture);
+        lectureGroupDao.deleteLectureForGroups(lecture);
         jdbcTemplate.update(DELETE_LECTURE, lecture.getId());
+    }
+
+    public void DeleteLecturesWithProfessor(Professor professor) {
+        List<Lecture> lecturesWithProfessor = getAllLecturesWithProfessor(professor);
+        for (Lecture lecture : lecturesWithProfessor) {
+            delete(lecture);
+        }
+    }
+
+    public List<Lecture> getAllLecturesWithProfessor(Professor professor) {
+        return jdbcTemplate.query(GET_ALL_LECTURES_WITH_PROFESSOR, new BeanPropertyRowMapper<>(Lecture.class), professor.getId());
     }
 }

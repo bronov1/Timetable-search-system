@@ -21,9 +21,11 @@ public class ProfessorDao implements Dao<Professor>{
             "WHERE PROFESSORID = ? AND DATE BETWEEN ? AND ?";
 
     private final JdbcTemplate jdbcTemplate;
+    private final LectureDao lectureDao;
 
-    public ProfessorDao(JdbcTemplate jdbcTemplate) {
+    public ProfessorDao(JdbcTemplate jdbcTemplate, LectureDao lectureDao) {
         this.jdbcTemplate = jdbcTemplate;
+        this.lectureDao = lectureDao;
     }
 
     @Override
@@ -48,6 +50,7 @@ public class ProfessorDao implements Dao<Professor>{
 
     @Override
     public void delete(Professor professor) {
+        lectureDao.DeleteLecturesWithProfessor(professor);
         jdbcTemplate.update(DELETE_PROFESSOR, professor.getId());
     }
 

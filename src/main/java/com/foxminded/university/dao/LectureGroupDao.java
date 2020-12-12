@@ -1,5 +1,6 @@
 package com.foxminded.university.dao;
 
+import com.foxminded.university.entity.Group;
 import com.foxminded.university.entity.Lecture;
 import com.foxminded.university.entity.LectureGroup;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -17,6 +18,7 @@ public class LectureGroupDao implements Dao<LectureGroup> {
     private static final String UPDATE_LECTURE_GROUP = "UPDATE LECTUREGROUPS SET (LECTUREID, GROUPID)  = (?, ?) WHERE ID = ?";
     private static final String DELETE_LECTURE_GROUP = "DELETE FROM LECTUREGROUPS WHERE ID = ?";
     private static final String DELETE_LECTURE_FOR_GROUPS = "DELETE FROM LECTUREGROUPS WHERE LECTUREID = ?";
+    private static final String DELETE_GROUP_FROM_LECTURE = "DELETE FROM LECTUREGROUPS WHERE GROUPID = ?";
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -49,7 +51,11 @@ public class LectureGroupDao implements Dao<LectureGroup> {
         jdbcTemplate.update(DELETE_LECTURE_GROUP, lectureGroup.getId());
     }
 
-    public void deleteGroupsFromLecture(Lecture lecture) {
+    public void deleteLectureForGroups(Lecture lecture) {
         jdbcTemplate.update(DELETE_LECTURE_FOR_GROUPS, lecture.getId());
+    }
+
+    public void DeleteGroupFromLecture(Group group) {
+        jdbcTemplate.update(DELETE_GROUP_FROM_LECTURE, group.getId());
     }
 }
