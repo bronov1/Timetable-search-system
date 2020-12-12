@@ -52,7 +52,7 @@ public class LectureController {
     }
 
     @GetMapping("/{id}")
-    public String edit(Model model, @PathVariable("id") int id, @ModelAttribute("lectureGroup") LectureGroup lectureGroup) {
+    public String edit(Model model, @PathVariable("id") int id) {
         model.addAttribute("lecture", lectureService.getLecture(id));
         model.addAttribute("subjects", subjectService.getAllSubjects());
         model.addAttribute("professors", professorService.getAllProfessors());
@@ -91,12 +91,20 @@ public class LectureController {
         model.addAttribute("subjects", subjectService.getAllSubjects());
         model.addAttribute("professors", professorService.getAllProfessors());
         model.addAttribute("classrooms", classroomService.getAllClassrooms());
+        model.addAttribute("groups", groupService.getAllGroups());
         return "lectures/new";
     }
 
     @PostMapping("/new")
-    public String create(@ModelAttribute("lecture") Lecture lecture) {
+    public String create(@ModelAttribute("lectureGroup") LectureGroup lectureGroup, @ModelAttribute("lecture") Lecture lecture, @RequestParam("groups") int[] groups) {
         lectureService.save(lecture);
+        List<Lecture> lectures = lectureService.getAllLectures();
+        Lecture lastLecture = lectures.get(lectures.size() - 1);
+        lectureGroup.setLectureId(lastLecture.getId());
+        for (int groupId : groups) {
+            lectureGroup.setGroupId(groupId);
+            lectureGroupService.save(lectureGroup);
+        }
         return "redirect:/lectures";
     }
 

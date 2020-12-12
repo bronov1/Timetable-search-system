@@ -37,13 +37,11 @@
                 </div>
                 <br/>
                 <div>
-                    Choose groups for lecture:
-                    <ul>
-                        <li th:each="group : ${groups}">
-                            <label th:for="${group.getId()}" th:text="${group.getName()}">Group</label>
-                            <input type="checkbox" th:value="${group.getId()}" th:id="${group.getId()}" name="groups"/>
-                        </li>
-                    </ul>
+                    <div>Choose groups for lecture: </div>
+                    <br/>
+                    <select class="groupSelector" multiple="multiple" size="5" name="groups">
+                        <option th:each="group : ${groups}" th:value="${group.getId()}" th:text="${group.getName()}"></option>
+                    </select>
                 </div>
                 <br/>
                 <div>
@@ -60,14 +58,7 @@
                     <input type="submit" value="Update!"/>
                 </div>
             </form>
-
-            <br/>
-
-            <form th:method="POST" th:action="@{/lectures/{id}/delete(id=${lecture.getId()})}" th:object="${lecture}">
-                <div style="width: 63px; margin-right: 0">
-                    <input style="width: 100%" type="submit" value="Delete!"/>
-                </div>
-            </form>
+        </div>
         </div>
     </div>
 </div>

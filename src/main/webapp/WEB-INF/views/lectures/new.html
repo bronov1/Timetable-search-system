@@ -36,6 +36,14 @@
                 </div>
                 <br/>
                 <div>
+                    <div>Choose groups for lecture: </div>
+                    <br/>
+                    <select class="groupSelector" multiple="multiple" size="5" name="groups">
+                        <option th:each="group : ${groups}" th:value="${group.getId()}" th:text="${group.getName()}"></option>
+                    </select>
+                </div>
+                <br/>
+                <div>
                     <label for="date">Choose date: </label>
                     <input type="date" th:field="*{date}" id="date"/>
                 </div>
