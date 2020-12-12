@@ -1,6 +1,7 @@
 package com.foxminded.university.service;
 
 import com.foxminded.university.dao.LectureGroupDao;
+import com.foxminded.university.entity.Lecture;
 import com.foxminded.university.entity.LectureGroup;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +14,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 public class LectureGroupServiceTest {
 
     @Mock
+    Lecture lecture;
+    @Mock
     LectureGroup lectureGroup;
     @Mock
     LectureGroupDao lectureGroupDao;
@@ -23,5 +26,11 @@ public class LectureGroupServiceTest {
     public void save() {
         lectureGroupService.save(lectureGroup);
         Mockito.verify(lectureGroupDao).save(lectureGroup);
+    }
+
+    @Test
+    public void deleteGroupsFromLecture() {
+        lectureGroupService.deleteGroupsFromLecture(lecture);
+        Mockito.verify(lectureGroupDao).deleteGroupsFromLecture(lecture);
     }
 }

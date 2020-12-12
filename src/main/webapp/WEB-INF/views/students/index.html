@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Choose a page</title>
+    <title>Students</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/buttonStyle.css">
-    <script src="/webjars/font-awesome/5.15.1/all.min.css"></script>
+
     <!--===============================================================================================-->
 </head>
 <body>
@@ -28,10 +28,41 @@
 <div class="limiter">
     <div class="container-table100">
         <div class="wrap-table100">
-            <div style="margin-left:410px;" class="hover"><span>Change Page</span><a class="social-link" href="http://localhost:8080/groups" target="_blank"><i>Groups</i></a><a class="social-link" href="http://localhost:8080/lectures" target="_blank"><i>Lectures</i></a><a class="social-link" href="http://localhost:8080/professors" target="_blank"><i>Professors</i></a><a class="social-link" href="http://localhost:8080/students" target="_blank"><i>Students</i></a></div>
+            <div style="margin-left:410px;" class="hover"><span>Change Page</span><a class="social-link" href="http://localhost:8080/groups" target="_blank"><i>Groups</i></a><a class="social-link" href="http://localhost:8080/lectures" target="_blank"><i>Lectures</i></a><a class="social-link" href="http://localhost:8080/professors" target="_blank"><i>Professors</i></a><a class="social-link" href="http://localhost:8080/lectures/showScheduleForm" target="_blank"><i>Schedule</i></a></div>
+            <br/>
+            <div class="table100">
+                <table>
+                    <thead>
+                    <tr class="table100-head">
+                        <th class="column1">Student ID</th>
+                        <th class="column3">Student Name</th>
+                        <th class="column4">Student's Group</th>
+                        <th class="column5">Edit</th>
+                        <th class="column6">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="student : ${students}">
+                        <td class="column1" th:text="${student.getId()}">Student ID</td>
+                        <td class="column3" th:text="${student.getName()}">Student Name</td>
+                        <td class="column4"
+                            th:text="${groupService.getGroup(student.getGroupId()).getName()}">
+                            Student's Group
+                        </td>
+                        <td class="column5"><a th:href="@{/students/{id}(id=${student.getId()})}">Edit</a></td>
+                        <td class="column6"><a th:href="@{/students/{id}/delete(id=${student.getId()})}">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="column1"><a th:href="@{/students/new}">Add new</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
+
 
 <!--===============================================================================================-->
 <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
