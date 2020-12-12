@@ -3,6 +3,7 @@ package com.foxminded.university.controller;
 import com.foxminded.university.entity.Group;
 import com.foxminded.university.entity.Lecture;
 import com.foxminded.university.entity.LectureGroup;
+import com.foxminded.university.entity.Professor;
 import com.foxminded.university.service.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,7 @@ public class LectureController {
     private final ClassroomService classroomService;
     private final GroupService groupService;
     private final LectureGroupService lectureGroupService;
-    private List<Lecture> lecturesForGroup = new ArrayList<>();
+    private List<Lecture> scheduleLectures = new ArrayList<>();
     private boolean scheduleStatus = false;
 
     public LectureController(LectureService lectureService, SubjectService subjectService, ProfessorService professorService, ClassroomService classroomService, GroupService groupService, LectureGroupService lectureGroupService) {
@@ -38,7 +39,7 @@ public class LectureController {
     @GetMapping()
     public String showAll(Model model) {
         if (scheduleStatus) {
-            model.addAttribute("lectures", lecturesForGroup);
+            model.addAttribute("lectures", scheduleLectures);
         }
         else {
             model.addAttribute("lectures", lectureService.getAllLectures());
@@ -109,14 +110,22 @@ public class LectureController {
     }
 
     @GetMapping("/showScheduleForm")
-    public String showScheduleForm(Model model, @ModelAttribute("group") Group group) {
+    public String showScheduleForm(Model model, @ModelAttribute("group") Group group,  @ModelAttribute("professor") Professor professor) {
         model.addAttribute("groups", groupService.getAllGroups());
+        model.addAttribute("professors", professorService.getAllProfessors());
         return "lectures/schedule";
     }
 
-    @PostMapping("/chooseSchedule")
-    public String chooseSchedule(@ModelAttribute("group") Group group, @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate, @RequestParam("finishDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate finishDate) {
-        lecturesForGroup = groupService.getGroupSchedule(group.getId(), startDate, finishDate);
+    @PostMapping("/chooseGroupSchedule")
+    public String chooseGroupSchedule(@ModelAttribute("group") Group group, @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate, @RequestParam("finishDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate finishDate) {
+        scheduleLectures = groupService.getGroupSchedule(group.getId(), startDate, finishDate);
+        scheduleStatus = true;
+        return "redirect:/lectures";
+    }
+
+    @PostMapping("/chooseProfessorSchedule")
+    public String chooseProfessorSchedule(@ModelAttribute("professor") Professor professor, @RequestParam("professorStartDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate, @RequestParam("professorFinishDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate finishDate) {
+        scheduleLectures = professorService.getProfessorSchedule(professor.getId(), startDate, finishDate);
         scheduleStatus = true;
         return "redirect:/lectures";
     }

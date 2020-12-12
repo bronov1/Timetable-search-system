@@ -10,7 +10,8 @@
 <div class="limiter">
     <div class="container-table100">
         <div class="wrap-table100">
-            <form th:method="POST" th:action="@{/lectures/chooseSchedule}" th:object="${group}">
+            <nobr>
+            <form th:method="POST" th:action="@{/lectures/chooseGroupSchedule}" th:object="${group}">
                 <h2>Get Group Schedule:</h2>
                 <div>
                     <label for="groupId">Choose your group: </label>
@@ -34,6 +35,32 @@
                     <input type="submit" value="Get Schedule!"/>
                 </div>
             </form>
+
+            <form th:method="POST" th:action="@{/lectures/chooseProfessorSchedule}" th:object="${professor}">
+                <h2>Get Professor Schedule:</h2>
+                <div>
+                    <label for="professorId">Choose your name: </label>
+                    <select type="text" th:field="*{id}" id="professorId">
+                        <option th:each="professor : ${professors}" th:value="${professor.getId()}"
+                                th:text="${professor.getName()}"></option>
+                    </select>
+                </div>
+                <br/>
+                <div>
+                    <label for="startDate">Enter beginning date: </label>
+                    <input type="date" name="professorStartDate" id="professorStartDate"/>
+                </div>
+                <br/>
+                <div>
+                    <label for="finishDate">Enter finish date: </label>
+                    <input type="date" name="professorFinishDate" id="professorFinishDate"/>
+                </div>
+                <br/>
+                <div>
+                    <input type="submit" value="Get Schedule!"/>
+                </div>
+            </form>
+            </nobr>
         </div>
     </div>
 </div>
