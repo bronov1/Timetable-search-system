@@ -63,7 +63,7 @@ public class LectureController {
     }
 
     @PostMapping("/{id}/update")
-    public String update(@ModelAttribute("lectureGroup") LectureGroup lectureGroup, @ModelAttribute("lecture") Lecture lecture, @RequestParam("groups") int[] groups) {
+    public String updateLecture(@ModelAttribute("lectureGroup") LectureGroup lectureGroup, @ModelAttribute("lecture") Lecture lecture, @RequestParam("groups") int[] groups) {
         lectureGroupService.deleteGroupsFromLecture(lecture);
         lectureGroup.setLectureId(lecture.getId());
         for (int groupId : groups) {
@@ -81,14 +81,8 @@ public class LectureController {
         return "redirect:/lectures";
     }
 
-    @PostMapping("/{id}/delete")
-    public String delete(@ModelAttribute("lecture") Lecture lecture) {
-        lectureService.delete(lecture);
-        return "redirect:/lectures";
-    }
-
     @GetMapping("/new")
-    public String showForms(Model model, @ModelAttribute("lecture") Lecture lecture) {
+    public String showAddingForm(Model model, @ModelAttribute("lecture") Lecture lecture) {
         model.addAttribute("subjects", subjectService.getAllSubjects());
         model.addAttribute("professors", professorService.getAllProfessors());
         model.addAttribute("classrooms", classroomService.getAllClassrooms());
@@ -97,7 +91,7 @@ public class LectureController {
     }
 
     @PostMapping("/new")
-    public String create(@ModelAttribute("lectureGroup") LectureGroup lectureGroup, @ModelAttribute("lecture") Lecture lecture, @RequestParam("groups") int[] groups) {
+    public String saveNewLecture(@ModelAttribute("lectureGroup") LectureGroup lectureGroup, @ModelAttribute("lecture") Lecture lecture, @RequestParam("groups") int[] groups) {
         lectureService.save(lecture);
         List<Lecture> lectures = lectureService.getAllLectures();
         Lecture lastLecture = lectures.get(lectures.size() - 1);
