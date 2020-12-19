@@ -14,15 +14,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan("com.foxminded.university")
-@PropertySource("classpath:db.properties")
 public class SpringJDBCConfig {
-
-    @Value("${db.url}")
-    private String dbURL;
-    @Value("${db.login}")
-    private String dbUser;
-    @Value("${db.password}")
-    private String userPassword;
 
     @Bean
     public DataSource dataSource() throws NamingException {
