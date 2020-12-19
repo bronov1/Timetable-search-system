@@ -7,7 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jndi.JndiTemplate;
 
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 @Configuration
@@ -23,17 +25,13 @@ public class SpringJDBCConfig {
     private String userPassword;
 
     @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl(dbURL);
-        dataSource.setUsername(dbUser);
-        dataSource.setPassword(userPassword);
-        return dataSource;
+    public DataSource dataSource() throws NamingException {
+        JndiTemplate jndiTemplate = new JndiTemplate();
+        return (DataSource) jndiTemplate.lookup("java:comp/env/jdbc/UsersDB");
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate()  {
+    public JdbcTemplate jdbcTemplate() throws NamingException {
         return new JdbcTemplate(dataSource());
     }
 
