@@ -1,10 +1,16 @@
 package com.foxminded.university.entity;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@MappedSuperclass
 public class Person {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+    @Column(name = "name")
     String name;
 
     public Person(String name) {

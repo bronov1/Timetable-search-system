@@ -1,10 +1,13 @@
 package com.foxminded.university.entity;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "students")
 public class Student extends Person {
 
-    private int id;
+    @Column(name = "groupId")
     private int groupId;
 
     public Student(String name, int groupId) {
@@ -18,12 +21,12 @@ public class Student extends Person {
 
     @Override
     public void setId(int id) {
-        this.id = id;
+        super.setId(id);
     }
 
     @Override
     public int getId() {
-        return id;
+        return super.getId();
     }
 
     @Override
@@ -50,19 +53,18 @@ public class Student extends Person {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Student student = (Student) o;
-        return id == student.id &&
-                groupId == student.groupId;
+        return groupId == student.groupId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id, groupId);
+        return Objects.hash(super.hashCode(), super.getId(), groupId);
     }
 
     @Override
     public String toString() {
         return "Student{" +
-                "id=" + id +
+                "id=" + super.getId() +
                 ", groupId=" + groupId +
                 '}';
     }
