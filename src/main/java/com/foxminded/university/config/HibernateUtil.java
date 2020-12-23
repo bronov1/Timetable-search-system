@@ -1,43 +1,46 @@
 package com.foxminded.university.config;
 
+import com.foxminded.university.entity.Student;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.cfg.Environment;
+import org.hibernate.service.ServiceRegistry;
+
+import java.util.Properties;
 
 public class HibernateUtil {
-    private static StandardServiceRegistry registry;
+
     private static SessionFactory sessionFactory;
 
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
-                // Create registry
-                registry = new StandardServiceRegistryBuilder().configure().build();
+                Configuration configuration = new Configuration();
 
-                // Create MetadataSources
-                MetadataSources sources = new MetadataSources(registry);
+                Properties settings = new Properties();
+                settings.put(Environment.DRIVER, "org.postgresql.Driver");
+                settings.put(Environment.URL, "jdbc:postgresql://127.0.0.1:5432/university");
+                settings.put(Environment.USER, "maintainer");
+                settings.put(Environment.PASS, "12345678");
+                settings.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQL92Dialect");
 
-                // Create Metadata
-                Metadata metadata = sources.getMetadataBuilder().build();
+                settings.put(Environment.SHOW_SQL, "true");
+                settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
+                settings.put(Environment.HBM2DDL_AUTO, "create-drop");
 
-                // Create SessionFactory
-                sessionFactory = metadata.getSessionFactoryBuilder().build();
+                configuration.setProperties(settings);
 
+                configuration.addAnnotatedClass(Student.class);
+
+                ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+                        .applySettings(configuration.getProperties()).build();
+
+                sessionFactory = configuration.buildSessionFactory(serviceRegistry);
             } catch (Exception e) {
                 e.printStackTrace();
-                if (registry != null) {
-                    StandardServiceRegistryBuilder.destroy(registry);
-                }
             }
         }
         return sessionFactory;
-    }
-
-    public static void shutdown() {
-        if (registry != null) {
-            StandardServiceRegistryBuilder.destroy(registry);
-        }
     }
 }

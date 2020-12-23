@@ -27,7 +27,7 @@ public class DataGenerator {
 
     @PostConstruct
     public void createTables() {
-        Student student1 = new Student("Loh", 2);
+        Student student1 = new Student("XXX", 2);
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
