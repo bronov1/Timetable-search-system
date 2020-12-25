@@ -2,9 +2,13 @@ package com.foxminded.university.dao;
 
 import com.foxminded.university.entity.Group;
 import com.foxminded.university.entity.Student;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
@@ -19,34 +23,60 @@ public class StudentDao implements Dao<Student> {
     private static final String DELETE_STUDENTS_FROM_GROUP = "DELETE FROM STUDENTS WHERE GROUPID = ?";
 
     private final JdbcTemplate jdbcTemplate;
+    private final SessionFactory sessionFactory;
 
-    public StudentDao(JdbcTemplate jdbcTemplate) {
+    public StudentDao(JdbcTemplate jdbcTemplate, SessionFactory sessionFactory) {
         this.jdbcTemplate = jdbcTemplate;
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
     public Student get(int id) {
-        return jdbcTemplate.queryForObject(GET_STUDENT, new Object[]{id}, new BeanPropertyRowMapper<>(Student.class));
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            Student student = session.get(Student.class, id);
+            transaction.commit();
+            return student;
+        }
     }
 
     @Override
     public List<Student> getAll() {
-        return jdbcTemplate.query(GET_ALL_STUDENTS, new BeanPropertyRowMapper<>(Student.class));
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            List<Student> students = session.createQuery("from Student", Student.class).list();
+            transaction.commit();
+            return students;
+        }
     }
 
     @Override
     public void save(Student student) {
-        jdbcTemplate.update(SAVE_STUDENT, student.getName(), student.getGroupId());
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.save(student);
+            transaction.commit();
+        }
     }
 
     @Override
     public void update(Student student, Object[] params) {
-        jdbcTemplate.update(UPDATE_STUDENT, params[0], params[1], student.getId());
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            student.setName((String) params[0]);
+            student.setGroupId((Integer) params[1]);
+            session.saveOrUpdate(student);
+            transaction.commit();
+        }
     }
 
     @Override
     public void delete(Student student) {
-        jdbcTemplate.update(DELETE_STUDENT, student.getId());
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.delete(student);
+            transaction.commit();
+        }
     }
 
     public void DeleteStudentsFromGroup(Group group) {
