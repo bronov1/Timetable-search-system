@@ -1,11 +1,19 @@
 package com.foxminded.university.entity;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "lecturegroups")
 public class LectureGroup {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+    @Column(name = "lectureId")
     private int lectureId;
+    @Column(name = "groupId")
     private int groupId;
 
     public LectureGroup(int lectureId, int groupId) {

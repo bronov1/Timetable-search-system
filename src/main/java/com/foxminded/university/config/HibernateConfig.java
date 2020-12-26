@@ -1,6 +1,6 @@
 package com.foxminded.university.config;
 
-import com.foxminded.university.entity.Student;
+import com.foxminded.university.entity.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -17,10 +17,24 @@ public class HibernateConfig {
     @Bean
     public SessionFactory sessionFactory() {
         Configuration configuration = configuration();
-        configuration.addAnnotatedClass(Student.class);
+        addAnnotatedClasses(configuration);
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties()).build();
         return configuration.buildSessionFactory(serviceRegistry);
+    }
+
+    private void addAnnotatedClasses(Configuration configuration) {
+        configuration.addAnnotatedClass(Student.class);
+        configuration.addAnnotatedClass(Building.class);
+        configuration.addAnnotatedClass(Classroom.class);
+        configuration.addAnnotatedClass(Department.class);
+        configuration.addAnnotatedClass(Floor.class);
+        configuration.addAnnotatedClass(Group.class);
+        configuration.addAnnotatedClass(Lecture.class);
+        configuration.addAnnotatedClass(LectureGroup.class);
+        configuration.addAnnotatedClass(Professor.class);
+        configuration.addAnnotatedClass(Stream.class);
+        configuration.addAnnotatedClass(Subject.class);
     }
 
     @Bean

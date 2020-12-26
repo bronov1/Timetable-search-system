@@ -3,20 +3,31 @@ package com.foxminded.university.entity;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
+@Entity
+@Table(name = "lectures")
 public class Lecture {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+    @Column(name = "subjectId")
     private int subjectId;
+    @Column(name = "professorId")
     private int professorId;
+    @Column(name = "date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
+    @Column(name = "time")
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime time;
+    @Column(name = "classroomId")
     private int classroomId;
 
     public Lecture(int subjectId, int professorId, LocalDate date, LocalTime time, int classroomId) {
