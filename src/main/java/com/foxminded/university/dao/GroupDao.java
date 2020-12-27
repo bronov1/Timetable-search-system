@@ -2,8 +2,11 @@ package com.foxminded.university.dao;
 
 import com.foxminded.university.entity.Group;
 import com.foxminded.university.entity.Lecture;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -12,62 +15,98 @@ import java.util.List;
 @Repository
 public class GroupDao implements Dao<Group>{
 
-    private static final String GET_GROUP = "SELECT * FROM GROUPS WHERE ID = ?";
-    private static final String GET_ALL_GROUPS = "SELECT * FROM GROUPS";
-    private static final String SAVE_GROUP = "INSERT INTO GROUPS (NAME, STREAMID) VALUES (?,?)";
-    private static final String UPDATE_GROUP = "UPDATE GROUPS SET (NAME, STREAMID)  = (?, ?) WHERE ID = ?";
-    private static final String DELETE_GROUP = "DELETE FROM GROUPS WHERE ID = ?";
-    private static final String GET_ALL_GROUPS_FOR_LECTURE = "SELECT * FROM GROUPS " +
-            "INNER JOIN LECTUREGROUPS ON GROUPS.ID = LECTUREGROUPS.GROUPID " +
-            "WHERE LECTUREID = ?";
-    private static final String GET_GROUP_PERIOD_SCHEDULE = "SELECT * FROM GROUPS " +
-            "INNER JOIN LECTUREGROUPS ON GROUPS.ID = LECTUREGROUPS.GROUPID " +
-            "INNER JOIN LECTURES ON LECTURES.ID = LECTUREGROUPS.LECTUREID " +
-            "WHERE GROUPID = ? AND DATE BETWEEN ? AND ?";
+    private static final String GET_ALL_GROUPS = "FROM Group";
+    private static final String GET_ALL_GROUPS_FOR_LECTURE = "SELECT g FROM Group g, LectureGroup lg " +
+            "WHERE g.id = lg.groupId AND lg.lectureId = :lectureId";
+    private static final String GET_GROUP_PERIOD_SCHEDULE = "SELECT * FROM GROUPS AS g " +
+            "INNER JOIN LECTUREGROUPS AS lg ON g.ID = lg.GROUPID " +
+            "INNER JOIN LECTURES AS l ON l.ID = lg.LECTUREID " +
+            "WHERE GROUPID = :groupId AND DATE BETWEEN :startDate AND :finishDate";
 
-    private final JdbcTemplate jdbcTemplate;
     private final StudentDao studentDao;
     private final LectureGroupDao lectureGroupDao;
+    private final SessionFactory sessionFactory;
 
-    public GroupDao(JdbcTemplate jdbcTemplate, StudentDao studentDao, LectureGroupDao lectureGroupDao) {
-        this.jdbcTemplate = jdbcTemplate;
+    public GroupDao(StudentDao studentDao, LectureGroupDao lectureGroupDao, SessionFactory sessionFactory) {
         this.studentDao = studentDao;
         this.lectureGroupDao = lectureGroupDao;
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
     public Group get(int id) {
-        return jdbcTemplate.queryForObject(GET_GROUP, new Object[]{id}, new BeanPropertyRowMapper<>(Group.class));
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            Group group = session.get(Group.class, id);
+            transaction.commit();
+            return group;
+        }
     }
 
     @Override
     public List<Group> getAll() {
-        return jdbcTemplate.query(GET_ALL_GROUPS, new BeanPropertyRowMapper<>(Group.class));
-
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            List<Group> groups = session.createQuery(GET_ALL_GROUPS, Group.class).list();
+            transaction.commit();
+            return groups;
+        }
     }
 
     @Override
     public void save(Group group) {
-        jdbcTemplate.update(SAVE_GROUP, group.getName(), group.getStreamId());
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.save(group);
+            transaction.commit();
+        }
     }
 
     @Override
     public void update(Group group, Object[] params) {
-        jdbcTemplate.update(UPDATE_GROUP, params[0], params[1], group.getId());
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            group.setName((String) params[0]);
+            group.setStreamId((Integer) params[1]);
+            session.saveOrUpdate(group);
+            transaction.commit();
+        }
     }
 
     @Override
     public void delete(Group group) {
-        studentDao.DeleteStudentsFromGroup(group);
-        lectureGroupDao.DeleteGroupFromLecture(group);
-        jdbcTemplate.update(DELETE_GROUP, group.getId());
+        try (Session session = sessionFactory.openSession()) {
+            studentDao.DeleteStudentsFromGroup(group);
+            lectureGroupDao.DeleteGroupFromLecture(group);
+            Transaction transaction = session.beginTransaction();
+            session.delete(group);
+            transaction.commit();
+        }
     }
 
+    //TODO: Fix this method
     public List<Lecture> getGroupPeriodLectures(int groupId, LocalDate startDate, LocalDate finishDate) {
-        return jdbcTemplate.query(GET_GROUP_PERIOD_SCHEDULE, new BeanPropertyRowMapper<>(Lecture.class), groupId, startDate, finishDate);
+//        try (Session session = sessionFactory.openSession()) {
+//            Transaction transaction = session.beginTransaction();
+//            NativeQuery<Lecture> query = session.createSQLQuery(GET_GROUP_PERIOD_SCHEDULE);
+//            query.setParameter("groupId", groupId);
+//            query.setParameter("startDate", startDate);
+//            query.setParameter("finishDate", finishDate);
+//            List<Lecture> groupPeriodLectures = query.list();
+//            transaction.commit();
+//            return groupPeriodLectures;
+//        }
+        return null;
     }
 
     public List<Group> getGroupsOnLecture(int lectureId) {
-        return jdbcTemplate.query(GET_ALL_GROUPS_FOR_LECTURE, new BeanPropertyRowMapper<>(Group.class), lectureId);
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            Query<Group> query = session.createQuery(GET_ALL_GROUPS_FOR_LECTURE, Group.class);
+            query.setParameter("lectureId", lectureId);
+            List<Group> groupsOnLecture = query.list();
+            transaction.commit();
+            return groupsOnLecture;
+        }
     }
 }

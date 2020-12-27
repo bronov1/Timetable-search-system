@@ -5,28 +5,21 @@ import com.foxminded.university.entity.Student;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 
+import javax.persistence.Query;
 import java.util.List;
 
 @Repository
 public class StudentDao implements Dao<Student> {
 
-    private static final String GET_STUDENT = "SELECT * FROM STUDENTS WHERE ID = ?";
-    private static final String GET_ALL_STUDENTS = "SELECT * FROM STUDENTS";
-    private static final String SAVE_STUDENT = "INSERT INTO STUDENTS (NAME, GROUPID) VALUES (?,?)";
-    private static final String UPDATE_STUDENT = "UPDATE STUDENTS SET (NAME, GROUPID)  = (?, ?) WHERE ID = ?";
-    private static final String DELETE_STUDENT = "DELETE FROM STUDENTS WHERE ID = ?";
-    private static final String DELETE_STUDENTS_FROM_GROUP = "DELETE FROM STUDENTS WHERE GROUPID = ?";
+    private static final String DELETE_STUDENTS_FROM_GROUP = "DELETE Student WHERE groupId = :id";
+    private static final String GET_ALL_STUDENTS = "FROM Student";
 
-    private final JdbcTemplate jdbcTemplate;
     private final SessionFactory sessionFactory;
 
-    public StudentDao(JdbcTemplate jdbcTemplate, SessionFactory sessionFactory) {
-        this.jdbcTemplate = jdbcTemplate;
+    public StudentDao(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -44,7 +37,7 @@ public class StudentDao implements Dao<Student> {
     public List<Student> getAll() {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            List<Student> students = session.createQuery("from Student", Student.class).list();
+            List<Student> students = session.createQuery(GET_ALL_STUDENTS, Student.class).list();
             transaction.commit();
             return students;
         }
@@ -80,6 +73,12 @@ public class StudentDao implements Dao<Student> {
     }
 
     public void DeleteStudentsFromGroup(Group group) {
-        jdbcTemplate.update(DELETE_STUDENTS_FROM_GROUP, group.getId());
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            Query query = session.createQuery(DELETE_STUDENTS_FROM_GROUP);
+            query.setParameter("id", group.getId());
+            query.executeUpdate();
+            transaction.commit();
+        }
     }
 }

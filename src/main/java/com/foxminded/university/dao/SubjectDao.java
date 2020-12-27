@@ -2,8 +2,9 @@ package com.foxminded.university.dao;
 
 
 import com.foxminded.university.entity.Subject;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,41 +12,60 @@ import java.util.List;
 @Repository
 public class SubjectDao implements Dao<Subject> {
 
-    private static final String GET_SUBJECT = "SELECT * FROM SUBJECTS WHERE ID = ?";
-    private static final String GET_ALL_SUBJECTS = "SELECT * FROM SUBJECTS";
-    private static final String SAVE_SUBJECT = "INSERT INTO SUBJECTS (NAME) VALUES (?)";
-    private static final String UPDATE_SUBJECT = "UPDATE SUBJECTS SET NAME  = ? WHERE ID = ?";
-    private static final String DELETE_SUBJECT = "DELETE FROM SUBJECTS WHERE ID = ?";
+    private static final String GET_ALL_SUBJECTS = "FROM Subject";
 
-    private final JdbcTemplate jdbcTemplate;
+    private final SessionFactory sessionFactory;
 
-    public SubjectDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public SubjectDao(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
     public Subject get(int id) {
-        return jdbcTemplate.queryForObject(GET_SUBJECT, new Object[]{id}, new BeanPropertyRowMapper<>(Subject.class));
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            Subject subject = session.get(Subject.class, id);
+            transaction.commit();
+            return subject;
+        }
     }
 
     @Override
     public List<Subject> getAll() {
-        return jdbcTemplate.query(GET_ALL_SUBJECTS, new BeanPropertyRowMapper<>(Subject.class));
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            List<Subject> subjects = session.createQuery(GET_ALL_SUBJECTS, Subject.class).list();
+            transaction.commit();
+            return subjects;
+        }
     }
 
     @Override
     public void save(Subject subject) {
-        jdbcTemplate.update(SAVE_SUBJECT, subject.getName());
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.save(subject);
+            transaction.commit();
+        }
     }
 
     @Override
     public void update(Subject subject, Object[] params) {
-        jdbcTemplate.update(UPDATE_SUBJECT, params[0], subject.getId());
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            subject.setName((String) params[0]);
+            session.saveOrUpdate(subject);
+            transaction.commit();
+        }
     }
 
     @Override
     public void delete(Subject subject) {
-        jdbcTemplate.update(DELETE_SUBJECT, subject.getId());
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.delete(subject);
+            transaction.commit();
+        }
     }
 }
 

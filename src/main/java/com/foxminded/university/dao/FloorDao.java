@@ -1,8 +1,9 @@
 package com.foxminded.university.dao;
 
 import com.foxminded.university.entity.Floor;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,40 +11,60 @@ import java.util.List;
 @Repository
 public class FloorDao implements Dao<Floor>{
 
-    private static final String GET_FLOOR = "SELECT * FROM FLOORS WHERE ID = ?";
-    private static final String GET_ALL_FLOORS = "SELECT * FROM FLOORS";
-    private static final String SAVE_FLOOR = "INSERT INTO FLOORS (NUMBER, BUILDINGID) VALUES (?, ?)";
-    private static final String UPDATE_FLOOR = "UPDATE FLOORS SET (NUMBER, BUILDINGID)  = (?, ?) WHERE ID = ?";
-    private static final String DELETE_FLOOR = "DELETE FROM FLOORS WHERE ID = ?";
+    private static final String GET_ALL_floorS = "FROM Floor";
 
-    private final JdbcTemplate jdbcTemplate;
+    private final SessionFactory sessionFactory;
 
-    public FloorDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public FloorDao(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
     public Floor get(int id) {
-        return jdbcTemplate.queryForObject(GET_FLOOR, new Object[]{id}, new BeanPropertyRowMapper<>(Floor.class));
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            Floor floor = session.get(Floor.class, id);
+            transaction.commit();
+            return floor;
+        }
     }
 
     @Override
     public List<Floor> getAll() {
-        return jdbcTemplate.query(GET_ALL_FLOORS, new BeanPropertyRowMapper<>(Floor.class));
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            List<Floor> floors = session.createQuery(GET_ALL_floorS, Floor.class).list();
+            transaction.commit();
+            return floors;
+        }
     }
 
     @Override
     public void save(Floor floor) {
-        jdbcTemplate.update(SAVE_FLOOR, floor.getNumber(), floor.getBuildingId());
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.save(floor);
+            transaction.commit();
+        }
     }
 
     @Override
     public void update(Floor floor, Object[] params) {
-        jdbcTemplate.update(UPDATE_FLOOR, params[0], params[1], floor.getId());
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            floor.setNumber((Integer) params[0]);
+            floor.setBuildingId((Integer) params[1]);
+            session.saveOrUpdate(floor);
+            transaction.commit();
+        }
     }
 
     @Override
     public void delete(Floor floor) {
-            jdbcTemplate.update(DELETE_FLOOR, floor.getId());
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.delete(floor);
+            transaction.commit();
+        }
     }
 }

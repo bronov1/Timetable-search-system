@@ -1,8 +1,9 @@
 package com.foxminded.university.dao;
 
 import com.foxminded.university.entity.Department;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,40 +11,59 @@ import java.util.List;
 @Repository
 public class DepartmentDao implements Dao<Department>{
 
-    private static final String GET_DEPARTMENT = "SELECT * FROM DEPARTMENTS WHERE ID = ?";
-    private static final String GET_ALL_DEPARTMENTS = "SELECT * FROM DEPARTMENTS";
-    private static final String SAVE_DEPARTMENT = "INSERT INTO DEPARTMENTS (NAME) VALUES (?)";
-    private static final String UPDATE_DEPARTMENT = "UPDATE DEPARTMENTS SET NAME  = ? WHERE ID = ?";
-    private static final String DELETE_DEPARTMENT = "DELETE FROM DEPARTMENTS WHERE ID = ?";
+    private static final String GET_ALL_DEPARTMENTS = "FROM Department";
 
-    private final JdbcTemplate jdbcTemplate;
+    private final SessionFactory sessionFactory;
 
-    public DepartmentDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public DepartmentDao(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
     public Department get(int id) {
-        return jdbcTemplate.queryForObject(GET_DEPARTMENT, new Object[]{id}, new BeanPropertyRowMapper<>(Department.class));
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            Department department = session.get(Department.class, id);
+            transaction.commit();
+            return department;
+        }
     }
 
     @Override
     public List<Department> getAll() {
-        return jdbcTemplate.query(GET_ALL_DEPARTMENTS, new BeanPropertyRowMapper<>(Department.class));
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            List<Department> departments = session.createQuery(GET_ALL_DEPARTMENTS, Department.class).list();
+            transaction.commit();
+            return departments;
+        }
     }
 
     @Override
     public void save(Department department) {
-        jdbcTemplate.update(SAVE_DEPARTMENT, department.getName());
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.save(department);
+            transaction.commit();
+        }
     }
 
     @Override
     public void update(Department department, Object[] params) {
-        jdbcTemplate.update(UPDATE_DEPARTMENT, params[0], department.getId());
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            department.setName((String) params[0]);
+            session.saveOrUpdate(department);
+            transaction.commit();
+        }
     }
 
     @Override
     public void delete(Department department) {
-        jdbcTemplate.update(DELETE_DEPARTMENT, department.getId());
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.delete(department);
+            transaction.commit();
+        }
     }
 }

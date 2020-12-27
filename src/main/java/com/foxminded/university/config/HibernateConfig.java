@@ -44,7 +44,7 @@ public class HibernateConfig {
         properties.put(Environment.URL, "jdbc:postgresql://127.0.0.1:5432/university");
         properties.put(Environment.USER, "maintainer");
         properties.put(Environment.PASS, "12345678");
-        properties.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQL92Dialect");
+        properties.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQL9Dialect");
         properties.put(Environment.SHOW_SQL, "true");
         properties.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
         properties.put(Environment.HBM2DDL_AUTO, "create-drop");

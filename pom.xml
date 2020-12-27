@@ -23,7 +23,7 @@
         <javax.servlet.version>4.0.1</javax.servlet.version>
         <tomcat.plugin.version>2.2</tomcat.plugin.version>
         <javax.annotation.version>1.3.2</javax.annotation.version>
-        <hibernate.version>5.3.7.Final</hibernate.version>
+        <hibernate.version>5.4.17.Final</hibernate.version>
     </properties>
 
     <dependencies>
