@@ -7,15 +7,33 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @org.springframework.context.annotation.Configuration
 @ComponentScan("com.foxminded.university")
+@PropertySource("classpath:db.properties")
 public class HibernateConfig {
+
+    @Value("${db.url}")
+    private String dbURL;
+    @Value("${db.login}")
+    private String dbUser;
+    @Value("${db.password}")
+    private String userPassword;
+    @Value("${db.driver}")
+    private String dbDriver;
+    @Value("${hibernate.dialect}")
+    private String hibernateDialect;
+    @Value("${hibernate.hbm2ddl.auto}")
+    private String hibernateAuto;
+    @Value("${hibernate.show.sql}")
+    private String hibernateShowSqlStatus;
 
     @Bean
     public SessionFactory sessionFactory() {
@@ -43,21 +61,21 @@ public class HibernateConfig {
     }
 
     @Bean
-    public static DataSource dataSource() {
+    public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://127.0.0.1:5432/university");
-        dataSource.setUsername("maintainer");
-        dataSource.setPassword("12345678");
+        dataSource.setDriverClassName(dbDriver);
+        dataSource.setUrl(dbURL);
+        dataSource.setUsername(dbUser);
+        dataSource.setPassword(userPassword);
         return dataSource;
     }
 
     @Bean
-    public static Properties hibernateProperties() {
+    public Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL92Dialect");
-        properties.put("hibernate.hbm2ddl.auto", "create-drop");
-        properties.put("hibernate.show_sql", "true");
+        properties.put("hibernate.dialect", hibernateDialect);
+        properties.put("hibernate.hbm2ddl.auto", hibernateAuto);
+        properties.put("hibernate.show_sql", hibernateShowSqlStatus);
         return properties;
     }
 
