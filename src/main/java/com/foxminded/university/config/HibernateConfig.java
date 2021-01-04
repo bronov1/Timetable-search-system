@@ -1,6 +1,7 @@
 package com.foxminded.university.config;
 
 import com.foxminded.university.entity.*;
+import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -8,6 +9,8 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+
+import javax.sql.DataSource;
 import java.util.Properties;
 
 @org.springframework.context.annotation.Configuration
@@ -18,8 +21,10 @@ public class HibernateConfig {
     public SessionFactory sessionFactory() {
         Configuration configuration = configuration();
         addAnnotatedClasses(configuration);
-        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-                .applySettings(configuration.getProperties()).build();
+        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().
+                applySetting(Environment.DATASOURCE, dataSource()).
+                applySettings(hibernateProperties()).
+                build();
         return configuration.buildSessionFactory(serviceRegistry);
     }
 
@@ -38,23 +43,26 @@ public class HibernateConfig {
     }
 
     @Bean
-    public Properties properties() {
+    public static DataSource dataSource() {
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setDriverClassName("org.postgresql.Driver");
+        dataSource.setUrl("jdbc:postgresql://127.0.0.1:5432/university");
+        dataSource.setUsername("maintainer");
+        dataSource.setPassword("12345678");
+        return dataSource;
+    }
+
+    @Bean
+    public static Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.put(Environment.DRIVER, "org.postgresql.Driver");
-        properties.put(Environment.URL, "jdbc:postgresql://127.0.0.1:5432/university");
-        properties.put(Environment.USER, "maintainer");
-        properties.put(Environment.PASS, "12345678");
-        properties.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQL9Dialect");
-        properties.put(Environment.SHOW_SQL, "true");
-        properties.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-        properties.put(Environment.HBM2DDL_AUTO, "create-drop");
+        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL92Dialect");
+        properties.put("hibernate.hbm2ddl.auto", "create-drop");
+        properties.put("hibernate.show_sql", "true");
         return properties;
     }
 
     @Bean
     public Configuration configuration() {
-        Configuration configuration = new Configuration();
-        configuration.setProperties(properties());
-        return configuration;
+        return new Configuration();
     }
 }
