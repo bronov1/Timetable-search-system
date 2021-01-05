@@ -26,7 +26,7 @@ public class StreamService {
     }
 
     public List<Stream> getAllStreams() {
-        List<Stream> streams = streamDao.getAll();
+        List<Stream> streams = streamDao.getAll(Stream.class);
         logger.info("Got all streams from Database");
         return streams;
     }

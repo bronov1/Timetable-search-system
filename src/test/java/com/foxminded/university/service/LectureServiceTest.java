@@ -24,7 +24,7 @@ public class LectureServiceTest {
     @Test
     public void getAllLectures() {
         lectureService.getAllLectures();
-        Mockito.verify(lectureDao).getAll();
+        Mockito.verify(lectureDao).getAll(Lecture.class);
     }
 
     @Test

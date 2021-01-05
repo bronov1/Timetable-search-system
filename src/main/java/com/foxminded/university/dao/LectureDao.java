@@ -24,16 +24,6 @@ public class LectureDao extends AbstractDao<Lecture> {
     }
 
     @Override
-    public List<Lecture> getAll() {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            List<Lecture> lectures = session.createQuery(GET_ALL_LECTURES, Lecture.class).list();
-            transaction.commit();
-            return lectures;
-        }
-    }
-
-    @Override
     public void update(Lecture lecture) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();

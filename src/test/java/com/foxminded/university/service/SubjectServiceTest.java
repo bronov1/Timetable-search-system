@@ -29,6 +29,6 @@ public class SubjectServiceTest {
     @Test
     public void getAllSubjects() {
         subjectService.getAllSubjects();
-        Mockito.verify(subjectDao).getAll();
+        Mockito.verify(subjectDao).getAll(Subject.class);
     }
 }

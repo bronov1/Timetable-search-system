@@ -28,7 +28,7 @@ public class GroupService {
     }
 
     public List<Group> getAllGroups() {
-        return groupDao.getAll();
+        return groupDao.getAll(Group.class);
     }
 
     public List<Group> getGroupsOnLecture(int lectureId) {

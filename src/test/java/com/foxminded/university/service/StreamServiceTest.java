@@ -29,6 +29,6 @@ public class StreamServiceTest {
     @Test
     public void getAllStreams() {
         streamService.getAllStreams();
-        Mockito.verify(streamDao).getAll();
+        Mockito.verify(streamDao).getAll(Stream.class);
     }
 }

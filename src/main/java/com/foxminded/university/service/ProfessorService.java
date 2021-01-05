@@ -32,7 +32,7 @@ public class ProfessorService {
     }
 
     public List<Professor> getAllProfessors() {
-        return professorDao.getAll();
+        return professorDao.getAll(Professor.class);
     }
 
     public void saveProfessor(Professor professor) {

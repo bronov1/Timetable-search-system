@@ -25,7 +25,7 @@ public class StudentServiceTest {
     @Test
     public void getAllStudents() {
         StudentService.getAllStudents();
-        Mockito.verify(studentDao).getAll();
+        Mockito.verify(studentDao).getAll(Student.class);
     }
 
     @Test

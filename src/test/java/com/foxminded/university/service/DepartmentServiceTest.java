@@ -30,6 +30,6 @@ public class DepartmentServiceTest {
     @Test
     public void getAllDepartments() {
         departmentService.getAllDepartments();
-        Mockito.verify(departmentDao).getAll();
+        Mockito.verify(departmentDao).getAll(Department.class);
     }
 }

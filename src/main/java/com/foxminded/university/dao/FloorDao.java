@@ -18,16 +18,6 @@ public class FloorDao extends AbstractDao<Floor>{
     }
 
     @Override
-    public List<Floor> getAll() {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            List<Floor> floors = session.createQuery(GET_ALL_floorS, Floor.class).list();
-            transaction.commit();
-            return floors;
-        }
-    }
-
-    @Override
     public void update(Floor floor) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();

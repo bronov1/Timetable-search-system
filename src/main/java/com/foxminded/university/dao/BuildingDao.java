@@ -6,25 +6,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public class BuildingDao extends AbstractDao<Building> {
 
-    private static final String GET_ALL_BUILDINGS = "FROM Building";
-
     public BuildingDao(SessionFactory sessionFactory) {
         super(sessionFactory);
-    }
-
-    @Override
-    public List<Building> getAll() {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            List<Building> buildings = session.createQuery(GET_ALL_BUILDINGS, Building.class).list();
-            transaction.commit();
-            return buildings;
-        }
     }
 
     @Override

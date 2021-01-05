@@ -19,16 +19,6 @@ public class SubjectDao extends AbstractDao<Subject> {
     }
 
     @Override
-    public List<Subject> getAll() {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            List<Subject> subjects = session.createQuery(GET_ALL_SUBJECTS, Subject.class).list();
-            transaction.commit();
-            return subjects;
-        }
-    }
-
-    @Override
     public void update(Subject subject) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();

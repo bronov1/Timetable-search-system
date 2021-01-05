@@ -32,16 +32,6 @@ public class GroupDao extends AbstractDao<Group> {
     }
 
     @Override
-    public List<Group> getAll() {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            List<Group> groups = session.createQuery(GET_ALL_GROUPS, Group.class).list();
-            transaction.commit();
-            return groups;
-        }
-    }
-
-    @Override
     public void update(Group group) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();

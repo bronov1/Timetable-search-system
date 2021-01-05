@@ -30,6 +30,6 @@ public class ClassroomServiceTest {
     @Test
     public void getAllClassrooms() {
         classroomService.getAllClassrooms();
-        Mockito.verify(classroomDao).getAll();
+        Mockito.verify(classroomDao).getAll(Classroom.class);
     }
 }

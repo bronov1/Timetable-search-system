@@ -20,7 +20,7 @@ public class StudentService {
     }
 
     public List<Student> getAllStudents() {
-        return studentDao.getAll();
+        return studentDao.getAll(Student.class);
     }
 
     public void saveStudent(Student student) {

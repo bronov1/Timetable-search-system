@@ -20,7 +20,7 @@ public class LectureService {
     }
 
     public List<Lecture> getAllLectures() {
-        List<Lecture> lectures = lectureDao.getAll();
+        List<Lecture> lectures = lectureDao.getAll(Lecture.class);
         logger.info("Got all lectures from Database");
         return lectures;
     }

@@ -15,20 +15,9 @@ import java.util.List;
 public class StudentDao extends AbstractDao<Student> {
 
     private static final String DELETE_STUDENTS_FROM_GROUP = "DELETE Student WHERE groupId = :id";
-    private static final String GET_ALL_STUDENTS = "FROM Student";
 
     public StudentDao(SessionFactory sessionFactory) {
         super(sessionFactory);
-    }
-
-    @Override
-    public List<Student> getAll() {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            List<Student> students = session.createQuery(GET_ALL_STUDENTS, Student.class).list();
-            transaction.commit();
-            return students;
-        }
     }
 
     @Override

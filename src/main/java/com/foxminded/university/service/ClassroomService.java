@@ -26,7 +26,7 @@ public class ClassroomService {
     }
 
     public List<Classroom> getAllClassrooms() {
-        List<Classroom> classrooms = classroomDao.getAll();
+        List<Classroom> classrooms = classroomDao.getAll(Classroom.class);
         logger.info("Gor all classrooms form Database");
         return classrooms;
     }

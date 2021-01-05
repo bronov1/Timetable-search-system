@@ -40,7 +40,7 @@ public class ProfessorServiceTest {
     @Test
     public void getAllProfessors() {
         professorService.getAllProfessors();
-        Mockito.verify(professorDao).getAll();
+        Mockito.verify(professorDao).getAll(Professor.class);
     }
 
     @Test

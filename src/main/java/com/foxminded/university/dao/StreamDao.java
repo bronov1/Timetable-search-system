@@ -18,16 +18,6 @@ public class StreamDao extends AbstractDao<Stream> {
     }
 
     @Override
-    public List<Stream> getAll() {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            List<Stream> streams = session.createQuery(GET_ALL_STREAMS, Stream.class).list();
-            transaction.commit();
-            return streams;
-        }
-    }
-
-    @Override
     public void update(Stream stream) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();

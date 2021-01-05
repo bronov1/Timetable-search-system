@@ -18,16 +18,6 @@ public class ClassroomDao extends AbstractDao<Classroom>{
     }
 
     @Override
-    public List<Classroom> getAll() {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            List<Classroom> classrooms = session.createQuery(GET_ALL_CLASSROOMS, Classroom.class).list();
-            transaction.commit();
-            return classrooms;
-        }
-    }
-
-    @Override
     public void update(Classroom classroom) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();

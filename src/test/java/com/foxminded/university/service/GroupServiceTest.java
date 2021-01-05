@@ -40,7 +40,7 @@ public class GroupServiceTest {
     @Test
     public void getAllGroups() {
         groupService.getAllGroups();
-        Mockito.verify(groupDao).getAll();
+        Mockito.verify(groupDao).getAll(Group.class);
     }
 
     @Test

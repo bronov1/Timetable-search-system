@@ -16,16 +16,6 @@ public class DepartmentDao extends AbstractDao<Department>{
     public DepartmentDao(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
-
-    @Override
-    public List<Department> getAll() {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            List<Department> departments = session.createQuery(GET_ALL_DEPARTMENTS, Department.class).list();
-            transaction.commit();
-            return departments;
-        }
-    }
     @Override
     public void update(Department department) {
         try (Session session = sessionFactory.openSession()) {

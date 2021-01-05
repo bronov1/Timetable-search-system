@@ -1,6 +1,5 @@
 package com.foxminded.university.dao;
 
-import com.foxminded.university.entity.Group;
 import com.foxminded.university.entity.Lecture;
 import com.foxminded.university.entity.Professor;
 import org.hibernate.Session;
@@ -24,16 +23,6 @@ public class ProfessorDao extends AbstractDao<Professor> {
     public ProfessorDao(SessionFactory sessionFactory, LectureDao lectureDao) {
         super(sessionFactory);
         this.lectureDao = lectureDao;
-    }
-
-    @Override
-    public List<Professor> getAll() {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            List<Professor> professors = session.createQuery(GET_ALL_PROFESSORS, Professor.class).list();
-            transaction.commit();
-            return professors;
-        }
     }
 
     @Override

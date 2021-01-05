@@ -26,7 +26,7 @@ public class DepartmentService {
     }
 
     public List<Department> getAllDepartments() {
-        List<Department> departments = departmentDao.getAll();
+        List<Department> departments = departmentDao.getAll(Department.class);
         logger.info("Got all departments from Database");
         return departments;
     }

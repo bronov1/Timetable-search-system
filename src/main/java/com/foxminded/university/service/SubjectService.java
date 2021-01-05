@@ -26,7 +26,7 @@ public class SubjectService {
     }
 
     public List<Subject> getAllSubjects() {
-        List<Subject> subjects = subjectDao.getAll();
+        List<Subject> subjects = subjectDao.getAll(Subject.class);
         logger.info("Got all subjects from Database");
         return subjects;
     }
