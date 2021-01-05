@@ -17,10 +17,10 @@ public class GroupDao extends AbstractDao<Group> {
     private static final String GET_ALL_GROUPS = "FROM Group";
     private static final String GET_ALL_GROUPS_FOR_LECTURE = "SELECT g FROM Group g, LectureGroup lg " +
             "WHERE g.id = lg.groupId AND lg.lectureId = :lectureId";
-    private static final String GET_GROUP_PERIOD_SCHEDULE = "SELECT * FROM GROUPS AS g " +
-            "INNER JOIN LECTUREGROUPS AS lg ON g.ID = lg.GROUPID " +
-            "INNER JOIN LECTURES AS l ON l.ID = lg.LECTUREID " +
-            "WHERE GROUPID = :groupId AND DATE BETWEEN :startDate AND :finishDate";
+    private static final String GET_GROUP_PERIOD_SCHEDULE = "SELECT l " +
+            "FROM Group g, LectureGroup lg, Lecture l " +
+            "WHERE g.id = lg.groupId AND lg.lectureId = l.id " +
+            "AND g.id = :groupId AND l.date BETWEEN :startDate AND :finishDate";
 
     private final StudentDao studentDao;
     private final LectureGroupDao lectureGroupDao;
@@ -59,19 +59,17 @@ public class GroupDao extends AbstractDao<Group> {
         super.delete(group);
     }
 
-    //TODO: Fix this method
     public List<Lecture> getGroupPeriodLectures(int groupId, LocalDate startDate, LocalDate finishDate) {
-//        try (Session session = sessionFactory.openSession()) {
-//            Transaction transaction = session.beginTransaction();
-//            NativeQuery<Lecture> query = session.createSQLQuery(GET_GROUP_PERIOD_SCHEDULE);
-//            query.setParameter("groupId", groupId);
-//            query.setParameter("startDate", startDate);
-//            query.setParameter("finishDate", finishDate);
-//            List<Lecture> groupPeriodLectures = query.list();
-//            transaction.commit();
-//            return groupPeriodLectures;
-//        }
-        return null;
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            Query<Lecture> query = session.createQuery(GET_GROUP_PERIOD_SCHEDULE, Lecture.class);
+            query.setParameter("groupId", groupId);
+            query.setParameter("startDate", startDate);
+            query.setParameter("finishDate", finishDate);
+            List<Lecture> groupPeriodLectures = query.list();
+            transaction.commit();
+            return groupPeriodLectures;
+        }
     }
 
     public List<Group> getGroupsOnLecture(int lectureId) {
