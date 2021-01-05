@@ -14,7 +14,6 @@ import java.util.List;
 @Repository
 public class ProfessorDao extends AbstractDao<Professor> {
 
-    private static final String GET_ALL_PROFESSORS = "FROM Professor ";
     private static final String GET_PROFESSOR_PERIOD_SCHEDULE = "SELECT l FROM Lecture l " +
             "WHERE l.professorId = :professorId AND l.date BETWEEN :startDate AND :finishDate";
 
@@ -23,17 +22,6 @@ public class ProfessorDao extends AbstractDao<Professor> {
     public ProfessorDao(SessionFactory sessionFactory, LectureDao lectureDao) {
         super(sessionFactory);
         this.lectureDao = lectureDao;
-    }
-
-    @Override
-    public void update(Professor professor) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            professor.setName(professor.getName());
-            professor.setDepartmentId(professor.getDepartmentId());
-            session.saveOrUpdate(professor);
-            transaction.commit();
-        }
     }
 
     @Override

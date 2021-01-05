@@ -13,7 +13,6 @@ import java.util.List;
 @Repository
 public class LectureDao extends AbstractDao<Lecture> {
 
-    private static final String GET_ALL_LECTURES = "FROM Lecture";
     private static final String GET_ALL_LECTURES_WITH_PROFESSOR = "FROM Lecture WHERE professorId = :id";
 
     private final LectureGroupDao lectureGroupDao;
@@ -21,20 +20,6 @@ public class LectureDao extends AbstractDao<Lecture> {
     public LectureDao(SessionFactory sessionFactory, LectureGroupDao lectureGroupDao) {
         super(sessionFactory);
         this.lectureGroupDao = lectureGroupDao;
-    }
-
-    @Override
-    public void update(Lecture lecture) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            lecture.setSubjectId(lecture.getSubjectId());
-            lecture.setProfessorId(lecture.getProfessorId());
-            lecture.setDate(lecture.getDate());
-            lecture.setTime(lecture.getTime());
-            lecture.setClassroomId(lecture.getClassroomId());
-            session.saveOrUpdate(lecture);
-            transaction.commit();
-        }
     }
 
     @Override

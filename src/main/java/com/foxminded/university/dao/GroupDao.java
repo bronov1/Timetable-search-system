@@ -14,7 +14,6 @@ import java.util.List;
 @Repository
 public class GroupDao extends AbstractDao<Group> {
 
-    private static final String GET_ALL_GROUPS = "FROM Group";
     private static final String GET_ALL_GROUPS_FOR_LECTURE = "SELECT g FROM Group g, LectureGroup lg " +
             "WHERE g.id = lg.groupId AND lg.lectureId = :lectureId";
     private static final String GET_GROUP_PERIOD_SCHEDULE = "SELECT l " +
@@ -32,20 +31,9 @@ public class GroupDao extends AbstractDao<Group> {
     }
 
     @Override
-    public void update(Group group) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            group.setName(group.getName());
-            group.setStreamId(group.getStreamId());
-            session.saveOrUpdate(group);
-            transaction.commit();
-        }
-    }
-
-    @Override
     public void delete(Group group) {
         studentDao.DeleteStudentsFromGroup(group);
-        lectureGroupDao.DeleteGroupFromLecture(group);
+        lectureGroupDao.deleteGroupFromLecture(group);
         super.delete(group);
     }
 

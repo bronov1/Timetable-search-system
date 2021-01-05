@@ -26,7 +26,13 @@ public abstract class AbstractDao<T> {
         }
     }
 
-    public abstract void update(T t);
+    public void update(T t) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.saveOrUpdate(t);
+            transaction.commit();
+        }
+    };
 
     public T get(int id, Class<T> tClass) {
         try (Session session = sessionFactory.openSession()) {
