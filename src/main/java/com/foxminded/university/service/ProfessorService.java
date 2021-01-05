@@ -41,8 +41,7 @@ public class ProfessorService {
     }
 
     public void updateProfessor(Professor professor) {
-        Object[] parameters = new Object[]{professor.getName(), professor.getDepartmentId()};
-        professorDao.update(professor, parameters);
+        professorDao.update(professor);
         logger.info("Updated professor with id - {}", professor.getId());
     }
 

@@ -49,8 +49,7 @@ public class GroupService {
     }
 
     public void updateGroup(Group group) {
-        Object[] parameters = new Object[]{group.getName(), group.getStreamId()};
-        groupDao.update(group, parameters);
+        groupDao.update(group);
         logger.info("Updated group with id - {}", group.getId());
     }
 

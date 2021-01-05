@@ -37,14 +37,14 @@ public class LectureDao extends AbstractDao<Lecture> {
     }
 
     @Override
-    public void update(Lecture lecture, Object[] params) {
+    public void update(Lecture lecture) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            lecture.setSubjectId((Integer) params[0]);
-            lecture.setProfessorId((Integer) params[1]);
-            lecture.setDate((LocalDate) params[2]);
-            lecture.setTime((LocalTime) params[3]);
-            lecture.setClassroomId((Integer) params[4]);
+            lecture.setSubjectId(lecture.getSubjectId());
+            lecture.setProfessorId(lecture.getProfessorId());
+            lecture.setDate(lecture.getDate());
+            lecture.setTime(lecture.getTime());
+            lecture.setClassroomId(lecture.getClassroomId());
             session.saveOrUpdate(lecture);
             transaction.commit();
         }

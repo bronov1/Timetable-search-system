@@ -27,10 +27,10 @@ public class DepartmentDao extends AbstractDao<Department>{
         }
     }
     @Override
-    public void update(Department department, Object[] params) {
+    public void update(Department department) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            department.setName((String) params[0]);
+            department.setName(department.getName());
             session.saveOrUpdate(department);
             transaction.commit();
         }

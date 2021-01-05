@@ -29,10 +29,10 @@ public class SubjectDao extends AbstractDao<Subject> {
     }
 
     @Override
-    public void update(Subject subject, Object[] params) {
+    public void update(Subject subject) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            subject.setName((String) params[0]);
+            subject.setName(subject.getName());
             session.saveOrUpdate(subject);
             transaction.commit();
         }

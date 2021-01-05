@@ -32,11 +32,11 @@ public class StudentDao extends AbstractDao<Student> {
     }
 
     @Override
-    public void update(Student student, Object[] params) {
+    public void update(Student student) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            student.setName((String) params[0]);
-            student.setGroupId((Integer) params[1]);
+            student.setName(student.getName());
+            student.setGroupId(student.getGroupId());
             session.saveOrUpdate(student);
             transaction.commit();
         }

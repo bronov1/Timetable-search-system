@@ -28,11 +28,11 @@ public class FloorDao extends AbstractDao<Floor>{
     }
 
     @Override
-    public void update(Floor floor, Object[] params) {
+    public void update(Floor floor) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            floor.setNumber((Integer) params[0]);
-            floor.setBuildingId((Integer) params[1]);
+            floor.setNumber(floor.getNumber());
+            floor.setBuildingId(floor.getBuildingId());
             session.saveOrUpdate(floor);
             transaction.commit();
         }

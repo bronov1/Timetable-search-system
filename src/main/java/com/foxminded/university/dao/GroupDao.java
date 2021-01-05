@@ -42,11 +42,11 @@ public class GroupDao extends AbstractDao<Group> {
     }
 
     @Override
-    public void update(Group group, Object[] params) {
+    public void update(Group group) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            group.setName((String) params[0]);
-            group.setStreamId((Integer) params[1]);
+            group.setName(group.getName());
+            group.setStreamId(group.getStreamId());
             session.saveOrUpdate(group);
             transaction.commit();
         }

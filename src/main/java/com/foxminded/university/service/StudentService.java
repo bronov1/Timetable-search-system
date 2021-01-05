@@ -35,8 +35,7 @@ public class StudentService {
     }
 
     public void updateStudent(Student student) {
-        Object[] parameters = new Object[]{student.getName(), student.getGroupId()};
-        studentDao.update(student, parameters);
+        studentDao.update(student);
         logger.info("Updated Student with id - {}", student.getId());
     }
 

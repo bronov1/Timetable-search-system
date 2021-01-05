@@ -28,11 +28,11 @@ public class ClassroomDao extends AbstractDao<Classroom>{
     }
 
     @Override
-    public void update(Classroom classroom, Object[] params) {
+    public void update(Classroom classroom) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            classroom.setNumber((Integer) params[0]);
-            classroom.setFloorId((Integer) params[1]);
+            classroom.setNumber(classroom.getNumber());
+            classroom.setFloorId(classroom.getFloorId());
             session.saveOrUpdate(classroom);
             transaction.commit();
         }

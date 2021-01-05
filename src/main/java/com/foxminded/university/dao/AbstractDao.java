@@ -1,6 +1,5 @@
 package com.foxminded.university.dao;
 
-import com.foxminded.university.entity.Group;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -19,7 +18,7 @@ public abstract class AbstractDao<T> {
 
     public abstract List<T> getAll();
 
-    public abstract void update(T t, Object[] params);
+    public abstract void update(T t);
 
     public T get(int id, Class<T> tClass){
         try (Session session = sessionFactory.openSession()) {

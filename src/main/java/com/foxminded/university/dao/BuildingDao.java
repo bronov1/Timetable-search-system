@@ -1,7 +1,6 @@
 package com.foxminded.university.dao;
 
 import com.foxminded.university.entity.Building;
-import com.foxminded.university.entity.Group;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -29,11 +28,11 @@ public class BuildingDao extends AbstractDao<Building> {
     }
 
     @Override
-    public void update(Building building, Object[] params) {
+    public void update(Building building) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            building.setName((String) params[0]);
-            building.setFloors((Integer) params[1]);
+            building.setName(building.getName());
+            building.setFloors(building.getFloors());
             session.saveOrUpdate(building);
             transaction.commit();
         }

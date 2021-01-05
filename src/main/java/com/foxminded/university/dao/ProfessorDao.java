@@ -35,12 +35,12 @@ public class ProfessorDao extends AbstractDao<Professor>{
     }
 
     @Override
-    public void update(Professor professors, Object[] params) {
+    public void update(Professor professor) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            professors.setName((String) params[0]);
-            professors.setDepartmentId((Integer) params[1]);
-            session.saveOrUpdate(professors);
+            professor.setName(professor.getName());
+            professor.setDepartmentId(professor.getDepartmentId());
+            session.saveOrUpdate(professor);
             transaction.commit();
         }
     }

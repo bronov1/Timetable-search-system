@@ -36,8 +36,7 @@ public class LectureService {
     }
 
     public void update(Lecture lecture) {
-        Object[] parameters = new Object[]{lecture.getSubjectId(), lecture.getProfessorId(), lecture.getDate(), lecture.getTime(), lecture.getClassroomId()};
-        lectureDao.update(lecture, parameters);
+        lectureDao.update(lecture);
         logger.info("Updated lecture with id - {}", lecture.getId());
     }
 

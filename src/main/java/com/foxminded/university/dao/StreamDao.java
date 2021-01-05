@@ -28,11 +28,11 @@ public class StreamDao extends AbstractDao<Stream> {
     }
 
     @Override
-    public void update(Stream stream, Object[] params) {
+    public void update(Stream stream) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            stream.setName((String) params[0]);
-            stream.setDepartmentId((Integer) params[1]);
+            stream.setName(stream.getName());
+            stream.setDepartmentId(stream.getDepartmentId());
             session.saveOrUpdate(stream);
             transaction.commit();
         }

@@ -33,11 +33,11 @@ public class LectureGroupDao extends AbstractDao<LectureGroup> {
     }
 
     @Override
-    public void update(LectureGroup lectureGroup, Object[] params) {
+    public void update(LectureGroup lectureGroup) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            lectureGroup.setLectureId((Integer) params[0]);
-            lectureGroup.setGroupId((Integer) params[1]);
+            lectureGroup.setLectureId(lectureGroup.getLectureId());
+            lectureGroup.setGroupId(lectureGroup.getGroupId());
             session.saveOrUpdate(lectureGroup);
             transaction.commit();
         }
