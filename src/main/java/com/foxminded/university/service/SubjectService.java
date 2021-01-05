@@ -20,7 +20,7 @@ public class SubjectService {
     }
 
     public Subject getSubject(int id) {
-        Subject subject = subjectDao.get(id);
+        Subject subject = subjectDao.get(id, Subject.class);
         logger.info("Got subject with  id {} from Database", id);
         return subject;
     }

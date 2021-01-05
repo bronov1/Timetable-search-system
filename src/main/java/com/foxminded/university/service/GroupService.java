@@ -5,7 +5,6 @@ import com.foxminded.university.entity.Group;
 import com.foxminded.university.entity.Lecture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -24,7 +23,7 @@ public class GroupService {
 
     public List<Lecture> getGroupSchedule(int groupId, LocalDate startDate, LocalDate finishDate){
         List<Lecture> lectures = groupDao.getGroupPeriodLectures(groupId, startDate, finishDate);
-        logger.info("Got schedule for group {} for dates {} - {}", groupDao.get(groupId), startDate, finishDate);
+        logger.info("Got schedule for group {} for dates {} - {}", groupDao.get(groupId, Group.class), startDate, finishDate);
         return lectures;
     }
 
@@ -39,12 +38,12 @@ public class GroupService {
     }
 
     public void saveGroup(Group group) {
-        groupDao.save(group);
+        groupDao.create(group);
         logger.info("Saved new group");
     }
 
     public Group getGroup(int id) {
-        Group group = groupDao.get(id);
+        Group group = groupDao.get(id, Group.class);
         logger.info("Got group with id - {}", id);
         return group;
     }

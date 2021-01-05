@@ -24,12 +24,12 @@ public class StudentService {
     }
 
     public void saveStudent(Student student) {
-        studentDao.save(student);
+        studentDao.create(student);
         logger.info("Saved new Student");
     }
 
     public Student getStudent(int id) {
-        Student student = studentDao.get(id);
+        Student student = studentDao.get(id, Student.class);
         logger.info("Got Student with id - {}", id);
         return student;
     }

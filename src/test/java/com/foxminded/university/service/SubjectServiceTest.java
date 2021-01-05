@@ -1,6 +1,7 @@
 package com.foxminded.university.service;
 
 import com.foxminded.university.dao.SubjectDao;
+import com.foxminded.university.entity.Subject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +22,7 @@ public class SubjectServiceTest {
     public void getSubject() {
         int randomNumber = ArgumentMatchers.anyInt();
         subjectService.getSubject(randomNumber);
-        Mockito.verify(subjectDao).get(argCaptor.capture());
+        Mockito.verify(subjectDao).get(argCaptor.capture(), Subject.class);
         Assertions.assertEquals(randomNumber, argCaptor.getValue());
     }
 

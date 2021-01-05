@@ -14,27 +14,16 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Repository
-public class LectureDao implements Dao<Lecture> {
+public class LectureDao extends AbstractDao<Lecture> {
 
     private static final String GET_ALL_LECTURES = "FROM Lecture";
     private static final String GET_ALL_LECTURES_WITH_PROFESSOR = "FROM Lecture WHERE professorId = :id";
 
-    private final SessionFactory sessionFactory;
     private final LectureGroupDao lectureGroupDao;
 
     public LectureDao(SessionFactory sessionFactory, LectureGroupDao lectureGroupDao) {
-        this.sessionFactory = sessionFactory;
+        super(sessionFactory);
         this.lectureGroupDao = lectureGroupDao;
-    }
-
-    @Override
-    public Lecture get(int id) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            Lecture lecture = session.get(Lecture.class, id);
-            transaction.commit();
-            return lecture;
-        }
     }
 
     @Override
@@ -44,15 +33,6 @@ public class LectureDao implements Dao<Lecture> {
             List<Lecture> lectures = session.createQuery(GET_ALL_LECTURES, Lecture.class).list();
             transaction.commit();
             return lectures;
-        }
-    }
-
-    @Override
-    public void save(Lecture lecture) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            session.save(lecture);
-            transaction.commit();
         }
     }
 
@@ -72,12 +52,8 @@ public class LectureDao implements Dao<Lecture> {
 
     @Override
     public void delete(Lecture lecture) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            lectureGroupDao.deleteLectureForGroups(lecture);
-            session.delete(lecture);
-            transaction.commit();
-        }
+        lectureGroupDao.deleteLectureForGroups(lecture);
+        super.delete(lecture);
     }
 
     public void DeleteLecturesWithProfessor(Professor professor) {

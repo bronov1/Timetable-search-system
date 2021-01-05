@@ -5,7 +5,6 @@ import com.foxminded.university.entity.Lecture;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public class GroupDao implements Dao<Group>{
+public class GroupDao extends AbstractDao<Group> {
 
     private static final String GET_ALL_GROUPS = "FROM Group";
     private static final String GET_ALL_GROUPS_FOR_LECTURE = "SELECT g FROM Group g, LectureGroup lg " +
@@ -25,22 +24,11 @@ public class GroupDao implements Dao<Group>{
 
     private final StudentDao studentDao;
     private final LectureGroupDao lectureGroupDao;
-    private final SessionFactory sessionFactory;
 
     public GroupDao(StudentDao studentDao, LectureGroupDao lectureGroupDao, SessionFactory sessionFactory) {
+        super(sessionFactory);
         this.studentDao = studentDao;
         this.lectureGroupDao = lectureGroupDao;
-        this.sessionFactory = sessionFactory;
-    }
-
-    @Override
-    public Group get(int id) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            Group group = session.get(Group.class, id);
-            transaction.commit();
-            return group;
-        }
     }
 
     @Override
@@ -50,15 +38,6 @@ public class GroupDao implements Dao<Group>{
             List<Group> groups = session.createQuery(GET_ALL_GROUPS, Group.class).list();
             transaction.commit();
             return groups;
-        }
-    }
-
-    @Override
-    public void save(Group group) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            session.save(group);
-            transaction.commit();
         }
     }
 
@@ -75,13 +54,9 @@ public class GroupDao implements Dao<Group>{
 
     @Override
     public void delete(Group group) {
-        try (Session session = sessionFactory.openSession()) {
-            studentDao.DeleteStudentsFromGroup(group);
-            lectureGroupDao.DeleteGroupFromLecture(group);
-            Transaction transaction = session.beginTransaction();
-            session.delete(group);
-            transaction.commit();
-        }
+        studentDao.DeleteStudentsFromGroup(group);
+        lectureGroupDao.DeleteGroupFromLecture(group);
+        super.delete(group);
     }
 
     //TODO: Fix this method

@@ -9,24 +9,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ClassroomDao implements Dao<Classroom>{
+public class ClassroomDao extends AbstractDao<Classroom>{
 
     private static final String GET_ALL_CLASSROOMS = "FROM Classroom";
 
-    private final SessionFactory sessionFactory;
-
     public ClassroomDao(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    @Override
-    public Classroom get(int id) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            Classroom classroom = session.get(Classroom.class, id);
-            transaction.commit();
-            return classroom;
-        }
+        super(sessionFactory);
     }
 
     @Override
@@ -40,30 +28,12 @@ public class ClassroomDao implements Dao<Classroom>{
     }
 
     @Override
-    public void save(Classroom classroom) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            session.save(classroom);
-            transaction.commit();
-        }
-    }
-
-    @Override
     public void update(Classroom classroom, Object[] params) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             classroom.setNumber((Integer) params[0]);
             classroom.setFloorId((Integer) params[1]);
             session.saveOrUpdate(classroom);
-            transaction.commit();
-        }
-    }
-
-    @Override
-    public void delete(Classroom classroom) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            session.delete(classroom);
             transaction.commit();
         }
     }

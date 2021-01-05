@@ -20,7 +20,7 @@ public class StreamService {
     }
 
     public Stream getStream(int id) {
-        Stream stream = streamDao.get(id);
+        Stream stream = streamDao.get(id, Stream.class);
         logger.info("Got stream with {} form Database", id);
         return stream;
     }

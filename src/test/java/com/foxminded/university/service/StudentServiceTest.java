@@ -32,14 +32,14 @@ public class StudentServiceTest {
     public void getStudent() {
         int randomNumber = ArgumentMatchers.anyInt();
         StudentService.getStudent(randomNumber);
-        Mockito.verify(studentDao).get(intCaptor.capture());
+        Mockito.verify(studentDao).get(intCaptor.capture(), Student.class);
         Assertions.assertEquals(randomNumber, intCaptor.getValue());
     }
 
     @Test
     public void saveStudent() {
         StudentService.saveStudent(student);
-        Mockito.verify(studentDao).save(student);
+        Mockito.verify(studentDao).create(student);
     }
 
     @Test

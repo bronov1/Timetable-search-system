@@ -20,7 +20,7 @@ public class ClassroomService {
     }
 
     public Classroom getClassroom(int id) {
-        Classroom classroom = classroomDao.get(id);
+        Classroom classroom = classroomDao.get(id, Classroom.class);
         logger.info("Got classroom with id {} from Database", id);
         return classroom;
     }

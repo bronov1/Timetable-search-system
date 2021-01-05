@@ -2,7 +2,6 @@ package com.foxminded.university.service;
 
 import com.foxminded.university.dao.GroupDao;
 import com.foxminded.university.entity.Group;
-import com.foxminded.university.entity.Lecture;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -55,14 +54,14 @@ public class GroupServiceTest {
     @Test
     public void saveGroup() {
         groupService.saveGroup(group);
-        Mockito.verify(groupDao).save(group);
+        Mockito.verify(groupDao).create(group);
     }
 
     @Test
     public void getGroup() {
         int randomNumber = ArgumentMatchers.anyInt();
         groupService.getGroup(randomNumber);
-        Mockito.verify(groupDao).get(intCaptor.capture());
+        Mockito.verify(groupDao).get(intCaptor.capture(), Group.class);
         Assertions.assertEquals(randomNumber, intCaptor.getValue());
     }
 

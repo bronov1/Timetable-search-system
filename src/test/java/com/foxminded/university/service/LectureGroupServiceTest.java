@@ -25,7 +25,7 @@ public class LectureGroupServiceTest {
     @Test
     public void save() {
         lectureGroupService.save(lectureGroup);
-        Mockito.verify(lectureGroupDao).save(lectureGroup);
+        Mockito.verify(lectureGroupDao).create(lectureGroup);
     }
 
     @Test

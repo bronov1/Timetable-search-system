@@ -9,24 +9,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class FloorDao implements Dao<Floor>{
+public class FloorDao extends AbstractDao<Floor>{
 
     private static final String GET_ALL_floorS = "FROM Floor";
 
-    private final SessionFactory sessionFactory;
-
     public FloorDao(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    @Override
-    public Floor get(int id) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            Floor floor = session.get(Floor.class, id);
-            transaction.commit();
-            return floor;
-        }
+        super(sessionFactory);
     }
 
     @Override
@@ -36,15 +24,6 @@ public class FloorDao implements Dao<Floor>{
             List<Floor> floors = session.createQuery(GET_ALL_floorS, Floor.class).list();
             transaction.commit();
             return floors;
-        }
-    }
-
-    @Override
-    public void save(Floor floor) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            session.save(floor);
-            transaction.commit();
         }
     }
 
@@ -59,12 +38,4 @@ public class FloorDao implements Dao<Floor>{
         }
     }
 
-    @Override
-    public void delete(Floor floor) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            session.delete(floor);
-            transaction.commit();
-        }
-    }
 }

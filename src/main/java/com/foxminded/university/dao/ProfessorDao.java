@@ -11,28 +11,17 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public class ProfessorDao implements Dao<Professor>{
+public class ProfessorDao extends AbstractDao<Professor>{
 
     private static final String GET_ALL_PROFESSORS = "FROM Professor ";
     private static final String GET_PROFESSOR_PERIOD_SCHEDULE = "SELECT * FROM LECTURES " +
             "WHERE PROFESSORID = ? AND DATE BETWEEN ? AND ?";
 
-    private final SessionFactory sessionFactory;
     private final LectureDao lectureDao;
 
     public ProfessorDao(SessionFactory sessionFactory, LectureDao lectureDao) {
-        this.sessionFactory = sessionFactory;
+        super(sessionFactory);
         this.lectureDao = lectureDao;
-    }
-
-    @Override
-    public Professor get(int id) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            Professor professor = session.get(Professor.class, id);
-            transaction.commit();
-            return professor;
-        }
     }
 
     @Override
@@ -42,15 +31,6 @@ public class ProfessorDao implements Dao<Professor>{
             List<Professor> professors = session.createQuery(GET_ALL_PROFESSORS, Professor.class).list();
             transaction.commit();
             return professors;
-        }
-    }
-
-    @Override
-    public void save(Professor professors) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            session.save(professors);
-            transaction.commit();
         }
     }
 
@@ -67,12 +47,8 @@ public class ProfessorDao implements Dao<Professor>{
 
     @Override
     public void delete(Professor professor) {
-        try (Session session = sessionFactory.openSession()) {
-            lectureDao.DeleteLecturesWithProfessor(professor);
-            Transaction transaction = session.beginTransaction();
-            session.delete(professor);
-            transaction.commit();
-        }
+        lectureDao.DeleteLecturesWithProfessor(professor);
+        super.delete(professor);
     }
 
     //TODO: Fix this method

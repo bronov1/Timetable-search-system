@@ -47,14 +47,14 @@ public class ProfessorServiceTest {
     public void getProfessor() {
         int randomNumber = ArgumentMatchers.anyInt();
         professorService.getProfessor(randomNumber);
-        Mockito.verify(professorDao).get(intCaptor.capture());
+        Mockito.verify(professorDao).get(intCaptor.capture(), Professor.class);
         Assertions.assertEquals(randomNumber, intCaptor.getValue());
     }
 
     @Test
     public void saveProfessor() {
         professorService.saveProfessor(professor);
-        Mockito.verify(professorDao).save(professor);
+        Mockito.verify(professorDao).create(professor);
     }
 
     @Test

@@ -20,7 +20,7 @@ public class DepartmentService {
     }
 
     public Department getDepartment(int id) {
-        Department department = departmentDao.get(id);
+        Department department = departmentDao.get(id, Department.class);
         logger.info("Got department with {} form Database", id);
         return department;
     }

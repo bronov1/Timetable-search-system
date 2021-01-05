@@ -26,7 +26,7 @@ public class LectureService {
     }
 
     public void save(Lecture lecture) {
-        lectureDao.save(lecture);
+        lectureDao.create(lecture);
         logger.info("Saved new lecture");
     }
 
@@ -42,7 +42,7 @@ public class LectureService {
     }
 
     public Lecture getLecture(int id) {
-        Lecture lecture = lectureDao.get(id);
+        Lecture lecture = lectureDao.get(id, Lecture.class);
         logger.info("Got lecture with id - {}", id);
         return lecture;
     }

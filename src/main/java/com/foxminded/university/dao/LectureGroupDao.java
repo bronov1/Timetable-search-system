@@ -12,26 +12,14 @@ import javax.persistence.Query;
 import java.util.List;
 
 @Repository
-public class LectureGroupDao implements Dao<LectureGroup> {
+public class LectureGroupDao extends AbstractDao<LectureGroup> {
 
     private static final String GET_ALL_LECTURE_GROUP = "FROM LectureGroup ";
     private static final String DELETE_LECTURE_FOR_GROUPS = "DELETE FROM LectureGroup WHERE lectureId = :lectureId";
     private static final String DELETE_GROUP_FROM_LECTURE = "DELETE FROM LectureGroup WHERE groupId = :groupId";
 
-    private final SessionFactory sessionFactory;
-
     public LectureGroupDao(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    @Override
-    public LectureGroup get(int id) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            LectureGroup lectureGroup = session.get(LectureGroup.class, id);
-            transaction.commit();
-            return lectureGroup;
-        }
+        super(sessionFactory);
     }
 
     @Override
@@ -45,30 +33,12 @@ public class LectureGroupDao implements Dao<LectureGroup> {
     }
 
     @Override
-    public void save(LectureGroup lectureGroup) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            session.save(lectureGroup);
-            transaction.commit();
-        }
-    }
-
-    @Override
     public void update(LectureGroup lectureGroup, Object[] params) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             lectureGroup.setLectureId((Integer) params[0]);
             lectureGroup.setGroupId((Integer) params[1]);
             session.saveOrUpdate(lectureGroup);
-            transaction.commit();
-        }
-    }
-
-    @Override
-    public void delete(LectureGroup lectureGroup) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            session.delete(lectureGroup);
             transaction.commit();
         }
     }

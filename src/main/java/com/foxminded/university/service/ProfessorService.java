@@ -23,12 +23,12 @@ public class ProfessorService {
 
     public List<Lecture> getProfessorSchedule(int professorId, LocalDate startDate, LocalDate finishDate){
         List<Lecture> lectures = professorDao.getProfessorPeriodLectures(professorId, startDate, finishDate);
-        logger.info("Got schedule for professor {} for dates {} - {}", professorDao.get(professorId), startDate, finishDate);
+        logger.info("Got schedule for professor {} for dates {} - {}", professorDao.get(professorId, Professor.class), startDate, finishDate);
         return lectures;
     }
 
     public Professor getProfessor(int id) {
-        return professorDao.get(id);
+        return professorDao.get(id, Professor.class);
     }
 
     public List<Professor> getAllProfessors() {
@@ -36,7 +36,7 @@ public class ProfessorService {
     }
 
     public void saveProfessor(Professor professor) {
-        professorDao.save(professor);
+        professorDao.create(professor);
         logger.info("Saved new professor");
     }
 
