@@ -32,7 +32,7 @@ public class GroupDao extends AbstractDao<Group> {
 
     @Override
     public void delete(Group group) {
-        studentDao.DeleteStudentsFromGroup(group);
+        studentDao.deleteStudentsFromGroup(group);
         lectureGroupDao.deleteGroupFromLecture(group);
         super.delete(group);
     }

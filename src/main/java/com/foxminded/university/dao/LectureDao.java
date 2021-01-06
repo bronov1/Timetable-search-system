@@ -28,7 +28,7 @@ public class LectureDao extends AbstractDao<Lecture> {
         super.delete(lecture);
     }
 
-    public void DeleteLecturesWithProfessor(Professor professor) {
+    public void deleteLecturesWithProfessor(Professor professor) {
         List<Lecture> lecturesWithProfessor = getAllLecturesWithProfessor(professor);
         for (Lecture lecture : lecturesWithProfessor) {
             delete(lecture);

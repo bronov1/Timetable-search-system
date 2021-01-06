@@ -17,7 +17,7 @@ public class StudentDao extends AbstractDao<Student> {
         super(sessionFactory);
     }
 
-    public void DeleteStudentsFromGroup(Group group) {
+    public void deleteStudentsFromGroup(Group group) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             Query query = session.createQuery(DELETE_STUDENTS_FROM_GROUP);

@@ -26,7 +26,7 @@ public class ProfessorDao extends AbstractDao<Professor> {
 
     @Override
     public void delete(Professor professor) {
-        lectureDao.DeleteLecturesWithProfessor(professor);
+        lectureDao.deleteLecturesWithProfessor(professor);
         super.delete(professor);
     }
 
