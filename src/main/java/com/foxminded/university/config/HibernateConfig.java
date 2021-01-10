@@ -16,7 +16,6 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @org.springframework.context.annotation.Configuration
-@ComponentScan("com.foxminded.university")
 @PropertySource("classpath:db.properties")
 public class HibernateConfig {
 
