@@ -17,12 +17,16 @@
         <jacoco.plugin.version>0.8.6</jacoco.plugin.version>
         <mockito.version>2.23.4</mockito.version>
         <postgresql.version>42.2.12</postgresql.version>
-        <spring.version>5.2.12.RELEASE</spring.version>
-        <hibernate.version>5.4.10.Final</hibernate.version>
         <spring.boot.version>2.3.7.RELEASE</spring.boot.version>
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -50,22 +54,10 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>${mockito.version}</version>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
         </dependency>
 
         <dependency>
