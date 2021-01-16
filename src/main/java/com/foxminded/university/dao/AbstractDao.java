@@ -16,7 +16,7 @@ public abstract class AbstractDao<T> {
         this.sessionFactory = sessionFactory;
     }
 
-    public List<T> getAll(Class<T> tClass) {
+    public List<T> findAll(Class<T> tClass) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             String getAll = "FROM " + tClass.getSimpleName();
@@ -26,28 +26,20 @@ public abstract class AbstractDao<T> {
         }
     }
 
-    public void update(T t) {
+    public void save(T t) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             session.saveOrUpdate(t);
             transaction.commit();
         }
-    };
+    }
 
-    public T get(int id, Class<T> tClass) {
+    public T findById(int id, Class<T> tClass) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             T t = session.get(tClass, id);
             transaction.commit();
             return t;
-        }
-    }
-
-    public void create(T t) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            session.save(t);
-            transaction.commit();
         }
     }
 

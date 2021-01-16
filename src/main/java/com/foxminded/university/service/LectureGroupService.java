@@ -19,7 +19,7 @@ public class LectureGroupService {
     }
 
     public void save(LectureGroup lectureGroup) {
-        lectureGroupDaoDao.create(lectureGroup);
+        lectureGroupDaoDao.save(lectureGroup);
         logger.info("Saved new lecture-group");
     }
 

@@ -22,13 +22,13 @@ public class StreamServiceTest {
     public void getStream() {
         int randomNumber = ArgumentMatchers.anyInt();
         streamService.getStream(randomNumber);
-        Mockito.verify(streamDao).get(argCaptor.capture(), Stream.class);
+        Mockito.verify(streamDao).findById(argCaptor.capture(), Stream.class);
         Assertions.assertEquals(randomNumber, argCaptor.getValue());
     }
 
     @Test
     public void getAllStreams() {
         streamService.getAllStreams();
-        Mockito.verify(streamDao).getAll(Stream.class);
+        Mockito.verify(streamDao).findAll(Stream.class);
     }
 }

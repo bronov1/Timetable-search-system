@@ -23,13 +23,13 @@ public class ClassroomServiceTest {
     public void getClassroom() {
         int randomNumber = ArgumentMatchers.anyInt();
         classroomService.getClassroom(randomNumber);
-        Mockito.verify(classroomDao).get(argCaptor.capture(), Classroom.class);
+        Mockito.verify(classroomDao).findById(argCaptor.capture(), Classroom.class);
         Assertions.assertEquals(randomNumber, argCaptor.getValue());
     }
 
     @Test
     public void getAllClassrooms() {
         classroomService.getAllClassrooms();
-        Mockito.verify(classroomDao).getAll(Classroom.class);
+        Mockito.verify(classroomDao).findAll(Classroom.class);
     }
 }

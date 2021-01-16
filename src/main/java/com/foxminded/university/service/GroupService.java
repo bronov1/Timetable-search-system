@@ -23,12 +23,12 @@ public class GroupService {
 
     public List<Lecture> getGroupSchedule(int groupId, LocalDate startDate, LocalDate finishDate){
         List<Lecture> lectures = groupDao.getGroupPeriodLectures(groupId, startDate, finishDate);
-        logger.info("Got schedule for group {} for dates {} - {}", groupDao.get(groupId, Group.class), startDate, finishDate);
+        logger.info("Got schedule for group {} for dates {} - {}", groupDao.findById(groupId, Group.class), startDate, finishDate);
         return lectures;
     }
 
     public List<Group> getAllGroups() {
-        return groupDao.getAll(Group.class);
+        return groupDao.findAll(Group.class);
     }
 
     public List<Group> getGroupsOnLecture(int lectureId) {
@@ -38,18 +38,18 @@ public class GroupService {
     }
 
     public void saveGroup(Group group) {
-        groupDao.create(group);
+        groupDao.save(group);
         logger.info("Saved new group");
     }
 
     public Group getGroup(int id) {
-        Group group = groupDao.get(id, Group.class);
+        Group group = groupDao.findById(id, Group.class);
         logger.info("Got group with id - {}", id);
         return group;
     }
 
     public void updateGroup(Group group) {
-        groupDao.update(group);
+        groupDao.save(group);
         logger.info("Updated group with id - {}", group.getId());
     }
 

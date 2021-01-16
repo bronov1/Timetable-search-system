@@ -23,25 +23,25 @@ public class ProfessorService {
 
     public List<Lecture> getProfessorSchedule(int professorId, LocalDate startDate, LocalDate finishDate){
         List<Lecture> lectures = professorDao.getProfessorPeriodLectures(professorId, startDate, finishDate);
-        logger.info("Got schedule for professor {} for dates {} - {}", professorDao.get(professorId, Professor.class), startDate, finishDate);
+        logger.info("Got schedule for professor {} for dates {} - {}", professorDao.findById(professorId, Professor.class), startDate, finishDate);
         return lectures;
     }
 
     public Professor getProfessor(int id) {
-        return professorDao.get(id, Professor.class);
+        return professorDao.findById(id, Professor.class);
     }
 
     public List<Professor> getAllProfessors() {
-        return professorDao.getAll(Professor.class);
+        return professorDao.findAll(Professor.class);
     }
 
     public void saveProfessor(Professor professor) {
-        professorDao.create(professor);
+        professorDao.save(professor);
         logger.info("Saved new professor");
     }
 
     public void updateProfessor(Professor professor) {
-        professorDao.update(professor);
+        professorDao.save(professor);
         logger.info("Updated professor with id - {}", professor.getId());
     }
 

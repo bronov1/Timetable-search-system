@@ -24,13 +24,13 @@ public class LectureServiceTest {
     @Test
     public void getAllLectures() {
         lectureService.getAllLectures();
-        Mockito.verify(lectureDao).getAll(Lecture.class);
+        Mockito.verify(lectureDao).findAll(Lecture.class);
     }
 
     @Test
     public void save() {
         lectureService.save(lecture);
-        Mockito.verify(lectureDao).create(lecture);
+        Mockito.verify(lectureDao).save(lecture);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class LectureServiceTest {
     public void getLecture() {
         int randomNumber = ArgumentMatchers.anyInt();
         lectureService.getLecture(randomNumber);
-        Mockito.verify(lectureDao).get(argCaptor.capture(), Lecture.class);
+        Mockito.verify(lectureDao).findById(argCaptor.capture(), Lecture.class);
         Assertions.assertEquals(randomNumber, argCaptor.getValue());
     }
 }

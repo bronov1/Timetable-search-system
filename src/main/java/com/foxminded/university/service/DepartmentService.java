@@ -20,13 +20,13 @@ public class DepartmentService {
     }
 
     public Department getDepartment(int id) {
-        Department department = departmentDao.get(id, Department.class);
+        Department department = departmentDao.findById(id, Department.class);
         logger.info("Got department with {} form Database", id);
         return department;
     }
 
     public List<Department> getAllDepartments() {
-        List<Department> departments = departmentDao.getAll(Department.class);
+        List<Department> departments = departmentDao.findAll(Department.class);
         logger.info("Got all departments from Database");
         return departments;
     }

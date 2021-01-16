@@ -40,7 +40,7 @@ public class GroupServiceTest {
     @Test
     public void getAllGroups() {
         groupService.getAllGroups();
-        Mockito.verify(groupDao).getAll(Group.class);
+        Mockito.verify(groupDao).findAll(Group.class);
     }
 
     @Test
@@ -54,14 +54,14 @@ public class GroupServiceTest {
     @Test
     public void saveGroup() {
         groupService.saveGroup(group);
-        Mockito.verify(groupDao).create(group);
+        Mockito.verify(groupDao).save(group);
     }
 
     @Test
     public void getGroup() {
         int randomNumber = ArgumentMatchers.anyInt();
         groupService.getGroup(randomNumber);
-        Mockito.verify(groupDao).get(intCaptor.capture(), Group.class);
+        Mockito.verify(groupDao).findById(intCaptor.capture(), Group.class);
         Assertions.assertEquals(randomNumber, intCaptor.getValue());
     }
 

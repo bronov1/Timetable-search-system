@@ -22,13 +22,13 @@ public class SubjectServiceTest {
     public void getSubject() {
         int randomNumber = ArgumentMatchers.anyInt();
         subjectService.getSubject(randomNumber);
-        Mockito.verify(subjectDao).get(argCaptor.capture(), Subject.class);
+        Mockito.verify(subjectDao).findById(argCaptor.capture(), Subject.class);
         Assertions.assertEquals(randomNumber, argCaptor.getValue());
     }
 
     @Test
     public void getAllSubjects() {
         subjectService.getAllSubjects();
-        Mockito.verify(subjectDao).getAll(Subject.class);
+        Mockito.verify(subjectDao).findAll(Subject.class);
     }
 }

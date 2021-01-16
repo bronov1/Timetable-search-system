@@ -20,13 +20,13 @@ public class SubjectService {
     }
 
     public Subject getSubject(int id) {
-        Subject subject = subjectDao.get(id, Subject.class);
+        Subject subject = subjectDao.findById(id, Subject.class);
         logger.info("Got subject with  id {} from Database", id);
         return subject;
     }
 
     public List<Subject> getAllSubjects() {
-        List<Subject> subjects = subjectDao.getAll(Subject.class);
+        List<Subject> subjects = subjectDao.findAll(Subject.class);
         logger.info("Got all subjects from Database");
         return subjects;
     }

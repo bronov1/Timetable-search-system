@@ -23,13 +23,13 @@ public class DepartmentServiceTest {
     public void getDepartment() {
         int randomNumber = ArgumentMatchers.anyInt();
         departmentService.getDepartment(randomNumber);
-        Mockito.verify(departmentDao).get(argCaptor.capture(), Department.class);
+        Mockito.verify(departmentDao).findById(argCaptor.capture(), Department.class);
         Assertions.assertEquals(randomNumber, argCaptor.getValue());
     }
 
     @Test
     public void getAllDepartments() {
         departmentService.getAllDepartments();
-        Mockito.verify(departmentDao).getAll(Department.class);
+        Mockito.verify(departmentDao).findAll(Department.class);
     }
 }

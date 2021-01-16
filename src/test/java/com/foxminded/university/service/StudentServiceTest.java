@@ -25,21 +25,21 @@ public class StudentServiceTest {
     @Test
     public void getAllStudents() {
         StudentService.getAllStudents();
-        Mockito.verify(studentDao).getAll(Student.class);
+        Mockito.verify(studentDao).findAll(Student.class);
     }
 
     @Test
     public void getStudent() {
         int randomNumber = ArgumentMatchers.anyInt();
         StudentService.getStudent(randomNumber);
-        Mockito.verify(studentDao).get(intCaptor.capture(), Student.class);
+        Mockito.verify(studentDao).findById(intCaptor.capture(), Student.class);
         Assertions.assertEquals(randomNumber, intCaptor.getValue());
     }
 
     @Test
     public void saveStudent() {
         StudentService.saveStudent(student);
-        Mockito.verify(studentDao).create(student);
+        Mockito.verify(studentDao).save(student);
     }
 
     @Test

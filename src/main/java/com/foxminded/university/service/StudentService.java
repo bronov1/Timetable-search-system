@@ -20,22 +20,22 @@ public class StudentService {
     }
 
     public List<Student> getAllStudents() {
-        return studentDao.getAll(Student.class);
+        return studentDao.findAll(Student.class);
     }
 
     public void saveStudent(Student student) {
-        studentDao.create(student);
+        studentDao.save(student);
         logger.info("Saved new Student");
     }
 
     public Student getStudent(int id) {
-        Student student = studentDao.get(id, Student.class);
+        Student student = studentDao.findById(id, Student.class);
         logger.info("Got Student with id - {}", id);
         return student;
     }
 
     public void updateStudent(Student student) {
-        studentDao.update(student);
+        studentDao.save(student);
         logger.info("Updated Student with id - {}", student.getId());
     }
 

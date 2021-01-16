@@ -20,13 +20,13 @@ public class ClassroomService {
     }
 
     public Classroom getClassroom(int id) {
-        Classroom classroom = classroomDao.get(id, Classroom.class);
+        Classroom classroom = classroomDao.findById(id, Classroom.class);
         logger.info("Got classroom with id {} from Database", id);
         return classroom;
     }
 
     public List<Classroom> getAllClassrooms() {
-        List<Classroom> classrooms = classroomDao.getAll(Classroom.class);
+        List<Classroom> classrooms = classroomDao.findAll(Classroom.class);
         logger.info("Gor all classrooms form Database");
         return classrooms;
     }

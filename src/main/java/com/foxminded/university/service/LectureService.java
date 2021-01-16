@@ -20,13 +20,13 @@ public class LectureService {
     }
 
     public List<Lecture> getAllLectures() {
-        List<Lecture> lectures = lectureDao.getAll(Lecture.class);
+        List<Lecture> lectures = lectureDao.findAll(Lecture.class);
         logger.info("Got all lectures from Database");
         return lectures;
     }
 
     public void save(Lecture lecture) {
-        lectureDao.create(lecture);
+        lectureDao.save(lecture);
         logger.info("Saved new lecture");
     }
 
@@ -36,12 +36,12 @@ public class LectureService {
     }
 
     public void update(Lecture lecture) {
-        lectureDao.update(lecture);
+        lectureDao.save(lecture);
         logger.info("Updated lecture with id - {}", lecture.getId());
     }
 
     public Lecture getLecture(int id) {
-        Lecture lecture = lectureDao.get(id, Lecture.class);
+        Lecture lecture = lectureDao.findById(id, Lecture.class);
         logger.info("Got lecture with id - {}", id);
         return lecture;
     }

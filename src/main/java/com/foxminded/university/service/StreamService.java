@@ -20,13 +20,13 @@ public class StreamService {
     }
 
     public Stream getStream(int id) {
-        Stream stream = streamDao.get(id, Stream.class);
+        Stream stream = streamDao.findById(id, Stream.class);
         logger.info("Got stream with {} form Database", id);
         return stream;
     }
 
     public List<Stream> getAllStreams() {
-        List<Stream> streams = streamDao.getAll(Stream.class);
+        List<Stream> streams = streamDao.findAll(Stream.class);
         logger.info("Got all streams from Database");
         return streams;
     }
