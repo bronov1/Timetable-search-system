@@ -11,14 +11,16 @@ public class LectureGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @Column(name = "lectureId")
-    private int lectureId;
-    @Column(name = "groupId")
-    private int groupId;
+    @ManyToOne
+    @JoinColumn(name = "lectureId")
+    private Lecture lecture;
+    @ManyToOne
+    @JoinColumn(name = "groupId")
+    private Group group;
 
-    public LectureGroup(int lectureId, int groupId) {
-        this.lectureId = lectureId;
-        this.groupId = groupId;
+    public LectureGroup(Lecture lecture, Group group) {
+        this.lecture = lecture;
+        this.group = group;
     }
 
     public LectureGroup() {
@@ -28,24 +30,24 @@ public class LectureGroup {
         this.id = id;
     }
 
-    public void setLectureId(int lectureId) {
-        this.lectureId = lectureId;
+    public void setLecture(Lecture lecture) {
+        this.lecture = lecture;
     }
 
-    public void setGroupId(int groupId) {
-        this.groupId = groupId;
+    public void setGroup(Group groupId) {
+        this.group = groupId;
     }
 
     public int getId() {
         return id;
     }
 
-    public int getLectureId() {
-        return lectureId;
+    public Lecture getLecture() {
+        return lecture;
     }
 
-    public int getGroupId() {
-        return groupId;
+    public Group getGroup() {
+        return group;
     }
 
     @Override
@@ -54,21 +56,21 @@ public class LectureGroup {
         if (o == null || getClass() != o.getClass()) return false;
         LectureGroup that = (LectureGroup) o;
         return id == that.id &&
-                lectureId == that.lectureId &&
-                groupId == that.groupId;
+                lecture.equals(that.lecture) &&
+                group.equals(that.group);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, lectureId, groupId);
+        return Objects.hash(id, lecture, group);
     }
 
     @Override
     public String toString() {
         return "LectureGroup{" +
                 "id=" + id +
-                ", lectureId=" + lectureId +
-                ", groupId=" + groupId +
+                ", lecture=" + lecture +
+                ", group=" + group +
                 '}';
     }
 }

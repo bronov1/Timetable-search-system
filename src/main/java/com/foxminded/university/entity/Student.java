@@ -7,12 +7,13 @@ import java.util.Objects;
 @Table(name = "students")
 public class Student extends Person {
 
-    @Column(name = "groupId")
-    private int groupId;
+    @ManyToOne
+    @JoinColumn(name = "groupId")
+    private Group group;
 
-    public Student(String name, int groupId) {
+    public Student(String name, Group group) {
         super(name);
-        this.groupId = groupId;
+        this.group = group;
     }
 
     public Student(){
@@ -39,12 +40,12 @@ public class Student extends Person {
         super.setName(name);
     }
 
-    public void setGroupId(int groupId) {
-        this.groupId = groupId;
+    public void setGroup(Group groupId) {
+        this.group = groupId;
     }
 
-    public int getGroupId() {
-        return groupId;
+    public Group getGroup() {
+        return group;
     }
 
     @Override
@@ -53,19 +54,19 @@ public class Student extends Person {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Student student = (Student) o;
-        return groupId == student.groupId;
+        return group.equals(student.group);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), super.getId(), groupId);
+        return Objects.hash(super.hashCode(), group);
     }
 
     @Override
     public String toString() {
         return "Student{" +
-                "id=" + super.getId() +
-                ", groupId=" + groupId +
+                "group=" + group +
+                ", name='" + name + '\'' +
                 '}';
     }
 

@@ -1,6 +1,8 @@
 package com.foxminded.university.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,15 +15,35 @@ public class Group {
     private int id;
     @Column(name = "name")
     private String name;
-    @Column(name = "streamId")
-    private int streamId;
+    @ManyToOne
+    @JoinColumn(name = "streamId")
+    private Stream stream;
+    @ManyToMany()
+    @JoinTable(name = "lecturegroups",
+            joinColumns = @JoinColumn(name = "groupId"),
+            inverseJoinColumns = @JoinColumn(name = "lectureId"))
+    private List<Lecture> lectures = new ArrayList<>();
 
-    public Group(String name, int streamId) {
+    public Group(String name, Stream stream) {
         this.name = name;
-        this.streamId = streamId;
+        this.stream = stream;
     }
 
     public Group() {
+    }
+
+    public void addLecture(Lecture lecture) {
+        lectures.add(lecture);
+        lecture.getGroups().add(this);
+    }
+
+    public void removeLecture(Lecture lecture) {
+        lectures.remove(lecture);
+        lecture.getGroups().remove(this);
+    }
+
+    public List<Lecture> getLectures() {
+        return lectures;
     }
 
     public void setId(int id) {
@@ -36,8 +58,8 @@ public class Group {
         return String.valueOf(id);
     }
 
-    public int getStreamId() {
-        return streamId;
+    public Stream getStream() {
+        return stream;
     }
 
     public String getName() {
@@ -48,8 +70,8 @@ public class Group {
         this.name = name;
     }
 
-    public void setStreamId(int streamId) {
-        this.streamId = streamId;
+    public void setStream(Stream streamId) {
+        this.stream = streamId;
     }
 
     @Override
@@ -58,13 +80,13 @@ public class Group {
         if (o == null || getClass() != o.getClass()) return false;
         Group group = (Group) o;
         return id == group.id &&
-                streamId == group.streamId &&
-                name.equals(group.name);
+                name.equals(group.name) &&
+                stream.equals(group.stream);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, streamId);
+        return Objects.hash(id, name, stream);
     }
 
     @Override
@@ -72,7 +94,7 @@ public class Group {
         return "Group{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", streamId=" + streamId +
+                ", stream=" + stream +
                 '}';
     }
 

@@ -7,6 +7,8 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,40 +19,64 @@ public class Lecture {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @Column(name = "subjectId")
-    private int subjectId;
-    @Column(name = "professorId")
-    private int professorId;
+    @ManyToOne
+    @JoinColumn(name = "subjectId")
+    private Subject subject;
+    @ManyToOne
+    @JoinColumn(name = "professorId")
+    private Professor professor;
     @Column(name = "date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
     @Column(name = "time")
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime time;
-    @Column(name = "classroomId")
-    private int classroomId;
+    @ManyToOne
+    @JoinColumn(name = "classroomId")
+    private Classroom classroom;
+    @ManyToMany()
+    @JoinTable(name = "lecturegroups",
+            joinColumns = @JoinColumn(name = "lectureId"),
+            inverseJoinColumns = @JoinColumn(name = "groupId"))
+    private List<Group> groups = new ArrayList<>();
 
-    public Lecture(int subjectId, int professorId, LocalDate date, LocalTime time, int classroomId) {
-        this.subjectId = subjectId;
-        this.professorId = professorId;
+    public Lecture(int id, Subject subject, Professor professor, LocalDate date, LocalTime time, Classroom classroom, List<Group> groups) {
+        this.id = id;
+        this.subject = subject;
+        this.professor = professor;
         this.date = date;
         this.time = time;
-        this.classroomId = classroomId;
+        this.classroom = classroom;
+        this.groups = groups;
     }
 
     public Lecture() {
+    }
+
+    public void addGroup(Group group) {
+        groups.add(group);
+        group.getLectures().add(this);
+    }
+
+    public void removeGroup(Group group) {
+        groups.remove(group);
+        group.getLectures().remove(this);
+    }
+
+    public List<Group> getGroups() {
+        return groups;
     }
 
     public int getId() {
         return id;
     }
 
-    public int getSubjectId() {
-        return subjectId;
+    public Subject getSubject() {
+        return subject;
     }
 
-    public int getProfessorId() {
-        return professorId;
+    public Professor getProfessor() {
+        return professor;
     }
 
     public LocalDate getDate() {
@@ -71,20 +97,20 @@ public class Lecture {
         return time;
     }
 
-    public int getClassroomId() {
-        return classroomId;
+    public Classroom getClassroom() {
+        return classroom;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setSubjectId(int subjectId) {
-        this.subjectId = subjectId;
+    public void setSubject(Subject subjectId) {
+        this.subject = subjectId;
     }
 
-    public void setProfessorId(int professorId) {
-        this.professorId = professorId;
+    public void setProfessor(Professor professorId) {
+        this.professor = professorId;
     }
 
     public void setDate(LocalDate date) {
@@ -95,8 +121,8 @@ public class Lecture {
         this.time = time;
     }
 
-    public void setClassroomId(int classroomId) {
-        this.classroomId = classroomId;
+    public void setClassroom(Classroom classroomId) {
+        this.classroom = classroomId;
     }
 
     @Override
@@ -105,27 +131,27 @@ public class Lecture {
         if (o == null || getClass() != o.getClass()) return false;
         Lecture lecture = (Lecture) o;
         return id == lecture.id &&
-                subjectId == lecture.subjectId &&
-                professorId == lecture.professorId &&
-                classroomId == lecture.classroomId &&
+                subject.equals(lecture.subject) &&
+                professor.equals(lecture.professor) &&
                 date.equals(lecture.date) &&
-                time.equals(lecture.time);
+                time.equals(lecture.time) &&
+                classroom.equals(lecture.classroom);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, subjectId, professorId, date, time, classroomId);
+        return Objects.hash(id, subject, professor, date, time, classroom);
     }
 
     @Override
     public String toString() {
         return "Lecture{" +
                 "id=" + id +
-                ", subjectId=" + subjectId +
-                ", professorId=" + professorId +
+                ", subject=" + subject +
+                ", professor=" + professor +
                 ", date=" + date +
                 ", time=" + time +
-                ", classroomId=" + classroomId +
+                ", classroom=" + classroom +
                 '}';
     }
 

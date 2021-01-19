@@ -13,12 +13,13 @@ public class Classroom {
     private int id;
     @Column(name = "number")
     private int number;
-    @Column(name = "floorId")
-    private int floorId;
+    @ManyToOne
+    @JoinColumn(name = "floorId")
+    private Floor floor;
 
-    public Classroom(int number, int floorId) {
+    public Classroom(int number, Floor floor) {
         this.number = number;
-        this.floorId = floorId;
+        this.floor = floor;
     }
 
     public Classroom() {
@@ -40,21 +41,12 @@ public class Classroom {
         this.number = number;
     }
 
-    public void setFloorId(int floorId) {
-        this.floorId = floorId;
+    public void setFloor(Floor floorId) {
+        this.floor = floorId;
     }
 
-    public int getFloorId() {
-        return floorId;
-    }
-
-    @Override
-    public String toString() {
-        return "Classroom{" +
-                "id=" + id +
-                ", number=" + number +
-                ", floorId=" + floorId +
-                '}';
+    public Floor getFloor() {
+        return floor;
     }
 
     @Override
@@ -64,12 +56,21 @@ public class Classroom {
         Classroom classroom = (Classroom) o;
         return id == classroom.id &&
                 number == classroom.number &&
-                floorId == classroom.floorId;
+                floor.equals(classroom.floor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, number, floorId);
+        return Objects.hash(id, number, floor);
+    }
+
+    @Override
+    public String toString() {
+        return "Classroom{" +
+                "id=" + id +
+                ", number=" + number +
+                ", floor=" + floor +
+                '}';
     }
 
 }

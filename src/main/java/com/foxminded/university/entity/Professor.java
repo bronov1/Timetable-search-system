@@ -11,12 +11,13 @@ public class Professor extends Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @Column(name = "departmentId")
-    private int departmentId;
+    @ManyToOne
+    @JoinColumn(name = "departmentId")
+    private Department department;
 
-    public Professor(String name, int departmentId) {
+    public Professor(String name, Department department) {
         super(name);
-        this.departmentId = departmentId;
+        this.department = department;
     }
 
     public Professor() {
@@ -42,12 +43,20 @@ public class Professor extends Person {
         super.setName(name);
     }
 
-    public void setDepartmentId(int departmentId) {
-        this.departmentId = departmentId;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
-    public int getDepartmentId() {
-        return departmentId;
+    public Department getDepartment() {
+        return department;
+    }
+
+    @Override
+    public String toString() {
+        return "Professor{" +
+                "department=" + department +
+                ", name='" + name + '\'' +
+                '}';
     }
 
     @Override
@@ -57,21 +66,11 @@ public class Professor extends Person {
         if (!super.equals(o)) return false;
         Professor professor = (Professor) o;
         return id == professor.id &&
-                departmentId == professor.departmentId;
+                department.equals(professor.department);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id, departmentId);
+        return Objects.hash(super.hashCode(), id, department);
     }
-
-    @Override
-    public String toString() {
-        return "Professor{" +
-                "id=" + id +
-                ", departmentId=" + departmentId +
-                ", name='" + name + '\'' +
-                '}';
-    }
-
 }

@@ -13,12 +13,13 @@ public class Stream {
     private int id;
     @Column(name = "name")
     private String name;
-    @Column(name = "departmentId")
-    private int departmentId;
+    @ManyToOne
+    @JoinColumn(name = "departmentId")
+    private Department department;
 
-    public Stream(String name, int departmentId) {
+    public Stream(String name, Department department) {
         this.name = name;
-        this.departmentId = departmentId;
+        this.department = department;
     }
 
     public Stream() {
@@ -40,12 +41,12 @@ public class Stream {
         this.name = name;
     }
 
-    public void setDepartmentId(int departmentId) {
-        this.departmentId = departmentId;
+    public void setDepartment(Department departmentId) {
+        this.department = departmentId;
     }
 
-    public int getDepartmentId() {
-        return departmentId;
+    public Department getDepartment() {
+        return department;
     }
 
     @Override
@@ -54,13 +55,13 @@ public class Stream {
         if (o == null || getClass() != o.getClass()) return false;
         Stream stream = (Stream) o;
         return id == stream.id &&
-                departmentId == stream.departmentId &&
-                name.equals(stream.name);
+                name.equals(stream.name) &&
+                department.equals(stream.department);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, departmentId);
+        return Objects.hash(id, name, department);
     }
 
     @Override
@@ -68,7 +69,7 @@ public class Stream {
         return "Stream{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", departmentId=" + departmentId +
+                ", department=" + department +
                 '}';
     }
 
