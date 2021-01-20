@@ -1,32 +1,33 @@
 package com.foxminded.university.service;
 
-import com.foxminded.university.dao.ClassroomDao;
+import com.foxminded.university.dao.ClassroomRepository;
 import com.foxminded.university.entity.Classroom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClassroomService {
 
     private static final Logger logger = LoggerFactory.getLogger("ClassroomService");
 
-    private final ClassroomDao classroomDao;
+    private final ClassroomRepository classroomRepository;
 
-    public ClassroomService(ClassroomDao classroomDao) {
-        this.classroomDao = classroomDao;
+    public ClassroomService(ClassroomRepository classroomRepository) {
+        this.classroomRepository = classroomRepository;
     }
 
     public Classroom getClassroom(int id) {
-        Classroom classroom = classroomDao.findById(id, Classroom.class);
+        Optional<Classroom> optionalClassroom = classroomRepository.findById(id);
         logger.info("Got classroom with id {} from Database", id);
-        return classroom;
+        return optionalClassroom.get();
     }
 
-    public List<Classroom> getAllClassrooms() {
-        List<Classroom> classrooms = classroomDao.findAll(Classroom.class);
+    public Iterable<Classroom> getAllClassrooms() {
+        Iterable<Classroom> classrooms = classroomRepository.findAll();
         logger.info("Gor all classrooms form Database");
         return classrooms;
     }

@@ -1,32 +1,32 @@
 package com.foxminded.university.service;
 
-import com.foxminded.university.dao.DepartmentDao;
+import com.foxminded.university.dao.DepartmentRepository;
 import com.foxminded.university.entity.Department;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DepartmentService {
 
     private static final Logger logger = LoggerFactory.getLogger("DepartmentService");
 
-    private final DepartmentDao departmentDao;
+    private final DepartmentRepository departmentRepository;
 
-    public DepartmentService(DepartmentDao departmentDao) {
-        this.departmentDao = departmentDao;
+    public DepartmentService(DepartmentRepository departmentRepository) {
+        this.departmentRepository = departmentRepository;
     }
 
     public Department getDepartment(int id) {
-        Department department = departmentDao.findById(id, Department.class);
+        Optional<Department> optionalDepartment = departmentRepository.findById(id);
         logger.info("Got department with {} form Database", id);
-        return department;
+        return optionalDepartment.get();
     }
 
-    public List<Department> getAllDepartments() {
-        List<Department> departments = departmentDao.findAll(Department.class);
+    public Iterable<Department> getAllDepartments() {
+        Iterable<Department> departments = departmentRepository.findAll();
         logger.info("Got all departments from Database");
         return departments;
     }

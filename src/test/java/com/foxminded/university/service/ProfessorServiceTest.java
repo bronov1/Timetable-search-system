@@ -1,6 +1,6 @@
 package com.foxminded.university.service;
 
-import com.foxminded.university.dao.ProfessorDao;
+import com.foxminded.university.dao.ProfessorRepository;
 import com.foxminded.university.entity.Professor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ public class ProfessorServiceTest {
     @Mock
     Professor professor;
     @Mock
-    ProfessorDao professorDao;
+    ProfessorRepository professorRepository;
     @Spy
     @InjectMocks
     ProfessorService professorService;
@@ -31,8 +31,7 @@ public class ProfessorServiceTest {
         LocalDate randomStartDate = ArgumentMatchers.any(LocalDate.class);
         LocalDate randomFinishDate = ArgumentMatchers.any(LocalDate.class);
         professorService.getProfessorSchedule(randomNumber, randomStartDate, randomFinishDate);
-        Mockito.verify(professorDao).getProfessorPeriodLectures(intCaptor.capture(), dateCaptor.capture(), dateCaptor.capture());
-        Assertions.assertEquals(randomNumber, intCaptor.getValue());
+        Mockito.verify(professorRepository).getProfessorPeriodLectures(professor, dateCaptor.capture(), dateCaptor.capture());
         Assertions.assertEquals(randomStartDate, dateCaptor.getValue());
         Assertions.assertEquals(randomFinishDate, dateCaptor.getValue());
     }
@@ -40,21 +39,21 @@ public class ProfessorServiceTest {
     @Test
     public void getAllProfessors() {
         professorService.getAllProfessors();
-        Mockito.verify(professorDao).findAll(Professor.class);
+        Mockito.verify(professorRepository).findAll();
     }
 
     @Test
     public void getProfessor() {
         int randomNumber = ArgumentMatchers.anyInt();
         professorService.getProfessor(randomNumber);
-        Mockito.verify(professorDao).findById(intCaptor.capture(), Professor.class);
+        Mockito.verify(professorRepository).findById(intCaptor.capture());
         Assertions.assertEquals(randomNumber, intCaptor.getValue());
     }
 
     @Test
     public void saveProfessor() {
         professorService.saveProfessor(professor);
-        Mockito.verify(professorDao).save(professor);
+        Mockito.verify(professorRepository).save(professor);
     }
 
     @Test
@@ -66,6 +65,6 @@ public class ProfessorServiceTest {
     @Test
     public void deleteProfessor() {
         professorService.deleteProfessor(professor);
-        Mockito.verify(professorDao).delete(professor);
+        Mockito.verify(professorRepository).delete(professor);
     }
 }

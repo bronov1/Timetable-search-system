@@ -1,6 +1,6 @@
 package com.foxminded.university.service;
 
-import com.foxminded.university.dao.LectureGroupDao;
+import com.foxminded.university.dao.LectureGroupRepository;
 import com.foxminded.university.entity.Lecture;
 import com.foxminded.university.entity.LectureGroup;
 import org.slf4j.Logger;
@@ -12,19 +12,19 @@ public class LectureGroupService {
 
     private static final Logger logger = LoggerFactory.getLogger("LectureGroupService");
 
-    private final LectureGroupDao lectureGroupDaoDao;
+    private final LectureGroupRepository lectureGroupRepository;
 
-    public LectureGroupService(LectureGroupDao lectureGroupDaoDao) {
-        this.lectureGroupDaoDao = lectureGroupDaoDao;
+    public LectureGroupService(LectureGroupRepository lectureGroupRepository) {
+        this.lectureGroupRepository = lectureGroupRepository;
     }
 
     public void save(LectureGroup lectureGroup) {
-        lectureGroupDaoDao.save(lectureGroup);
+        lectureGroupRepository.save(lectureGroup.getLecture().getId(), lectureGroup.getGroup().getId());
         logger.info("Saved new lecture-group");
     }
 
     public void deleteGroupsFromLecture(Lecture lecture){
-        lectureGroupDaoDao.deleteLectureForGroups(lecture);
+        lectureGroupRepository.deleteByLectureId(lecture.getId());
         logger.info("Deleted groups for lecture with id {}", lecture.getId());
     }
 }

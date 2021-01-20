@@ -1,7 +1,6 @@
 package com.foxminded.university.service;
 
-import com.foxminded.university.dao.ClassroomDao;
-
+import com.foxminded.university.dao.ClassroomRepository;
 import com.foxminded.university.entity.Classroom;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 public class ClassroomServiceTest {
 
     @Mock
-    ClassroomDao classroomDao;
+    ClassroomRepository classroomRepository;
     @InjectMocks
     ClassroomService classroomService;
     @Captor
@@ -23,13 +22,13 @@ public class ClassroomServiceTest {
     public void getClassroom() {
         int randomNumber = ArgumentMatchers.anyInt();
         classroomService.getClassroom(randomNumber);
-        Mockito.verify(classroomDao).findById(argCaptor.capture(), Classroom.class);
+        Mockito.verify(classroomRepository).findById(argCaptor.capture());
         Assertions.assertEquals(randomNumber, argCaptor.getValue());
     }
 
     @Test
     public void getAllClassrooms() {
         classroomService.getAllClassrooms();
-        Mockito.verify(classroomDao).findAll(Classroom.class);
+        Mockito.verify(classroomRepository).findAll();
     }
 }

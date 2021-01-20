@@ -1,6 +1,6 @@
 package com.foxminded.university.service;
 
-import com.foxminded.university.dao.ProfessorDao;
+import com.foxminded.university.dao.ProfessorRepository;
 import com.foxminded.university.entity.Lecture;
 import com.foxminded.university.entity.Professor;
 import org.slf4j.Logger;
@@ -15,38 +15,41 @@ public class ProfessorService {
 
     private static final Logger logger = LoggerFactory.getLogger("ProfessorService");
 
-    private final ProfessorDao professorDao;
+    private final ProfessorRepository professorRepository;
+    private final LectureService lectureService;
 
-    public ProfessorService(ProfessorDao professorDao) {
-        this.professorDao = professorDao;
+    public ProfessorService(ProfessorRepository professorRepository, LectureService lectureService) {
+        this.professorRepository = professorRepository;
+        this.lectureService = lectureService;
     }
 
     public List<Lecture> getProfessorSchedule(int professorId, LocalDate startDate, LocalDate finishDate){
-        List<Lecture> lectures = professorDao.getProfessorPeriodLectures(professorId, startDate, finishDate);
-        logger.info("Got schedule for professor {} for dates {} - {}", professorDao.findById(professorId, Professor.class), startDate, finishDate);
+        List<Lecture> lectures = professorRepository.getProfessorPeriodLectures(getProfessor(professorId), startDate, finishDate);
+        logger.info("Got schedule for professor {} for dates {} - {}", professorRepository.findById(professorId), startDate, finishDate);
         return lectures;
     }
 
     public Professor getProfessor(int id) {
-        return professorDao.findById(id, Professor.class);
+        return professorRepository.findById(id).get();
     }
 
-    public List<Professor> getAllProfessors() {
-        return professorDao.findAll(Professor.class);
+    public Iterable<Professor> getAllProfessors() {
+        return professorRepository.findAll();
     }
 
     public void saveProfessor(Professor professor) {
-        professorDao.save(professor);
+        professorRepository.save(professor);
         logger.info("Saved new professor");
     }
 
     public void updateProfessor(Professor professor) {
-        professorDao.save(professor);
+        professorRepository.save(professor);
         logger.info("Updated professor with id - {}", professor.getId());
     }
 
     public void deleteProfessor(Professor professor) {
-        professorDao.delete(professor);
+        lectureService.deleteLecturesWithProfessor(professor);
+        professorRepository.delete(professor);
         logger.info("Deleted professor with id - {}", professor.getId());
     }
 }

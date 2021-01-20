@@ -20,10 +20,10 @@ public class Lecture {
     @Column(name = "id")
     private int id;
     @ManyToOne
-    @JoinColumn(name = "subjectId")
+    @JoinColumn(name = "subjectid")
     private Subject subject;
     @ManyToOne
-    @JoinColumn(name = "professorId")
+    @JoinColumn(name = "professorid")
     private Professor professor;
     @Column(name = "date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -32,12 +32,12 @@ public class Lecture {
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime time;
     @ManyToOne
-    @JoinColumn(name = "classroomId")
+    @JoinColumn(name = "classroomid")
     private Classroom classroom;
     @ManyToMany()
     @JoinTable(name = "lecturegroups",
-            joinColumns = @JoinColumn(name = "lectureId"),
-            inverseJoinColumns = @JoinColumn(name = "groupId"))
+            joinColumns = @JoinColumn(name = "lectureid"),
+            inverseJoinColumns = @JoinColumn(name = "groupid"))
     private List<Group> groups = new ArrayList<>();
 
     public Lecture(int id, Subject subject, Professor professor, LocalDate date, LocalTime time, Classroom classroom, List<Group> groups) {

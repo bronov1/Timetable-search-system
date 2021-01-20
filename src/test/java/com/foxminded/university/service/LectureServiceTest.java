@@ -1,6 +1,6 @@
 package com.foxminded.university.service;
 
-import com.foxminded.university.dao.LectureDao;
+import com.foxminded.university.dao.LectureRepository;
 import com.foxminded.university.entity.Lecture;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ public class LectureServiceTest {
     @Mock
     Lecture lecture;
     @Mock
-    LectureDao lectureDao;
+    LectureRepository lectureRepository;
     @Spy
     @InjectMocks
     LectureService lectureService;
@@ -24,19 +24,19 @@ public class LectureServiceTest {
     @Test
     public void getAllLectures() {
         lectureService.getAllLectures();
-        Mockito.verify(lectureDao).findAll(Lecture.class);
+        Mockito.verify(lectureRepository).findAll();
     }
 
     @Test
     public void save() {
         lectureService.save(lecture);
-        Mockito.verify(lectureDao).save(lecture);
+        Mockito.verify(lectureRepository).save(lecture);
     }
 
     @Test
     public void delete() {
         lectureService.delete(lecture);
-        Mockito.verify(lectureDao).delete(lecture);
+        Mockito.verify(lectureRepository).delete(lecture);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class LectureServiceTest {
     public void getLecture() {
         int randomNumber = ArgumentMatchers.anyInt();
         lectureService.getLecture(randomNumber);
-        Mockito.verify(lectureDao).findById(argCaptor.capture(), Lecture.class);
+        Mockito.verify(lectureRepository).findById(argCaptor.capture());
         Assertions.assertEquals(randomNumber, argCaptor.getValue());
     }
 }

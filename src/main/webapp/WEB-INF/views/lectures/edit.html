@@ -14,7 +14,7 @@
                 <h2>Update lecture:</h2>
                 <div>
                     <label for="subject">Choose subject: </label>
-                    <select type="text" th:field="*{subjectId}" id="subject">
+                    <select type="text" th:field="*{subject}" id="subject">
                         <option th:each="subject : ${subjects}" th:value="${subject.getId()}"
                                 th:text="${subject.getName()}"></option>
                     </select>
@@ -22,7 +22,7 @@
                 <br/>
                 <div>
                     <label for="professor">Choose professor: </label>
-                    <select type="text" th:field="*{professorId}" id="professor">
+                    <select type="text" th:field="*{professor}" id="professor">
                         <option th:each="professor : ${professors}" th:value="${professor.getId()}"
                                 th:text="${professor.getName()}"></option>
                     </select>
@@ -30,7 +30,7 @@
                 <br/>
                 <div>
                     <label for="classroom">Choose classroom: </label>
-                    <select type="text" th:field="*{classroomId}" id="classroom">
+                    <select type="text" th:field="*{classroom}" id="classroom">
                         <option th:each="classroom : ${classrooms}" th:value="${classroom.getId()}"
                                 th:text="${classroom.getNumber()}"></option>
                     </select>

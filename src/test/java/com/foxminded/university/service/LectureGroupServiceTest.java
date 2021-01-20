@@ -1,6 +1,6 @@
 package com.foxminded.university.service;
 
-import com.foxminded.university.dao.LectureGroupDao;
+import com.foxminded.university.dao.LectureGroupRepository;
 import com.foxminded.university.entity.Lecture;
 import com.foxminded.university.entity.LectureGroup;
 import org.junit.jupiter.api.Test;
@@ -18,19 +18,19 @@ public class LectureGroupServiceTest {
     @Mock
     LectureGroup lectureGroup;
     @Mock
-    LectureGroupDao lectureGroupDao;
+    LectureGroupRepository lectureGroupRepository;
     @InjectMocks
     LectureGroupService lectureGroupService;
 
     @Test
     public void save() {
         lectureGroupService.save(lectureGroup);
-        Mockito.verify(lectureGroupDao).save(lectureGroup);
+        Mockito.verify(lectureGroupRepository).save(lectureGroup);
     }
 
     @Test
     public void deleteGroupsFromLecture() {
         lectureGroupService.deleteGroupsFromLecture(lecture);
-        Mockito.verify(lectureGroupDao).deleteLectureForGroups(lecture);
+        Mockito.verify(lectureGroupRepository).deleteByLectureId(lecture.getId());
     }
 }

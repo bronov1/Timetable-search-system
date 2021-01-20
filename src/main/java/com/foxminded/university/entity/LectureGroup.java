@@ -12,10 +12,10 @@ public class LectureGroup {
     @Column(name = "id")
     private int id;
     @ManyToOne
-    @JoinColumn(name = "lectureId")
+    @JoinColumn(name = "lectureid")
     private Lecture lecture;
     @ManyToOne
-    @JoinColumn(name = "groupId")
+    @JoinColumn(name = "groupid")
     private Group group;
 
     public LectureGroup(Lecture lecture, Group group) {

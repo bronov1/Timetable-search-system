@@ -18,7 +18,7 @@
                 <br/>
                 <div>
                     <label for="group">Choose Group:</label>
-                    <select type="text" th:field="*{groupId}" id="group">
+                    <select type="text" th:field="*{group}" id="group">
                         <option th:each="group : ${groups}" th:value="${group.getId()}"
                                 th:text="${group.getName()}"></option>
                     </select>

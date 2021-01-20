@@ -1,6 +1,5 @@
 package com.foxminded.university.controller;
 
-import com.foxminded.university.entity.Group;
 import com.foxminded.university.entity.Professor;
 import com.foxminded.university.service.DepartmentService;
 import com.foxminded.university.service.ProfessorService;
@@ -23,7 +22,6 @@ public class ProfessorController {
     @GetMapping()
     public String showAll(Model model) {
         model.addAttribute("professors", professorService.getAllProfessors());
-        model.addAttribute("departmentService", departmentService);
         return "professors/index";
     }
 

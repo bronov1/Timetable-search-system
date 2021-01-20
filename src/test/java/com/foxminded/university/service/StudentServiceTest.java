@@ -1,6 +1,6 @@
 package com.foxminded.university.service;
 
-import com.foxminded.university.dao.StudentDao;
+import com.foxminded.university.dao.StudentRepository;
 import com.foxminded.university.entity.Student;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ public class StudentServiceTest {
     @Mock
     Student student;
     @Mock
-    StudentDao studentDao;
+    StudentRepository studentRepository;
     @Spy
     @InjectMocks
     StudentService StudentService;
@@ -25,21 +25,21 @@ public class StudentServiceTest {
     @Test
     public void getAllStudents() {
         StudentService.getAllStudents();
-        Mockito.verify(studentDao).findAll(Student.class);
+        Mockito.verify(studentRepository).findAll();
     }
 
     @Test
     public void getStudent() {
         int randomNumber = ArgumentMatchers.anyInt();
         StudentService.getStudent(randomNumber);
-        Mockito.verify(studentDao).findById(intCaptor.capture(), Student.class);
+        Mockito.verify(studentRepository).findById(intCaptor.capture());
         Assertions.assertEquals(randomNumber, intCaptor.getValue());
     }
 
     @Test
     public void saveStudent() {
         StudentService.saveStudent(student);
-        Mockito.verify(studentDao).save(student);
+        Mockito.verify(studentRepository).save(student);
     }
 
     @Test
@@ -51,6 +51,6 @@ public class StudentServiceTest {
     @Test
     public void deleteStudent() {
         StudentService.deleteStudent(student);
-        Mockito.verify(studentDao).delete(student);
+        Mockito.verify(studentRepository).delete(student);
     }
 }

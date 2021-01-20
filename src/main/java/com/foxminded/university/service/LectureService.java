@@ -1,49 +1,70 @@
 package com.foxminded.university.service;
 
-import com.foxminded.university.dao.LectureDao;
+import com.foxminded.university.dao.LectureGroupRepository;
+import com.foxminded.university.dao.LectureRepository;
 import com.foxminded.university.entity.Lecture;
+import com.foxminded.university.entity.Professor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LectureService {
 
     private static final Logger logger = LoggerFactory.getLogger("LectureService");
 
-    private final LectureDao lectureDao;
+    private final LectureRepository lectureRepository;
+    private final LectureGroupRepository lectureGroupRepository;
 
-    public LectureService(LectureDao lectureDao) {
-        this.lectureDao = lectureDao;
+    public LectureService(LectureRepository lectureRepository, LectureGroupRepository lectureGroupRepository) {
+        this.lectureRepository = lectureRepository;
+        this.lectureGroupRepository = lectureGroupRepository;
     }
 
-    public List<Lecture> getAllLectures() {
-        List<Lecture> lectures = lectureDao.findAll(Lecture.class);
+    public Iterable<Lecture> getAllLectures() {
+        Iterable<Lecture> lectures = lectureRepository.findAll();
         logger.info("Got all lectures from Database");
         return lectures;
     }
 
     public void save(Lecture lecture) {
-        lectureDao.save(lecture);
+        lectureRepository.save(lecture);
         logger.info("Saved new lecture");
     }
 
     public void delete(Lecture lecture) {
-        lectureDao.delete(lecture);
+        lectureGroupRepository.deleteByLectureId(lecture.getId());
+        lectureRepository.delete(lecture);
         logger.info("Deleted lecture with id - {}", lecture.getId());
     }
 
     public void update(Lecture lecture) {
-        lectureDao.save(lecture);
+        int subjectId = lecture.getSubject().getId();
+        int classroomId = lecture.getClassroom().getId();
+        int professorId = lecture.getProfessor().getId();
+        LocalDate date = lecture.getDate();
+        LocalTime time = lecture.getTime();
+        lectureRepository.save(subjectId, professorId, date, time, classroomId, lecture.getId());
         logger.info("Updated lecture with id - {}", lecture.getId());
     }
 
     public Lecture getLecture(int id) {
-        Lecture lecture = lectureDao.findById(id, Lecture.class);
+        Optional<Lecture> optionalLecture = lectureRepository.findById(id);
         logger.info("Got lecture with id - {}", id);
-        return lecture;
+        return optionalLecture.get();
     }
+
+    public void deleteLecturesWithProfessor(Professor professor) {
+        List<Lecture> lecturesWithProfessor = lectureRepository.findAllByProfessorId(professor.getId());
+        for (Lecture lecture : lecturesWithProfessor) {
+            delete(lecture);
+        }
+    }
+
 }
 

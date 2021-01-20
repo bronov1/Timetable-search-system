@@ -19,7 +19,7 @@
                 <br/>
                 <div>
                     <label for="stream">Choose Stream:</label>
-                    <select type="text" th:field="*{streamId}" id="stream">
+                    <select type="text" th:field="*{stream}" id="stream">
                         <option th:each="stream : ${streams}" th:value="${stream.getId()}"
                                 th:text="${stream.getName()}"></option>
                     </select>

@@ -1,6 +1,6 @@
 package com.foxminded.university.service;
 
-import com.foxminded.university.dao.SubjectDao;
+import com.foxminded.university.dao.SubjectRepository;
 import com.foxminded.university.entity.Subject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 public class SubjectServiceTest {
 
     @Mock
-    SubjectDao subjectDao;
+    SubjectRepository subjectRepository;
     @InjectMocks
     SubjectService subjectService;
     @Captor
@@ -22,13 +22,13 @@ public class SubjectServiceTest {
     public void getSubject() {
         int randomNumber = ArgumentMatchers.anyInt();
         subjectService.getSubject(randomNumber);
-        Mockito.verify(subjectDao).findById(argCaptor.capture(), Subject.class);
+        Mockito.verify(subjectRepository).findById(argCaptor.capture());
         Assertions.assertEquals(randomNumber, argCaptor.getValue());
     }
 
     @Test
     public void getAllSubjects() {
         subjectService.getAllSubjects();
-        Mockito.verify(subjectDao).findAll(Subject.class);
+        Mockito.verify(subjectRepository).findAll();
     }
 }

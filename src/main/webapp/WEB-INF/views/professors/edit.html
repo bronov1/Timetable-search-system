@@ -19,7 +19,7 @@
                 <br/>
                 <div>
                     <label for="department">Choose Department:</label>
-                    <select type="text" th:field="*{departmentId}" id="department">
+                    <select type="text" th:field="*{department}" id="department">
                         <option th:each="department : ${departments}" th:value="${department.getId()}"
                                 th:text="${department.getName()}"></option>
                     </select>

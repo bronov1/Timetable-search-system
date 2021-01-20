@@ -1,6 +1,6 @@
 package com.foxminded.university.service;
 
-import com.foxminded.university.dao.GroupDao;
+import com.foxminded.university.dao.GroupRepository;
 import com.foxminded.university.entity.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ public class GroupServiceTest {
     @Mock
     Group group;
     @Mock
-    GroupDao groupDao;
+    GroupRepository groupRepository;
     @Spy
     @InjectMocks
     GroupService groupService;
@@ -31,7 +31,7 @@ public class GroupServiceTest {
         LocalDate randomStartDate = ArgumentMatchers.any(LocalDate.class);
         LocalDate randomFinishDate = ArgumentMatchers.any(LocalDate.class);
         groupService.getGroupSchedule(randomNumber, randomStartDate, randomFinishDate);
-        Mockito.verify(groupDao).getGroupPeriodLectures(intCaptor.capture(), dateCaptor.capture(), dateCaptor.capture());
+        Mockito.verify(groupRepository).getGroupPeriodLectures(intCaptor.capture(), dateCaptor.capture(), dateCaptor.capture());
         Assertions.assertEquals(randomNumber, intCaptor.getValue());
         Assertions.assertEquals(randomStartDate, dateCaptor.getValue());
         Assertions.assertEquals(randomFinishDate, dateCaptor.getValue());
@@ -40,28 +40,28 @@ public class GroupServiceTest {
     @Test
     public void getAllGroups() {
         groupService.getAllGroups();
-        Mockito.verify(groupDao).findAll(Group.class);
+        Mockito.verify(groupRepository).findAll();
     }
 
     @Test
     public void getGroupsOnLecture() {
         int randomNumber = ArgumentMatchers.anyInt();
         groupService.getGroupsOnLecture(randomNumber);
-        Mockito.verify(groupDao).getGroupsOnLecture(intCaptor.capture());
+        Mockito.verify(groupRepository).getGroupsOnLecture(intCaptor.capture());
         Assertions.assertEquals(randomNumber, intCaptor.getValue());
     }
 
     @Test
     public void saveGroup() {
         groupService.saveGroup(group);
-        Mockito.verify(groupDao).save(group);
+        Mockito.verify(groupRepository).save(group);
     }
 
     @Test
     public void getGroup() {
         int randomNumber = ArgumentMatchers.anyInt();
         groupService.getGroup(randomNumber);
-        Mockito.verify(groupDao).findById(intCaptor.capture(), Group.class);
+        Mockito.verify(groupRepository).findById(intCaptor.capture());
         Assertions.assertEquals(randomNumber, intCaptor.getValue());
     }
 
@@ -74,6 +74,6 @@ public class GroupServiceTest {
     @Test
     public void deleteGroup() {
         groupService.deleteGroup(group);
-        Mockito.verify(groupDao).delete(group);
+        Mockito.verify(groupRepository).delete(group);
     }
 }

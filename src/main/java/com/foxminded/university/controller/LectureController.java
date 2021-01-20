@@ -65,9 +65,10 @@ public class LectureController {
     @PostMapping("/{id}/update")
     public String updateLecture(@ModelAttribute("lectureGroup") LectureGroup lectureGroup, @ModelAttribute("lecture") Lecture lecture, @RequestParam("groups") int[] groups) {
         lectureGroupService.deleteGroupsFromLecture(lecture);
-        lectureGroup.setLectureId(lecture.getId());
+        lectureGroup.setLecture(lecture);
         for (int groupId : groups) {
-            lectureGroup.setGroupId(groupId);
+            lectureGroup.setGroup(groupService.getGroup(groupId));
+            System.out.println(lectureGroup.toString());
             lectureGroupService.save(lectureGroup);
         }
         lectureService.update(lecture);
@@ -93,11 +94,11 @@ public class LectureController {
     @PostMapping("/new")
     public String saveNewLecture(@ModelAttribute("lectureGroup") LectureGroup lectureGroup, @ModelAttribute("lecture") Lecture lecture, @RequestParam("groups") int[] groups) {
         lectureService.save(lecture);
-        List<Lecture> lectures = lectureService.getAllLectures();
+        List<Lecture> lectures = (List<Lecture>) lectureService.getAllLectures();
         Lecture lastLecture = lectures.get(lectures.size() - 1);
-        lectureGroup.setLectureId(lastLecture.getId());
+        lectureGroup.setLecture(lastLecture);
         for (int groupId : groups) {
-            lectureGroup.setGroupId(groupId);
+            lectureGroup.setGroup(groupService.getGroup(groupId));
             lectureGroupService.save(lectureGroup);
         }
         return "redirect:/lectures";

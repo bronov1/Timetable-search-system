@@ -46,7 +46,7 @@
                         <td class="column1" th:text="${professor.getId()}">Professor ID</td>
                         <td class="column3" th:text="${professor.getName()}">Professor Name</td>
                         <td class="column4"
-                            th:text="${departmentService.getDepartment(professor.getDepartmentId()).getName()}">
+                            th:text="${professor.getDepartment().getName()}">
                             Professor's Department
                         </td>
                         <td class="column5"><a th:href="@{/professors/{id}(id=${professor.getId()})}">Edit</a></td>
