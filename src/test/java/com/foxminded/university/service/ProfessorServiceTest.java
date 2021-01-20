@@ -1,5 +1,6 @@
 package com.foxminded.university.service;
 
+import com.foxminded.university.dao.LectureRepository;
 import com.foxminded.university.dao.ProfessorRepository;
 import com.foxminded.university.entity.Professor;
 import org.junit.jupiter.api.Assertions;
@@ -17,6 +18,8 @@ public class ProfessorServiceTest {
     Professor professor;
     @Mock
     ProfessorRepository professorRepository;
+    @Mock
+    LectureRepository lectureRepository;
     @Spy
     @InjectMocks
     ProfessorService professorService;
@@ -31,7 +34,7 @@ public class ProfessorServiceTest {
         LocalDate randomStartDate = ArgumentMatchers.any(LocalDate.class);
         LocalDate randomFinishDate = ArgumentMatchers.any(LocalDate.class);
         professorService.getProfessorSchedule(randomNumber, randomStartDate, randomFinishDate);
-        Mockito.verify(professorRepository).getProfessorPeriodLectures(professor, dateCaptor.capture(), dateCaptor.capture());
+        Mockito.verify(lectureRepository).findAllByProfessorAndLectureDateBetween(professor, dateCaptor.capture(), dateCaptor.capture());
         Assertions.assertEquals(randomStartDate, dateCaptor.getValue());
         Assertions.assertEquals(randomFinishDate, dateCaptor.getValue());
     }

@@ -14,7 +14,7 @@ public class Classroom {
     @Column(name = "number")
     private int number;
     @ManyToOne
-    @JoinColumn(name = "floorid")
+    @JoinColumn(name = "floor_id")
     private Floor floor;
 
     public Classroom(int number, Floor floor) {

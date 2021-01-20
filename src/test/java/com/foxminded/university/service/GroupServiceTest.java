@@ -1,7 +1,9 @@
 package com.foxminded.university.service;
 
 import com.foxminded.university.dao.GroupRepository;
+import com.foxminded.university.dao.LectureRepository;
 import com.foxminded.university.entity.Group;
+import com.foxminded.university.entity.Lecture;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +18,11 @@ public class GroupServiceTest {
     @Mock
     Group group;
     @Mock
+    Lecture lecture;
+    @Mock
     GroupRepository groupRepository;
+    @Mock
+    LectureRepository lectureRepository;
     @Spy
     @InjectMocks
     GroupService groupService;
@@ -31,8 +37,7 @@ public class GroupServiceTest {
         LocalDate randomStartDate = ArgumentMatchers.any(LocalDate.class);
         LocalDate randomFinishDate = ArgumentMatchers.any(LocalDate.class);
         groupService.getGroupSchedule(randomNumber, randomStartDate, randomFinishDate);
-        Mockito.verify(groupRepository).getGroupPeriodLectures(intCaptor.capture(), dateCaptor.capture(), dateCaptor.capture());
-        Assertions.assertEquals(randomNumber, intCaptor.getValue());
+        Mockito.verify(lectureRepository).findAllByGroupsAndLectureDateBetween(group, dateCaptor.capture(), dateCaptor.capture());
         Assertions.assertEquals(randomStartDate, dateCaptor.getValue());
         Assertions.assertEquals(randomFinishDate, dateCaptor.getValue());
     }
@@ -45,10 +50,8 @@ public class GroupServiceTest {
 
     @Test
     public void getGroupsOnLecture() {
-        int randomNumber = ArgumentMatchers.anyInt();
-        groupService.getGroupsOnLecture(randomNumber);
-        Mockito.verify(groupRepository).getGroupsOnLecture(intCaptor.capture());
-        Assertions.assertEquals(randomNumber, intCaptor.getValue());
+        groupService.getGroupsOnLecture(lecture);
+        Mockito.verify(groupRepository).findAllByLectures(lecture);
     }
 
     @Test

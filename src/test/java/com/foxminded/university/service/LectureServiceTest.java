@@ -1,5 +1,6 @@
 package com.foxminded.university.service;
 
+import com.foxminded.university.dao.LectureGroupRepository;
 import com.foxminded.university.dao.LectureRepository;
 import com.foxminded.university.entity.Lecture;
 import org.junit.jupiter.api.Assertions;
@@ -15,6 +16,8 @@ public class LectureServiceTest {
     Lecture lecture;
     @Mock
     LectureRepository lectureRepository;
+    @Mock
+    LectureGroupRepository lectureGroupRepository;
     @Spy
     @InjectMocks
     LectureService lectureService;
@@ -36,6 +39,7 @@ public class LectureServiceTest {
     @Test
     public void delete() {
         lectureService.delete(lecture);
+        Mockito.verify(lectureGroupRepository).deleteByLecture(lecture);
         Mockito.verify(lectureRepository).delete(lecture);
     }
 

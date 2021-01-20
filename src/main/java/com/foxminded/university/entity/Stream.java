@@ -14,7 +14,7 @@ public class Stream {
     @Column(name = "name")
     private String name;
     @ManyToOne
-    @JoinColumn(name = "departmentid")
+    @JoinColumn(name = "department_id")
     private Department department;
 
     public Stream(String name, Department department) {

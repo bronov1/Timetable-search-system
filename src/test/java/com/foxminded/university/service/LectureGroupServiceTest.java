@@ -31,6 +31,6 @@ public class LectureGroupServiceTest {
     @Test
     public void deleteGroupsFromLecture() {
         lectureGroupService.deleteGroupsFromLecture(lecture);
-        Mockito.verify(lectureGroupRepository).deleteByLectureId(lecture.getId());
+        Mockito.verify(lectureGroupRepository).deleteByLecture(lecture);
     }
 }

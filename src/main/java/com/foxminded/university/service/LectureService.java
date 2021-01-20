@@ -38,7 +38,7 @@ public class LectureService {
     }
 
     public void delete(Lecture lecture) {
-        lectureGroupRepository.deleteByLectureId(lecture.getId());
+        lectureGroupRepository.deleteByLecture(lecture);
         lectureRepository.delete(lecture);
         logger.info("Deleted lecture with id - {}", lecture.getId());
     }
@@ -47,8 +47,8 @@ public class LectureService {
         int subjectId = lecture.getSubject().getId();
         int classroomId = lecture.getClassroom().getId();
         int professorId = lecture.getProfessor().getId();
-        LocalDate date = lecture.getDate();
-        LocalTime time = lecture.getTime();
+        LocalDate date = lecture.getLectureDate();
+        LocalTime time = lecture.getLectureTime();
         lectureRepository.save(subjectId, professorId, date, time, classroomId, lecture.getId());
         logger.info("Updated lecture with id - {}", lecture.getId());
     }
@@ -64,6 +64,12 @@ public class LectureService {
         for (Lecture lecture : lecturesWithProfessor) {
             delete(lecture);
         }
+    }
+
+    public List<Lecture> getProfessorPeriodLectures(Professor professor, LocalDate startDate, LocalDate finishDate) {
+        List<Lecture> lectures = lectureRepository.findAllByProfessorAndLectureDateBetween(professor, startDate, finishDate);
+        logger.info("Got lectures for professor with id - {} between {} ans {}", professor.getId(), startDate, finishDate);
+        return lectures;
     }
 
 }

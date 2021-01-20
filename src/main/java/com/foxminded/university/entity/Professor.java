@@ -12,7 +12,7 @@ public class Professor extends Person {
     @Column(name = "id")
     private int id;
     @ManyToOne
-    @JoinColumn(name = "departmentid")
+    @JoinColumn(name = "department_id")
     private Department department;
 
     public Professor(String name, Department department) {

@@ -24,7 +24,7 @@ public class ProfessorService {
     }
 
     public List<Lecture> getProfessorSchedule(int professorId, LocalDate startDate, LocalDate finishDate){
-        List<Lecture> lectures = professorRepository.getProfessorPeriodLectures(getProfessor(professorId), startDate, finishDate);
+        List<Lecture> lectures = lectureService.getProfessorPeriodLectures(getProfessor(professorId), startDate, finishDate);
         logger.info("Got schedule for professor {} for dates {} - {}", professorRepository.findById(professorId), startDate, finishDate);
         return lectures;
     }

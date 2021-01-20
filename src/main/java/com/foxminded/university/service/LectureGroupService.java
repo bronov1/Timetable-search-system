@@ -24,7 +24,7 @@ public class LectureGroupService {
     }
 
     public void deleteGroupsFromLecture(Lecture lecture){
-        lectureGroupRepository.deleteByLectureId(lecture.getId());
+        lectureGroupRepository.deleteByLecture(lecture);
         logger.info("Deleted groups for lecture with id {}", lecture.getId());
     }
 }

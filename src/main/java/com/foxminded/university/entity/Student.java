@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Student extends Person {
 
     @ManyToOne
-    @JoinColumn(name = "groupid")
+    @JoinColumn(name = "group_id")
     private Group group;
 
     public Student(String name, Group group) {

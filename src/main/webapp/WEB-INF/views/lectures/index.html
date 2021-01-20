@@ -46,11 +46,11 @@
 						</thead>
 						<tbody>
 								<tr th:each="lecture : ${lectures}">
-									<td class="column1"><p th:text="${lecture.getTime()}">time</p><p th:text="${lecture.getDateString()}">date</p></td>
+									<td class="column1"><p th:text="${lecture.getLectureTime()}">time</p><p th:text="${lecture.getDateString()}">date</p></td>
 									<td class="column2" th:text="${lecture.getId()}">Lecture ID</td>
 									<td class="column3" th:text="${lecture.getSubject().getName()}">Subject</td>
 									<td class="column4" th:text="Number + ' ' + ${lecture.getClassroom().getNumber()}">Classroom</td>
-									<td class="column5"><p  th:each="group : ${groupService.getGroupsOnLecture(lecture.getId())}" th:text="${group.getName()}">Group</p></td>
+									<td class="column5"><p  th:each="group : ${groupService.getGroupsOnLecture(lecture)}" th:text="${group.getName()}">Group</p></td>
 									<td class="column6" th:text="${lecture.getProfessor().getName()}">Professor</td>
 									<td class="column7"><a th:href="@{/lectures/{id}(id=${lecture.getId()})}" style="padding-right: 20px">Edit</a></td>
 									<td class="column8"><a th:href="@{/lectures/{id}/delete(id=${lecture.getId()})}" style="padding-right: 20px">Delete</a></td>

@@ -20,32 +20,32 @@ public class Lecture {
     @Column(name = "id")
     private int id;
     @ManyToOne
-    @JoinColumn(name = "subjectid")
+    @JoinColumn(name = "subject_id")
     private Subject subject;
     @ManyToOne
-    @JoinColumn(name = "professorid")
+    @JoinColumn(name = "professor_id")
     private Professor professor;
     @Column(name = "date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
+    private LocalDate lectureDate;
     @Column(name = "time")
     @DateTimeFormat(pattern = "HH:mm")
-    private LocalTime time;
+    private LocalTime lectureTime;
     @ManyToOne
-    @JoinColumn(name = "classroomid")
+    @JoinColumn(name = "classroom_id")
     private Classroom classroom;
     @ManyToMany()
     @JoinTable(name = "lecturegroups",
-            joinColumns = @JoinColumn(name = "lectureid"),
-            inverseJoinColumns = @JoinColumn(name = "groupid"))
+            joinColumns = @JoinColumn(name = "lecture_id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id"))
     private List<Group> groups = new ArrayList<>();
 
-    public Lecture(int id, Subject subject, Professor professor, LocalDate date, LocalTime time, Classroom classroom, List<Group> groups) {
+    public Lecture(int id, Subject subject, Professor professor, LocalDate lectureDate, LocalTime lectureTime, Classroom classroom, List<Group> groups) {
         this.id = id;
         this.subject = subject;
         this.professor = professor;
-        this.date = date;
-        this.time = time;
+        this.lectureDate = lectureDate;
+        this.lectureTime = lectureTime;
         this.classroom = classroom;
         this.groups = groups;
     }
@@ -79,13 +79,13 @@ public class Lecture {
         return professor;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getLectureDate() {
+        return lectureDate;
     }
 
     public String getDateString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu");
-        return date.format(formatter);
+        return lectureDate.format(formatter);
     }
 
     public LocalDate setDateFromString(String dateString) {
@@ -93,8 +93,8 @@ public class Lecture {
         return LocalDate.parse(dateString, formatter);
     }
 
-    public LocalTime getTime() {
-        return time;
+    public LocalTime getLectureTime() {
+        return lectureTime;
     }
 
     public Classroom getClassroom() {
@@ -113,12 +113,12 @@ public class Lecture {
         this.professor = professorId;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setLectureDate(LocalDate date) {
+        this.lectureDate = date;
     }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setLectureTime(LocalTime time) {
+        this.lectureTime = time;
     }
 
     public void setClassroom(Classroom classroomId) {
@@ -133,14 +133,14 @@ public class Lecture {
         return id == lecture.id &&
                 subject.equals(lecture.subject) &&
                 professor.equals(lecture.professor) &&
-                date.equals(lecture.date) &&
-                time.equals(lecture.time) &&
+                lectureDate.equals(lecture.lectureDate) &&
+                lectureTime.equals(lecture.lectureTime) &&
                 classroom.equals(lecture.classroom);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, subject, professor, date, time, classroom);
+        return Objects.hash(id, subject, professor, lectureDate, lectureTime, classroom);
     }
 
     @Override
@@ -149,8 +149,8 @@ public class Lecture {
                 "id=" + id +
                 ", subject=" + subject +
                 ", professor=" + professor +
-                ", date=" + date +
-                ", time=" + time +
+                ", date=" + lectureDate +
+                ", time=" + lectureTime +
                 ", classroom=" + classroom +
                 '}';
     }

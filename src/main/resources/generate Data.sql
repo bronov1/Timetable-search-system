@@ -3,7 +3,7 @@ INSERT INTO buildings (NAME, FLOORS) VALUES
 ('Building2', 2),
 ('Building3', 3);
 
-INSERT INTO floors (number, buildingid) VALUES
+INSERT INTO floors (number, building_id) VALUES
 (1, 1),
 (1, 2),
 (2, 2),
@@ -11,7 +11,7 @@ INSERT INTO floors (number, buildingid) VALUES
 (2, 3),
 (3, 3);
 
-INSERT INTO classrooms (number, floorid) VALUES
+INSERT INTO classrooms (number, floor_id) VALUES
 (12, 1),
 (23, 2),
 (34, 3),
@@ -25,21 +25,21 @@ INSERT INTO departments (name) VALUES
 ('History Department');
 
 
-INSERT INTO professors (name, departmentid) VALUES
+INSERT INTO professors (name, department_id) VALUES
 ('Smith', 1),
 ('Stevenson', 1),
 ('Anderson', 2),
 ('Jackson', 2);
 
-INSERT INTO streams (name, departmentid) VALUES
+INSERT INTO streams (name, department_id) VALUES
 ('M-1', 1),
 ('H-1', 2);
 
-INSERT INTO groups (name, streamid) VALUES
+INSERT INTO groups (name, stream_id) VALUES
 ('M-1-1', 1),
 ('H-1-1', 2);
 
-INSERT INTO students (name, groupid) VALUES
+INSERT INTO students (name, group_id) VALUES
 ('James', 1),
 ('Rose', 1),
 ('Steven', 2),
@@ -51,7 +51,7 @@ INSERT INTO subjects (name) VALUES
 ('History'),
 ('Geography');
 
-INSERT INTO lectures (date, time, subjectid, professorid, classroomid) VALUES
+INSERT INTO lectures (date, time, subject_id, professor_id, classroom_id) VALUES
 ('2020-10-7', '7:45', 1, 1, 1),
 ('2020-10-7', '9:30', 2, 2, 2),
 ('2020-10-7', '11:15', 3, 3, 3),
@@ -65,7 +65,7 @@ INSERT INTO lectures (date, time, subjectid, professorid, classroomid) VALUES
 ('2020-10-21', '11:15', 3, 3, 3),
 ('2020-10-21', '13:10', 4, 4, 4);
 
-INSERT INTO lecturegroups (LECTUREID, GROUPID) VALUES
+INSERT INTO lecturegroups (LECTURE_ID, GROUP_ID) VALUES
 (1, 1),
 (1, 2),
 (2, 1),

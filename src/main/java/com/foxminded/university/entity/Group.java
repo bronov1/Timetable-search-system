@@ -16,12 +16,12 @@ public class Group {
     @Column(name = "name")
     private String name;
     @ManyToOne
-    @JoinColumn(name = "streamid")
+    @JoinColumn(name = "stream_id")
     private Stream stream;
     @ManyToMany()
     @JoinTable(name = "lecturegroups",
-            joinColumns = @JoinColumn(name = "groupid"),
-            inverseJoinColumns = @JoinColumn(name = "lectureid"))
+            joinColumns = @JoinColumn(name = "group_id"),
+            inverseJoinColumns = @JoinColumn(name = "lecture_id"))
     private List<Lecture> lectures = new ArrayList<>();
 
     public Group(String name, Stream stream) {

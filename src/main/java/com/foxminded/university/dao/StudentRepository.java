@@ -1,11 +1,12 @@
 package com.foxminded.university.dao;
 
+import com.foxminded.university.entity.Group;
 import com.foxminded.university.entity.Student;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-public interface StudentRepository extends CrudRepository<Student, Integer> {
+public interface StudentRepository extends JpaRepository<Student, Integer> {
 
-    void deleteByGroupId(int groupId);
+    void deleteByGroup(Group group);
 }
